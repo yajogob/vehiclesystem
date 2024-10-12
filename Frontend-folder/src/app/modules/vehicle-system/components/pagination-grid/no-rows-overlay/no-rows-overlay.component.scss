@@ -1,0 +1,18 @@
+.no-rows-overlay {
+  .bg-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background-image: var(--vs-no-data-bg-img);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    .no-data-title {
+      position: relative;
+      top: 2rem;
+      font-size: 1.4rem;
+    }
+  }
+}

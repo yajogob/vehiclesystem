@@ -1,0 +1,57 @@
+<ng-container *transloco="let t; read: 'auth'">
+  <div class="login-bg blur-sm hue-rotate-15">
+    <!-- <video autoplay muted loop #bgVideo>
+      <source src="assets/videos/login-bg.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video> -->
+  </div>
+
+  <div class="z-10 flex w-full h-full form-container">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="px-10 mb-auto ml-auto text-white mr-28 4 mt-36 form">
+      <h3 class="mb-1 text-5xl font-bold capitalize">{{ "login" }}</h3>
+      <h6 class="mt-2 text-base font-medium">{{ "to Access Video Brain" }}</h6>
+
+      <p class="mt-3 text-xs font-medium text-errorRed" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <div class="w-full mt-5 overflow-hidden bg-white border rounded-md form-group" [class.error]="errorMessage">
+        <input
+          type="text"
+          required
+          class="px-5 pt-8 pb-3 form-control label"
+          autocomplete="on"
+          formControlName="name"
+          placeholder="Type your username"
+          name="username"
+        />
+        <label for="username" class="font-medium capitalize left-5">{{ "username" }}<sup>*</sup></label>
+      </div>
+
+      <div class="w-full overflow-hidden bg-white border rounded-md mt-9 form-group" [class.error]="errorMessage">
+        <input
+          type="password"
+          name="password"
+          required
+          class="px-5 pt-8 pb-3 form-control label"
+          autocomplete="on"
+          formControlName="password"
+          placeholder="XXXXXXXX"
+        />
+        <label for="password" class="font-medium capitalize left-5">{{ "password" }}<sup>*</sup></label>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full mt-10 capitalize login-btn"
+        [class.disabled]="!loginForm.valid"
+        [disabled]="!loginForm.valid"
+      >
+        {{ "sign in" }}
+      </button>
+    </form>
+
+    <div class="mt-56 mr-auto capitalize">
+      <h1 class="title">{{ "video" }}</h1>
+      <h1 class="title">{{ "brain" }}</h1>
+    </div>
+  </div>
+</ng-container>

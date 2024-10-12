@@ -1,0 +1,102 @@
+.car-rental-current-vehicle-history {
+  height: 60%;
+  padding: 2.5rem 3rem;
+
+  %flex {
+    display: flex;
+    align-items: center;
+  }
+
+  .title-and-date {
+    @extend %flex;
+
+    margin-bottom: 1.5rem;
+    font-size: 2.4rem;
+    font-weight: 700;
+
+    .fixed-days {
+      @extend %flex;
+
+      .date-btn {
+        display: flex;
+        width: max-content;
+        height: max-content;
+        align-items: center;
+        justify-content: center;
+        padding: 0.1rem 0.8rem;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+    }
+
+    .or-custom {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+  }
+
+  .history-list {
+    overflow: auto;
+    height: 100%;
+
+    .single-item {
+      display: flex;
+      width: 94rem;
+      align-items: center;
+      padding: 2.7rem 0 1.5rem;
+      font-weight: 500;
+
+      .single-item-rental-info {
+        font-size: 1.2rem;
+
+        .date-and-customer {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .progress {
+          position: relative;
+          width: 60.8rem;
+          margin: 0.4rem 0;
+
+          .bottom {
+            width: 100%;
+            height: 0.7rem;
+            border-radius: 999px;
+          }
+
+          .top {
+            position: absolute;
+            top: 0;
+            height: 0.7rem;
+            border-radius: 999px;
+          }
+        }
+      }
+
+      .transaction-details {
+        margin: 0 3.6rem;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+    }
+
+    .bottom-line {
+      width: 94rem;
+    }
+
+    .no-data-title {
+      position: relative;
+      top: 50%;
+      font-size: 2rem;
+      text-align: center;
+    }
+  }
+}

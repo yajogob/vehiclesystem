@@ -1,0 +1,74 @@
+.overlay {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(000 000 000 / 40%);
+}
+
+.modal {
+  position: fixed;
+  z-index: 100000;
+  top: 0;
+  display: flex;
+  width: 50rem;
+  height: 100%;
+  flex-direction: column;
+  background-color: var(--vs-sidebar-right-bg-color);
+  font-size: 1.2rem;
+
+  .title-area {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 2rem 0.5rem;
+
+    .close-icon {
+      position: absolute;
+      top: 1rem;
+      right: 0.8rem;
+      width: 1.8rem;
+      height: 1.8rem;
+      background: var(--close-logo) no-repeat;
+      background-size: contain;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+
+  .modal-content {
+    height: 100%;
+
+    .select-task {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      border-bottom: 1px solid var(--vs-ai-task-gpu-task-border-color);
+      margin-bottom: 0.8rem;
+
+      .task-label {
+        width: 15rem;
+        color: var(--vs-ai-task-create-select-text-color);
+        font-size: 1.8rem;
+
+        & > span {
+          color: var(--vs-ai-task-create-star-color);
+        }
+      }
+
+      .task-value {
+        flex: 1;
+      }
+    }
+  }
+}

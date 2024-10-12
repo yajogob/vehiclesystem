@@ -1,0 +1,46 @@
+<div
+  class="side-menu-container"
+  [ngClass]="['language-' + language]"
+  *transloco="let tl; read: 'vs.menu.label'"
+  aria-hidden="true"
+>
+  <div class="menu-icon">
+    <img src="assets/vehicle-system/icons/icon-128x128.png" alt="" />
+  </div>
+
+  <div class="menu-item-wrapper">
+    <ng-container *ngFor="let item of useMenuList; index as i">
+      <div class="menu-item" [class]="{ actived: activedRouter.includes(item.path)}" (click)="gotoUrl(item.path)">
+        <span class="item-icon" [class]="item.icon"></span>
+        <span class="menu-title" [class]="item.icon + 'title'">
+          {{ tl(item.title) }}
+        </span>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="footer-menu">
+    <div
+      class="menu-item"
+      *ngIf="showSettings"
+      [class]="{ actived: activedRouter === 'vs/camera-management' }"
+      (click)="settings()"
+    >
+      <span class="item-icon setting"></span>
+      <span class="menu-title">{{ tl("settings") }}</span>
+    </div>
+    <div
+      class="menu-item"
+      *ngIf="showMyProfile"
+      [class]="{ actived: activedRouter === 'vs/my-profile' }"
+      (click)="myProfile()"
+    >
+      <span class="item-icon profile"></span>
+      <span class="text-center menu-title">{{ tl("myprofile") }}</span>
+    </div>
+    <div class="menu-item" (click)="logout()">
+      <span class="item-icon logout"></span>
+      <span class="menu-title">{{ tl("logout") }}</span>
+    </div>
+  </div>
+</div>

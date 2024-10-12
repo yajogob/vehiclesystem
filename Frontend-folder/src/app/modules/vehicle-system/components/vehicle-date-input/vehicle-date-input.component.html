@@ -1,0 +1,57 @@
+<div class="vehicle-date-input"
+  [ngClass]="[position, translate, inputVisible, dateInputPosition, autoApplyClass, inputUuid]"
+  *transloco="let tl; read: 'vs.dateinput'">
+  <div aria-hidden="true" [ngClass]="{'modal-bg': showModalBg}" (click)="clickModal($event)"></div>
+  <input
+    type="text"
+    ngxDaterangepickerMd
+    readonly
+    class="form-control"
+    [ngModelOptions]="{standalone: true}"
+    [ranges]="ranges"
+    [lockStartDate]="lockStartDate"
+    [dateLimit]="dateLimit"
+    [showCancel]="true"
+    [showClearButton]="showClearButton"
+    [alwaysShowCalendars]="true"
+    [linkedCalendars]="true"
+    [isInvalidDate]="isInvalidDate"
+    [keepCalendarOpeningWithRange]="true"
+    [showRangeLabelOnInput]="true"
+    [showCustomRangeLabel]="true"
+    [timePicker]="timePicker"
+    [timePickerSeconds]="false"
+    [timePickerIncrement]="1"
+    [timePicker24Hour]="false"
+    [locale]="locale"
+    [(ngModel)]="dateSelected"
+    (datesUpdated)="datesUpdated($event)"
+    [placeholder]="placeholder"
+    [hidden]="toolboxTrigger"
+    (click)="dateInputClick()"
+    [autoApply]="autoApply"
+    [closeOnAutoApply]="false"
+    (ngModelChange)="ngModelChange($event)"
+  />
+
+  <div (click)="clearDate()" aria-hidden="true" *ngIf="showCustomClear && selected?.startDate" [hidden]="toolboxTrigger">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="close-icon">
+      <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" clip-rule="evenodd" />
+    </svg>
+  </div>
+
+  <div class="calendar-icon" [hidden]="toolboxTrigger"></div>
+  <div *ngIf="toolboxTrigger" class="group-item ngx-daterangepicker-action" aria-hidden="true" (click)="openDaterangerPicker($event)">
+    <div class="category">{{tl('Date')}}</div>
+    <div class="info">
+      <svg class="icon-calendar" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M3.35417 0.4375C3.35417 0.195875 3.15829 0 2.91667 0C2.67504 0 2.47917 0.195875 2.47917 0.4375V1.35873C1.63956 1.42597 1.08837 1.59097 0.683417 1.99592C0.278468 2.40087 0.113466 2.95206 0.0462334 3.79167H11.6204C11.5532 2.95206 11.3882 2.40087 10.9832 1.99592C10.5783 1.59097 10.0271 1.42597 9.1875 1.35873V0.4375C9.1875 0.195875 8.99162 0 8.75 0C8.50838 0 8.3125 0.195875 8.3125 0.4375V1.32003C7.92443 1.3125 7.48944 1.3125 7 1.3125H4.66667C4.17723 1.3125 3.74224 1.3125 3.35417 1.32003V0.4375Z" fill="#979797"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M0 5.97917C0 5.48973 0 5.05474 0.00752618 4.66667H11.6591C11.6667 5.05474 11.6667 5.48973 11.6667 5.97917V7.14583C11.6667 9.34572 11.6667 10.4457 10.9832 11.1291C10.2998 11.8125 9.19989 11.8125 7 11.8125H4.66667C2.46678 11.8125 1.36683 11.8125 0.683417 11.1291C0 10.4457 0 9.34572 0 7.14583V5.97917ZM8.75 7.14583C9.07217 7.14583 9.33333 6.88467 9.33333 6.5625C9.33333 6.24033 9.07217 5.97917 8.75 5.97917C8.42783 5.97917 8.16667 6.24033 8.16667 6.5625C8.16667 6.88467 8.42783 7.14583 8.75 7.14583ZM8.75 9.47917C9.07217 9.47917 9.33333 9.218 9.33333 8.89583C9.33333 8.57367 9.07217 8.3125 8.75 8.3125C8.42783 8.3125 8.16667 8.57367 8.16667 8.89583C8.16667 9.218 8.42783 9.47917 8.75 9.47917ZM6.41667 6.5625C6.41667 6.88467 6.1555 7.14583 5.83333 7.14583C5.51117 7.14583 5.25 6.88467 5.25 6.5625C5.25 6.24033 5.51117 5.97917 5.83333 5.97917C6.1555 5.97917 6.41667 6.24033 6.41667 6.5625ZM6.41667 8.89583C6.41667 9.218 6.1555 9.47917 5.83333 9.47917C5.51117 9.47917 5.25 9.218 5.25 8.89583C5.25 8.57367 5.51117 8.3125 5.83333 8.3125C6.1555 8.3125 6.41667 8.57367 6.41667 8.89583ZM2.91667 7.14583C3.23883 7.14583 3.5 6.88467 3.5 6.5625C3.5 6.24033 3.23883 5.97917 2.91667 5.97917C2.5945 5.97917 2.33333 6.24033 2.33333 6.5625C2.33333 6.88467 2.5945 7.14583 2.91667 7.14583ZM2.91667 9.47917C3.23883 9.47917 3.5 9.218 3.5 8.89583C3.5 8.57367 3.23883 8.3125 2.91667 8.3125C2.5945 8.3125 2.33333 8.57367 2.33333 8.89583C2.33333 9.218 2.5945 9.47917 2.91667 9.47917Z" fill="#979797"/>
+      </svg>
+      <span class="value">{{selectedDateLabel}}</span>
+      <svg class="icon-arrow-up" xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6" fill="none">
+        <path d="M4.19647 0.243918C4.33856 0.0885129 4.53943 -5.20204e-06 4.74999 -5.18363e-06C4.96056 -5.16522e-06 5.16143 0.088513 5.30352 0.243918L9.30352 4.61892C9.58302 4.92462 9.56177 5.39902 9.25607 5.67852C8.95037 5.95802 8.47597 5.93677 8.19647 5.63107L5.49999 2.6818L5.5399 2.72545C5.5399 2.72545 5.16421 2.2457 4.74999 2.2457C4.33578 2.2457 3.96009 2.72545 3.96009 2.72545L3.99999 2.6818L1.30352 5.63107C1.02402 5.93677 0.54962 5.95801 0.243918 5.67852C-0.0617828 5.39902 -0.0830249 4.92462 0.196473 4.61892L4.19647 0.243918Z" fill="#009739"/>
+      </svg>
+    </div>
+  </div>
+</div>

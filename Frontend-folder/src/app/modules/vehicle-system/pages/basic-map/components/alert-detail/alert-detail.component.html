@@ -1,0 +1,214 @@
+<div class="alert-point-detail" [class]="[alertPosition, language]" aria-hidden="true">
+  <div class="detail-tabs">
+    <span class="close-search" (click)="closeDetail()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="close-icon">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </span>
+
+    <span
+      class="tab"
+      (click)="setDetailTab('camera-information')"
+      [class]="{'actived': activeDetailTab === 'camera-information'}">
+      {{language === 'ar' ? 'معلومات الكاميرا' : 'Camera Information'}}
+    </span>
+    <span
+      class="tab"
+      [hidden]="alertType"
+      (click)="setDetailTab('latest-capture')"
+      [class]="{'actived': activeDetailTab === 'latest-capture'}">
+      {{language === 'ar' ? 'آخر التقاط' : 'Latest Capture'}}
+    </span>
+    <span
+      class="tab"
+      [hidden]="!alertType"
+      (click)="setDetailTab('latest-alert')"
+      [class]="{'actived': activeDetailTab === 'latest-alert'}">
+      {{language === 'ar' ? 'آخر التقاط' : 'Latest Alert'}}
+    </span>
+  </div>
+
+  <div class="camera-information" *ngIf="activeDetailTab === 'camera-information'">
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'اسم الكاميرا' : 'Camera name'}} :
+      </span>
+      <span class="value">{{cameraInfo.cameraName}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'هوية الكاميرا' : 'Camera ID'}} :
+      </span>
+      <span class="value">{{cameraInfo.cameraCode}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'نقطة الاتصال' : 'Logitude'}} :
+      </span>
+      <span class="value">{{cameraInfo.longitude}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'خط العرض' : 'Latitude'}} :
+      </span>
+      <span class="value">{{cameraInfo.latitude}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'ينتمي إلى الموقع' : 'Belong Site'}} :
+      </span>
+      <span class="value">{{cameraInfo.siteName}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'حالة الكاميرا' : 'Camera Status'}} :
+      </span>
+      <span class="value">{{cameraInfo.cameraStatus}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'الكاميرا المصدر' : 'Camera Source'}} :
+      </span>
+      <span class="value">{{cameraSourceMap[cameraInfo.cameraSource]}}</span>
+    </p>
+    <!-- <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'نوع الكاميرا' : 'Camera Type'}} :
+      </span>
+      <span class="value">{{cameraTypeMap[cameraInfo.cameraType]}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'الممر رقم.' : 'Lane No.'}} :
+      </span>
+      <span class="value">{{cameraInfo.laneNo}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'معرف الحارة' : 'Lane ID'}} :
+      </span>
+      <span class="value">{{cameraInfo.laneId}}</span>
+    </p> -->
+  </div>
+
+  <div class="latest-capture" *ngIf="activeDetailTab === 'latest-capture'">
+    <div class="device-video">
+      <!-- <div *ngIf="cameraInfo.cameraType !== '4'" class="play-video-btn" (click)="playLiveVideo()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M29.007 3.58301H13.9928C7.47117 3.58301 3.58325 7.47092 3.58325 13.9926V28.9888C3.58325 35.5284 7.47117 39.4163 13.9928 39.4163H28.9891C35.5107 39.4163 39.3987 35.5284 39.3987 29.0068V13.9926C39.4166 7.47092 35.5287 3.58301 29.007 3.58301Z" fill="#FFD600"/>
+          <path d="M16.3035 21.5004V18.8488C16.3035 15.4267 18.7222 14.0471 21.6784 15.7492L23.9718 17.075L26.2651 18.4008C29.2214 20.1029 29.2214 22.8979 26.2651 24.6L23.9718 25.9258L21.6784 27.2517C18.7222 28.9538 16.3035 27.5563 16.3035 24.1521V21.5004Z" fill="#292D32"/>
+        </svg>
+        <span>{{language === 'ar' ? 'بث مباشر' : 'Live Stream'}}</span>
+      </div> -->
+      <vs-video-player
+        class="w-full h-full"
+        *ngIf="isPlayVideo"
+        [options]="{sources: [{type: 'application/x-mpegURL', src: m3u8Video, loop: false}]}"
+      ></vs-video-player>
+      <img *ngIf="!isPlayVideo" [src]="latestCapture.captureImageUrl" alt="">
+    </div>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'الوقت والتاريخ' : 'Capture Time & Date'}} :
+      </span>
+      <span class="value">{{latestCapture.captureTime | date: 'MMM d, YYYY h:mm a'}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'نوع المركبة' : 'Vehicle Make'}} :
+      </span>
+      <span class="value">{{vehicleBrandTypeMap[latestCapture.vehicleMake] || latestCapture.vehicleMake}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'لون اللوحة' : 'Plate Color'}} :
+      </span>
+      <span class="value">{{plateColorMap[latestCapture.plateColor] || latestCapture.plateColor}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'سرعة المركبة' : 'Vehicle Speed'}} :
+      </span>
+      <span class="value">{{latestCapture.vehicleSpeed}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'فئة المركبة' : 'Vehicle Model'}} :
+      </span>
+      <span class="value">{{latestCapture.vehicleModel}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'لون المركبة' : 'Vehicle Color'}} :
+      </span>
+      <span class="value">{{vehicleColorMap[latestCapture.vehicleColor] || latestCapture.vehicleColor}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'البلد' : 'Country'}} :
+      </span>
+      <span class="value">{{latestCapture.country}}</span>
+    </p>
+  </div>
+
+  <div class="latest-capture" *ngIf="activeDetailTab === 'latest-alert'">
+    <div class="device-video">
+      <vs-video-player
+        class="w-full h-full"
+        *ngIf="isPlayVideo"
+        [options]="{sources: [{type: 'application/x-mpegURL', src: m3u8Video, loop: false}]}"
+      >
+      </vs-video-player>
+      <img *ngIf="!isPlayVideo" [src]="latestAlert.captureImageUrl" alt="">
+    </div>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'الوقت والتاريخ' : 'Capture Time & Date'}} :
+      </span>
+      <span class="value">{{latestAlert.captureTime | date: 'MMM d, YYYY h:mm a'}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'نوع المركبة' : 'Vehicle Make'}} :
+      </span>
+      <span class="value">{{vehicleBrandTypeMap[latestAlert.vehicleMake]}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'لون اللوحة' : 'Plate Color'}} :
+      </span>
+      <span class="value">{{plateColorMap[latestAlert.plateColor]}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'سرعة المركبة' : 'Vehicle Speed'}} :
+      </span>
+      <span class="value">{{latestAlert.vehicleSpeed}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'نوع المركبة' : 'Vehicle Type'}} :
+      </span>
+      <span class="value">{{vehicleTypeMap[latestAlert.vehicleType]}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'لون المركبة' : 'Vehicle Color'}} :
+      </span>
+      <span class="value">{{vehicleColorMap[latestAlert.vehicleColor]}}</span>
+    </p>
+    <p class="detail-item">
+      <span class="label">
+        {{language === 'ar' ? 'البلد' : 'Country'}} :
+      </span>
+      <span class="value">{{latestAlert.country}}</span>
+    </p>
+  </div>
+
+  <p class="more-btn" *ngIf="!alertPosition">
+    <span (click)="setAlertSearch()">{{language === 'ar' ? 'تنبيه إضافي' : 'More Alert'}}</span>
+    <svg width="35" height="8" viewBox="0 0 39 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path id="Arrow 9" d="M38.3536 4.35355C38.5488 4.15829 38.5488 3.84171 38.3536 3.64644L35.1716 0.464463C34.9763 0.269201 34.6597 0.269201 34.4645 0.464463C34.2692 0.659725 34.2692 0.976308 34.4645 1.17157L37.2929 4L34.4645 6.82842C34.2692 7.02369 34.2692 7.34027 34.4645 7.53553C34.6597 7.73079 34.9763 7.73079 35.1716 7.53553L38.3536 4.35355ZM4.37114e-08 4.5L38 4.5L38 3.5L-4.37114e-08 3.5L4.37114e-08 4.5Z" fill="#FFD600"/>
+    </svg>
+  </p>
+</div>

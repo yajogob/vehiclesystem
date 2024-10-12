@@ -1,0 +1,37 @@
+<div aria-hidden="true" class="geofence-task-detail" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="plate-number">
+    <div class="num-key">{{tl('taskName')}}:</div>
+    <div class="num-value">{{detailData.taskName}}</div>
+  </div>
+  <div class="details-content text-[var(--vs-dialog-text-color-regular)]">
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]">
+      <span>{{tl('taskLevel')}}:</span>
+      <span>{{detailData.taskLevel}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]">
+      <span>{{tl('taskCycle')}}:</span>
+      <span>
+        {{detailData.startDateTime | date:"MMM d, YYYY"}}
+        -{{detailData.endDateTime | date:"MMM d, YYYY"}}
+      </span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]  ">
+      <span>{{tl('taskStatus')}}:</span>
+      <span>{{detailData.taskStatus === 0 ? 'Enable' : 'Disabled' }}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]">
+      <span>{{tl('trafficThreshold')}}:</span>
+      <span>{{detailData.trafficThresholdNumber}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]">
+      <span class="desc">{{tl('cameraList')}}:</span>
+      <div class="camera-list">
+        <div class="text-ellipsis overflow-hidden whitespace-nowrap" [title]="item.cameraName" *ngFor="let item of detailData.cameraList">{{ item.cameraName }}</div>
+      </div>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]">
+      <span class="desc">{{tl('description')}}:</span>
+      <span class="word-break">{{detailData.description}}</span>
+    </div>
+  </div>
+</div>

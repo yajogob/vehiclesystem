@@ -1,0 +1,66 @@
+<div class="w-full h-full flex flex-col bg-[var(--vs-vehicle-content-background)] box-border"  *transloco="let tl; read: 'vs.myprofile.label'">
+<div class="h-10 leading-10 pl-16 pt-20 pb-20 box-content text-3xl font-bold text-[var(--vs-color-secondary)]">{{ tl('profile') }}</div>
+<div class="flex flex-row flex-1 w-full h-full">
+    <div class="box-border flex flex-col w-1/5 h-full pl-16 pr-16 border-e">
+        <div class="w-full h-10 leading-10 text-2xl font-medium text-[var(--vs-text-color)]">{{ tl('username') }}</div>
+        <div class="w-full h-[4rem] leading-[100%] mt-5 text-lg text-[var(--vs-text-color-regular)]">{{userName}}</div>
+        <!-- <div class="w-full h-10 leading-10 mt-5 text-lg font-medium text-[var(--vs-text-color)]">{{ tl('change.password') }}</div>
+      <button class="w-40 h-10 leading-10 mt-[0.5rem] rounded-[1.5rem] bg-[var(--vs-color-secondary)] text-[var(--vs-button-text-color-minor)] text-base">{{tl('request2admin')}}</button> -->
+    </div>
+    <div class="box-border flex flex-col w-1/5 h-full pl-16 pr-16 border-e">
+        <div class="w-full h-10 leading-10 text-2xl font-medium text-[var(--vs-text-color)]">{{ tl('language') }}</div>
+        <div class="w-full h-10 leading-10 mt-[1.6rem] pb-4 text-lg font-medium flex flex-col gap-[1rem]">
+            <div class="flex flex-row radio">
+                <input type="radio" id="radio_lang_ar" name="language" [(ngModel)]="language" (ngModelChange)="changeLanguage($event)" value="ar">
+                <label for="radio_lang_ar" class="radio-label text-[var(--vs-label-color)]">
+                    <span class="mr-[1.7rem] ml-[1.7rem] ">{{ tl('arabic')}}</span>
+                </label>
+             </div>
+             <div class="flex flex-row radio">
+                <input type="radio" id="radio_lang_en" name="language" [(ngModel)]="language" (ngModelChange)="changeLanguage($event)" value="en">
+                <label for="radio_lang_en" class="radio-label text-[var(--vs-label-color)]">
+                    <span class="mr-[1.7rem] ml-[1.7rem]">{{ tl('english') }}</span>
+                </label>
+             </div>
+        </div>
+    </div>
+    <div class="box-border flex flex-col flex-1 h-full pl-16 pr-16">
+        <div class="w-full h-10 leading-10 text-2xl font-medium text-[var(--vs-text-color)]">{{ tl('theme') }}</div>
+        <div class="flex flex-row justify-start w-full h-10 pb-4 mt-5 text-lg font-medium leading-10 text-center">
+            <div class="me-[3.3rem] radio">
+                <img src="assets/vehicle-system/icons/theme_dark.png" class="w-[17.4rem] h-[10.8rem] mb-3" alt="">
+                <input type="radio" id="radio_theme_dark" name="theme" [(ngModel)]="theme" (ngModelChange)="changeTheme($event)" value="dark">
+                <label for="radio_theme_dark" class="radio-label text-[var(--vs-label-color)]">
+                    <span class="mr-[0.6rem] ml-[0.6rem]">{{ tl('dark') }}</span>
+                </label>
+            </div>
+            <div class="me-[3.3rem] radio">
+                <img src="assets/vehicle-system/icons/theme_light.png" class="w-[17.4rem] h-[10.8rem] mb-3" alt="">
+                <input id="radio_theme_light" type="radio" name="theme" [(ngModel)]="theme" (ngModelChange)="changeTheme($event)" value="light">
+                <label for="radio_theme_light" class="radio-label text-[var(--vs-label-color)]">
+                    <span class="mr-[0.6rem] ml-[0.6rem]">{{ tl('light' ) }}</span>
+                </label>
+            </div>
+        </div>
+        <div class="task-modal" *ngIf="showAlgorithmTask">
+            <vs-select-task-modal
+              (selectTaskEmit)="selectTask($event)"
+              (closeTaskModalEmit)="closeTaskModalEmit()"
+            >
+            </vs-select-task-modal>
+        </div>
+        <div class="task-modal" *ngIf="showAlertTask">
+            <vs-select-task-modal
+              [taskList]="alertTaskList"
+              (selectTaskEmit)="selectTask($event)"
+              (closeTaskModalEmit)="closeTaskModalEmit()"
+            >
+            </vs-select-task-modal>
+        </div>
+    </div>
+</div>
+<!--<div class="flex flex-row mx-auto">
+    <vs-toolbox [title]="'vs.myprofile.label.profile'" [(dtData)]="dtData" [dtRange]="['site', 'camera']" [toolSet]="toolSet" (onCallback)="onCallback($event)" [selectedDate]="selectedDate" (selectedDateEmit)="onSelectedDateEmit($event)"></vs-toolbox>
+    <vs-screenful class="box-border w-24 h-24 ml-10"></vs-screenful>
+</div>-->
+</div>

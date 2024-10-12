@@ -1,0 +1,102 @@
+:is([dir='rtl'] .traffic-sites) {
+  width: auto;
+  direction: ltr;
+}
+
+.traffic-sites {
+  width: max-content;
+  min-width: 18rem;
+  height: max-content;
+
+  .camera-num {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .alert-flex {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 2rem;
+  }
+
+  .alert-item {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    align-items: center;
+
+    .hotels-icon {
+      width: 2rem;
+      height: 2rem;
+      background-image: url('../../../../assets/images/dark/Hotels.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .malls-icon {
+      width: 2rem;
+      height: 2rem;
+      background-image: url('../../../../assets/images/dark/Malls.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .gantry-icon {
+      width: 2rem;
+      height: 2rem;
+      background-image: url('../../../../assets/images/dark/gantry.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .street-cameras-icon {
+      width: 2rem;
+      height: 2rem;
+      background-image: url('../../../../assets/images/dark/Street-Cameras.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .line {
+      width: 0.2rem;
+      height: 2.4rem;
+      margin: 0 0.8rem;
+      background-color: #fff;
+    }
+
+    .last-line {
+      height: 4rem;
+    }
+
+    .item-count {
+      display: flex;
+      height: 2.43rem;
+      flex-direction: column;
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: bold;
+      line-height: 2.43rem;
+
+      .count {
+        color: #fff;
+        font-style: normal;
+        line-height: 1.2rem;
+      }
+
+      .label {
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+
+      .street-cameras {
+        width: 40px;
+      }
+    }
+  }
+
+  .last-item {
+    align-items: flex-start;
+  }
+}

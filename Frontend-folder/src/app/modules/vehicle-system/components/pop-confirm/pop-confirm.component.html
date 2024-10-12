@@ -1,0 +1,19 @@
+<div aria-hidden="true" class="pop-confirm" *ngIf="isShow" (click)="close()">
+  <div class="pop-box" [ngStyle]="position" (click)="$event.stopPropagation()">
+    <div class="box-top">
+      <div class="title">{{modalInfo.title| transloco}}</div>
+      <div class="close" (click)="close()"></div>
+    </div>
+    <div class="content-box">
+      <div class='icon'></div>
+      <div class="content pl-0.5 pr-0.5 line-clamp-3" [innerHTML]="modalInfo.content" [title]="modalInfo.content?.replace('<br/>', '')">
+        <!-- {{modalInfo.content}} -->
+      </div>
+    </div>
+    <div class="footer mt-2">
+      <button class="confirm" (click)="confirm()">{{modalInfo.confirmText | transloco}}</button>
+      <button class="cancel" (click)="close()">{{modalInfo.cancelText  | transloco}}</button>
+    </div>
+    <div class="triangle ltr:-right-2 rtl:-left-2 "></div>
+  </div>
+</div>

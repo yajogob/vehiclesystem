@@ -1,0 +1,23 @@
+<ng-container *ngFor="let treeNode of treeData">
+  <vs-camera-list
+    [treeData]="treeNode.children"
+    [filterStr]="filterStr"
+    [parentCode]="parentCode"
+    (nodeClick)="setCheckboxIndeterminate(treeNode)"
+    (changeSelectEmit)="changeSelectEmit.emit($event)"
+  ></vs-camera-list>
+
+  <ng-container *ngIf="!parentCode || parentCode === treeNode.code">
+    <ng-container *ngFor="let camera of treeNode.children">
+      <div
+        class="inline-flex-checkbox leaf-camera"
+        *ngIf="camera.areaType === 3 && camera.cameraName?.toLocaleLowerCase()?.includes(filterStr)"
+        aria-hidden="true">
+        <div class="custom-checkbox" (click)="siteNodeChecked(camera, treeNode);$event.stopPropagation()">
+          <vs-custom-checkbox [checked]="camera._isChecked"></vs-custom-checkbox>
+        </div>
+        <span class="leaf-camera-name" (click)="siteNodeChecked(camera, treeNode); $event.stopPropagation()" [title]="camera.cameraName">{{camera.cameraName}}</span>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-container>

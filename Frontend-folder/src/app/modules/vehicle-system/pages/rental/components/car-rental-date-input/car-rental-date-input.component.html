@@ -1,0 +1,25 @@
+<div
+  [ngClass]="{'w-[28rem]': selected?.startDate}"
+  class="car-rental-date-input bg-[var(--va-car-rental-date-input-bg-color)] border border-[var(--va-car-rental-date-input-border-color)]">
+  <img class="calendar" src="assets/vehicle-system/icons/traffic-fine-icon/grey-calendar.png" alt="">
+  <input
+    [ngModelOptions]="{standalone: true}"
+    type="text"
+    ngxDaterangepickerMd
+    [ranges]="ranges"
+    [showCancel]="true"
+    [alwaysShowCalendars]="true"
+    [linkedCalendars]="true"
+    [isInvalidDate]="isInvalidDate"
+    [keepCalendarOpeningWithRange]="true"
+    [showRangeLabelOnInput]="true"
+    [locale]="locale"
+    [(ngModel)]="selected"
+    (datesUpdated)="datesUpdated($event)"
+    [showCustomRangeLabel]="true"
+    [placeholder]="'vs.public.dateFromTo' | transloco"
+    class="form-control date-input bg-[var(--va-car-rental-date-input-bg-color)] text-[var(--vs-form-text-color-secondary)]"
+  />
+
+  <img class="search-icon" src="assets/vehicle-system/icons/car-rental/search-icon.png" alt="" />
+</div>

@@ -1,0 +1,14 @@
+<div class="flex flex-col items-center flex-1 vehicle-profile-list" *transloco="let tl; read: 'vs.vehicleProfile'">
+  <div class="vehicle-profile-item" aria-hidden="true" *ngFor="let item of vehicleProfileList; let i = index" [ngClass]="activeIndex === i ? 'active-item' : ''" (click)="handleChecked(item, i)">
+    <img *ngIf="activeIndex === i" class="thumbnail ltr:top-[0.6rem] ltr:right-[0.6rem] rtl:top-[0.6rem] rtl:left-[0.6rem]" [ngSrc]="thumb" alt="" width="18" height="18">
+    <div class="item-content text-[1rem] ltr:pl-4 left: rtl:pr-4 text-[var(--vs-vp-list-st-text-color)]">
+      <p *ngIf="item.plateFullDetails || item.fullLicenseDetails">
+        {{ tl('plateNumber') }} : {{item.plateFullDetails || item.fullLicenseDetails}}
+      </p>
+      <!-- <p *ngIf="item.plateColor">{{ tl('plateColor') }} : {{ item.plateColor }}</p> -->
+    </div>
+  </div>
+  <p class="no-data-title" *ngIf="!vehicleProfileList.length ? visibleNoData : !vehicleProfileList.length">
+    {{language === 'en' ? 'No data available' : 'لا يوجد بيانات متوفرة'}}
+  </p>
+</div>

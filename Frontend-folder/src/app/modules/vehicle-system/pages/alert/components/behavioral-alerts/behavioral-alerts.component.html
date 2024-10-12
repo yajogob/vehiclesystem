@@ -1,0 +1,96 @@
+<div class="search-conditions" aria-hidden="true" *transloco="let tl; read: 'vs.alert'">
+  <div class="flex-row">
+    <!-- <div class="search">
+      <input [(ngModel)]="searchParams.taskName" class="vehicle-input" type="text" placeholder="{{tl('placeholder.taskName')}}"/>
+    </div> -->
+    <div class="site-tree">
+      <vs-site-selector
+        [(visible)]="isShowSiteTree"
+        [selectedList]="siteSelectedList"
+        [position]="language === 'ar' ? 'bottom-right' : 'bottom-left'"
+        (confirmEmit)="selectorConfirmOn($event)"
+      ></vs-site-selector>
+      <ng-select
+        [items]="siteSelectedList"
+        [(ngModel)]="siteSelectedList"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        bindLabel="codeDesc"
+        [placeholder]="tl('placeholder.Site')"
+        (open)="showSiteModal()"
+        (change)="changeSiteSelectedList($event)"
+      ></ng-select>
+      <div class="add-icon" [ngClass]="language === 'ar' ? 'pos-left' : 'pos-right'"></div>
+    </div>
+    <div class="vehicle-date">
+      <vs-vehicle-date-input
+        [selected]="searchDate"
+        [position]="language === 'ar' ? 'bottom-right' : 'bottom-left'"
+        (selectedDateEmit)="selectedDateFn($event)"
+      ></vs-vehicle-date-input>
+    </div>
+  </div>
+  <div class="flex-row">
+    <ng-select class="alert-type" [(ngModel)]="searchParams.alertType" placeholder="{{tl('placeholder.alertType')}}">
+      <ng-option *ngFor="let item of behavioralAlertTypeList" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+    </ng-select>
+  </div>
+  <div class="flex-row">
+    <vs-task-level-btn
+      [(taskLevel)]="searchParams.taskLevel"
+    ></vs-task-level-btn>
+  </div>
+</div>
+
+<div class="btn-group">
+  <div class="search-btns" *transloco="let tl; read: 'vs.public'">
+    <button class="principal-btn" (click)="searchParams.pageNo = 1; searchAlert()">{{tl('search')}}</button>
+    <button class="secondary-btn" (click)="resetParams()">{{tl('reset')}}</button>
+  </div>
+</div>
+
+<div class="search-results">
+  <div class="load-container">
+    <ngx-ui-loader [loaderId]="'behavioral-alert-loader'"></ngx-ui-loader>
+    <div class="pagination-grid-options" *transloco="let tl; read: 'vs.statisticalGraph'">
+      <p class="total-num">{{totalElements.toLocaleString()}} {{tl('behavioralAlerts')}}</p>
+      <span class="right-btns">
+        <vs-column-panel
+          [columnDefs]="tableColumnDefs"
+          (updateColumns)="onUpdateColumns($event)"
+        ></vs-column-panel>
+        <vs-mode-switch
+          [(renderMode)]="renderMode"
+          (renderModeChange)="renderModeChange()"
+        ></vs-mode-switch>
+      </span>
+    </div>
+    <div class="result-render">
+      <vs-pagination-grid
+        *ngIf="renderMode==='table'"
+        [id]="'behavioral'"
+        [columnDefs]="tableColumnDefs"
+        [defaultColDef]="defaultColDef"
+        [rowData]="tableRowData"
+        [currentPage]="searchParams.pageNo"
+        [totalItems]="totalElements"
+        (totalChange)="totalElements = $event"
+        (rowClicked)="onRowClicked($event)"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+        (cellOperated)="onCellOperated($event)"
+      ></vs-pagination-grid>
+      <ng-container *ngIf="renderMode==='img'">
+        <vs-card-view-public
+          [tableId] = "'behavioralTable'"
+          [tableRowData]="tableRowData"
+          [totalElements]="totalElements"
+          [currentPage]="searchParams.pageNo"
+          (onPageChangeEmit)="onPageChange($event)"
+          (checkCardItemEmit)="checkCardItemOn($event)"
+        ></vs-card-view-public>
+      </ng-container>
+    </div>
+  </div>
+
+</div>

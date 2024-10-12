@@ -1,0 +1,64 @@
+<div aria-hidden="true" class="car-rental-current-vehicle-history" *transloco="let tl; read: 'vs.rental'">
+  <div class="title-and-date text-[var(--vs-form-text-color-primary)]">
+    <div class="mr-4 title rtl:ml-4">{{tl('carRentalHistory')}}</div>
+    <div class="fixed-days">
+      <div *ngFor="let item of fixedDateList; index as i" (click)="clickDateBtn(item.value, i)"
+        class="date-btn border border-[var(--vs-form-text-color-primary)]" [ngClass]="{
+          'ml-2 mr-2': i === 1,
+          'bg-[var(--vs-form-text-color-primary)] ': item.blackColor,
+          'text-[#000]': item.blackColor,
+        }">
+        {{item.value}} {{tl('days')}}
+      </div>
+    </div>
+    <p class="ml-4 mr-4 or-custom">{{tl('orCustom')}}</p>
+
+    <vs-car-rental-date-input
+      [isSetDefaultDate]="isSetDefaultDate"
+      (selectedDateEmit)="selectedDateEmit($event)">
+    </vs-car-rental-date-input>
+  </div>
+
+  <div id='historyBox' class="history-list load-container">
+
+    <ngx-ui-loader [loaderId]="'rental-history'"></ngx-ui-loader>
+
+    <ng-container *ngFor="let item of rentalTransactionsData; index as i; trackBy: trackByIndex">
+      <div class="single-item border-t border-t-[var(--vs-car-rental-history-border-t-color)]">
+        <div class="single-item-rental-info">
+          <div class="date-and-customer">
+            <div class=" dark:text-dark-secondary">
+              {{item.rentalVehicleTransDateOut | date:' MMM d, YYYY'}}
+              <span *ngIf="item.endTimestamp > item.startTimestamp"> - {{item.rentalVehicleTransDateReturn | date:' MMM d, YYYY'}}</span>
+            </div>
+            <div class="text-[var(--vs-car-rental-history-primary-text-color)]">
+              <span>{{tl('customerName')}}: </span>
+              <span *ngIf="activeLangValue === 'en'">{{item.renter_ENGLISH_NAME}}</span>
+              <span *ngIf="activeLangValue === 'ar'">{{item.renter_ARABIC_NAME}}</span>
+            </div>
+          </div>
+          <div class="progress">
+            <div class="bottom bg-[var(--vs-car-rental-history-progress-bg-color)]"></div>
+            <div class="top bg-[var(--vs-car-rental-history-progress-color)]"
+              [ngStyle]="{'width': item.activeColorWidth + '%'}"></div>
+          </div>
+          <div *ngIf="item.endTimestamp > item.startTimestamp" class=" dark:text-dark-secondary">{{item.alreadyRentalDays}} {{tl('daysRented')}}</div>
+        </div>
+        <div
+          (click)="openDetailsModal(item)"
+          class="transaction-details text-[var(--vs-form-text-color-primary)] border-b border-b-[var(--vs-form-text-color-primary)]">
+          {{tl('transactionDetails')}}
+        </div>
+      </div>
+    </ng-container>
+    <div class="bottom-line border-t border-t-[var(--vs-car-rental-history-border-t-color)]"></div>
+
+    <p class="no-data-title" *ngIf="!rentalTransactionsData.length">
+      {{activeLangValue === 'en' ? 'No data available' : 'لا يوجد بيانات متوفرة'}}
+    </p>
+  </div>
+</div>
+
+<vs-car-transaction-details [currentTransactionsData]="currentTransactionsData" [isShow]="isShow"
+  (closeModalEvent)="closeModalEvent()">
+</vs-car-transaction-details>

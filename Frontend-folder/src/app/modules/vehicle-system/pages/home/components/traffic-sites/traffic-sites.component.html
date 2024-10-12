@@ -1,0 +1,47 @@
+<div class="traffic-sites" *transloco="let tl; read: 'vs.statisticalGraph'">
+  <p class="graph-statistics-title">{{tl('trafficSites')}}</p>
+  <span class="graph-statistics-numer">{{countMap.total.toLocaleString()}}</span>
+
+  <div class="camera-num">
+    <span>{{tl('totalCamera')}} &nbsp;</span>
+    <span>{{countMap.totalCamera.toLocaleString()}}</span>
+  </div>
+
+  <div class="alert-flex">
+    <div class="mt-2 alert-item">
+      <span class="hotels-icon"></span>
+      <span class="line"></span>
+      <div class="item-count">
+        <p class="count">{{countMap.hotels}}</p>
+        <p class="label">{{tl('hotels')}}</p>
+      </div>
+    </div>
+    <div class="mt-4 alert-item">
+      <span class="gantry-icon"></span>
+      <span class="line"></span>
+      <div class="item-count">
+        <p class="count">{{countMap.gantry}}</p>
+        <p class="label">{{tl('gantry')}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-flex">
+    <div class="mt-2 alert-item">
+      <span class="malls-icon"></span>
+      <span class="line"></span>
+      <div class="item-count">
+        <p class="count">{{countMap.malls}}</p>
+        <p class="label">{{tl('malls')}}</p>
+      </div>
+    </div>
+    <div class="mt-4 alert-item last-item">
+      <span class="street-cameras-icon"></span>
+      <span class="line last-line"></span>
+      <div class="item-count">
+        <p class="count">{{countMap.streetCameras}}</p>
+        <p class="label street-cameras">{{tl('streetCameras')}}</p>
+      </div>
+    </div>
+  </div>
+</div>

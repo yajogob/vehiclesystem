@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jpa module="lprUser">
+
+    <jpql id="findByUserIds" resultClass="com.micro.dto.user.LprUserDto" native="true">
+        <![CDATA[
+           select *
+               from lpr_user
+               where 1=1
+               #if($userIds)
+                 and id in :userIds
+               #end
+        ]]>
+    </jpql>
+
+
+</jpa>

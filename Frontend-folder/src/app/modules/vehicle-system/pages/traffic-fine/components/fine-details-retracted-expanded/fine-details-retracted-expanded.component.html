@@ -1,0 +1,105 @@
+<ng-container *ngIf="allDetailsData && allDetailsData.length > 0; else noData">
+  <div class="fine-details-not-expanded" *transloco="let tl; read: 'vs.trafficFine'">
+    <ng-container *ngFor="let parentItem of allDetailsData | paginate: paginationComponent.config;">
+      <div 
+        class="not-item"
+        [ngClass]="{'border-b small-item': !wFull, 'bg-odd big-item': wFull}"
+        *ngFor="let childItem of parentItem.fineInfos; trackBy: trackByIndex"
+      >
+        <div class="top">
+          <div class="calendar-icon"></div>
+          <div class="ltr:mr-10 rtl:ml-10">{{childItem.ticketTime | date: 'MMM d, YYYY'}}</div>
+          <div class="time"></div>
+          <div>{{childItem.ticketTime | date: 'h:mm a'}}</div>
+        </div>
+      
+        <!-- retracted -->
+        <ng-container *ngIf="!wFull">
+          <div class="retracted-bottom">
+            <div class="flex">
+              <span class="mr-2 rtl:ml-2">{{tl('numberPlate')}}&nbsp;:&nbsp;</span>
+              <span>{{childItem.region}} {{childItem.category}} {{childItem.plateNumber}}</span>
+            </div>
+            <div class="flex">
+              <span class="mr-2 rtl:ml-2">{{tl('fineType')}}&nbsp;:&nbsp;</span>
+              <span class="fine-type">{{childItem.fineType}}</span>
+            </div>
+            <div class="flex">
+              <span class="mr-2 rtl:ml-2">{{tl('ticketLocation')}}&nbsp;:&nbsp;</span>
+              <span>{{childItem.ticketLocation}}</span>
+            </div>
+            <div class="flex">
+              <span class="mr-2 rtl:ml-2">{{tl('coOrdinates')}}&nbsp;:&nbsp;</span>
+              <span>{{ childItem.ticketXco}}, {{childItem.ticketYco}}</span>
+            </div>
+          </div>
+        </ng-container>
+      
+        <!-- expanded -->
+        <ng-container *ngIf="wFull">
+          <div class="expanded-bottom">
+            <div class="expanded-item one">
+              <div class="item item-1">
+                <span>{{tl('numberPlate')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.region}} {{childItem.category}} {{childItem.plateNumber}}</span>
+              </div>
+              <div class="item item-2">
+                <span>{{tl('ticketLocation')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.ticketLocation}}</span>
+              </div>
+              <div class="item item-3">
+                <span>{{tl('ticketNumber')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.ticketNumber}}</span>
+              </div>
+              <div class="item item-4">
+                <span>{{tl('wasPolicePresent')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.wasPolicePresent}} </span>
+              </div>
+              <div class="item item-5"> 
+                <span>{{tl('driversLicenseNumber')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.driversLicenseNumber}}</span>
+              </div>
+              <div class="item item-6">
+                <span>{{tl('driversName')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.driversName}}</span>
+              </div>
+            </div>
+          
+            <div class="expanded-item-line"></div>
+          
+            <div class="expanded-item two">
+              <div class="item item-1">
+                <span>{{tl('fineType')}}&nbsp;:&nbsp;</span>
+                <span class="fine-type">{{childItem.fineType}}</span>
+              </div>
+              <div class="item item-2">
+                <span>{{tl('coOrdinates')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.ticketXco}}, {{childItem.ticketYco}}</span>
+              </div>
+              <div class="item item-3">
+                <span>{{tl('emirates')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.emirates}}</span>
+              </div>
+              <div class="item item-4">
+                <span>{{tl('vehicleSpeed')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.vehicleSpeed}}</span>
+              </div>
+              <div class="item item-5">
+                <span>{{tl('driversTrafficFileNumber')}}&nbsp;:&nbsp;</span>
+                <span>{{childItem.driversTrafficFileNumber}}</span>
+              </div>
+              <div class="item item-6">&nbsp;</div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <div class="no-data">
+    <div class="bg" [ngClass]="imgFull ? 'big-img' : 'small-img'"></div>
+  </div>
+</ng-template>

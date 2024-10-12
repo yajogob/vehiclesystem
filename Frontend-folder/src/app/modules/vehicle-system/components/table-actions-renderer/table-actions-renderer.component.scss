@@ -1,0 +1,31 @@
+.table-actions-renderer {
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+
+  .img-box {
+    width: 1.8rem;
+    height: 1.8rem;
+    margin: 0 0.5rem;
+  }
+
+  .delete {
+    background: var(--actions-delete-img) no-repeat center / contain;
+  }
+
+  .edit {
+    background: var(--actions-edit-img) no-repeat center / contain;
+  }
+
+  .start {
+    background: var(--actions-start-img) no-repeat center / contain;
+  }
+
+  .stop {
+    background: var(--actions-stop-img) no-repeat center / contain;
+  }
+
+  .details {
+    background: var(--actions-details-img) no-repeat center / contain;
+  }
+}

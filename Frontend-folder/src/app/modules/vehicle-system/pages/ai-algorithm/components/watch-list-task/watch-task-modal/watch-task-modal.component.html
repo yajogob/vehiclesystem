@@ -1,0 +1,166 @@
+<div aria-hidden="true" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <form [formGroup]="createEditWatchTaskForm" class="text-[var(--vs-dialog-label-color)]">
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('region')}}: <span>*</span></span>
+      <ng-select
+        class="task-value"
+        [ngClass]="{'err-tips-select': region.errors?.['required'] && region.dirty}"
+        [items]="regionList"
+        bindLabel="key"
+        bindValue="value"
+        [placeholder]="tl('pleaseSelect')"
+        formControlName="region"
+        (clear)="clearRegion()"
+        (change)="regionChange($event)"
+      ></ng-select>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="region.errors?.['required'] && region.dirty">
+        {{tl('regionIsRequired')}}
+      </div>
+    </div>
+
+    <div class="new-task-flex choose-camera">
+      <span class="task-label">{{tl('camera')}}: <span>*</span></span>
+      <div class="task-value">
+        <vs-site-selector
+          [isHeightAuto]="true"
+          [(visible)]="dtVisible"
+          [selectedList]="siteSelectedList"
+          [position]="activeLangValue === 'ar' ? 'bottom-left' : 'bottom-right'"
+          (confirmEmit)="selectorConfirmOn($event)"
+        ></vs-site-selector>
+
+        <ng-select
+          [ngClass]="{'err-tips-select': sitesCodeList.errors?.['required'] && sitesCodeList.dirty}"
+          [items]="siteSelectedList"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          bindLabel="codeDesc"
+          [placeholder]="tl('selectCamera')"
+          formControlName="sitesCodeList"
+          (open)="showSiteModal()"
+          (change)="chooseCameraChange($event)"
+        ></ng-select>
+        <div
+          class="add-icon"
+          [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+        ></div>
+      </div>
+    </div>
+
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('numberPlate')}}: <span>*</span></span>
+      <ng-select
+        class="task-value category"
+        [items]="categoryListMap[currentRegion]"
+        bindLabel="key"
+        bindValue="value"
+        [placeholder]="tl('category')"
+        formControlName="plateCategory"
+      ></ng-select>
+
+      <input
+        class="vehicle-input task-value"
+        [ngClass]="{'err-tips-input': (plateNumber.errors?.['required'] || plateNumber.errors?.['pattern']) && region.dirty}"
+        type="text"
+        [maxlength]="10"
+        [placeholder]="tl('numberPlate')"
+        formControlName="plateNumber"/>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div>
+        <div class="required-tips plate-number" *ngIf="plateNumber.errors?.['required'] && plateNumber.dirty">
+          {{tl('numberPlateIsRequired')}}
+        </div>
+        <div class="required-tips" *ngIf="plateNumber.errors?.['pattern'] && plateNumber.dirty">
+          {{tl('justNumber')}}
+        </div>
+      </div>
+    </div>
+
+    <div class="new-task-flex plate-color">
+      <span class="task-label">{{tl('plateColor')}}: </span>
+      <ng-select
+        class="task-value"
+        [ngClass]="{'err-tips-select': plateColor.errors?.['required'] && plateColor.dirty}"
+        [items]="plateColorList"
+        bindLabel="key"
+        bindValue="value"
+        [placeholder]="tl('pleaseSelect')"
+        formControlName="plateColor"
+      >
+      </ng-select>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <!-- <div class="required-tips" *ngIf="plateColor.errors?.['required'] && plateColor.dirty">
+        {{tl('plateColorIsRequired')}}
+      </div> -->
+    </div>
+
+    <div class="new-task-flex" >
+      <span class="task-label">{{tl('taskLevel')}}: <span>*</span></span>
+      <div class="task-value">
+        <ng-container *ngFor="let item of taskLevelList">
+          <span
+            [ngClass]="{'critical-btn': item['value'] === '3', 'major-btn': item['value'] === '2', 'minor-btn': item['value'] === '1'}"
+            (click)="setParamsPriority(item['value'])"
+          >
+            {{item['key']}}<b *ngIf="priorityList.includes(item['value'])">✓</b>
+          </span>
+        </ng-container>
+
+      </div>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="!priorityList.length && priorityDirty > 0">
+        {{tl('eventLevelIsRequired')}}
+      </div>
+    </div>
+
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="sitesCodeList.errors?.['required'] && sitesCodeList.dirty">
+        {{tl('cameraIsRequired')}}
+      </div>
+    </div>
+
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('dateRange')}}: <span>*</span></span>
+      <div class="task-value">
+        <vs-vehicle-date-input
+          [showCustomClear]="false"
+          [dateSelectRestrict]="'dontSelectPastDate'"
+          [selected]="selected"
+          [ranges]="ranges"
+          [translate]="'translate'"
+          [position]="activeLangValue === 'ar' ? 'top-base-left' : 'top-base-right'"
+          [inputDatePlaceholder]="'vs.aiAlgorithm.selectDate'"
+          (selectedDateEmit)="selectedDateFn($event)"
+        ></vs-vehicle-date-input>
+      </div>
+    </div>
+
+    <div class="new-task-flex description">
+      <span class="task-label">{{tl('description')}}:</span>
+      <textarea maxlength="2000" class="vehicle-textarea task-value" [placeholder]="tl('enterRemarks')" formControlName="description"></textarea>
+    </div>
+  </form>
+
+  <div class="button-group">
+    <div class="space"></div>
+    <div class="flex-1 button-box">
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="!editModalDate?.id">
+        {{tl('createTaskBtn')}}
+      </button>
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="editModalDate?.id">
+        {{tl('editTaskBtn')}}
+      </button>
+      <button class="reset public-reset-btn-second" (click)="reset()">{{tl('reset')}}</button>
+    </div>
+  </div>
+</div>

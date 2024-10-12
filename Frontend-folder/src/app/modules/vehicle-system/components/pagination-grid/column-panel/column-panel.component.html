@@ -1,0 +1,31 @@
+<div class="w-[2.3rem] h-[2.3rem] relative column-panel-toggle z-10" (click)="onToggle($event)" aria-hidden="true">
+  <div class="absolute flex flex-col items-center justify-center pt-[2.3rem] top-[2.3rem] column-panel select-none"
+       [hidden]="isHidden" (click)="$event.stopPropagation()">
+    <ul class="flex-1 w-full flex flex-col items-start justify-items-start overflow-y-auto overflow-x-hidden
+            pb-[2.3rem] ps-[2.4rem] pe-[0.5rem]">
+      <span
+        class="flex-none w-full mb-[0.1rem] text-lg text-[var(--vs-column-panel-title-color)]">{{"vs.paginationGrid.column.panel.title" | transloco}}</span>
+      <li class="flex-none w-full mt-[1.4rem] flex items-center justify-items-start" *ngFor="let column of columns">
+        <input type="checkbox" #columnCheckbox id="{{column.id}}" class="column-checkbox"
+               [checked]="column.checked" [disabled]="column.disabled"
+               (change)="onCheckChange({id: columnCheckbox.id, checked: columnCheckbox.checked})">
+        <label for="{{column.id}}" class="column-label ltr:ml-[1.5rem] rtl:mr-[1.5rem]">
+          {{column.label}}
+        </label>
+      </li>
+    </ul>
+    <div class="flex-none flex flex-row items-center justify-center gap-[0.4rem] h-[5.4rem] w-full border-t-[0.1rem] border-t-[var(--vs-column-panel-border-color)]
+      py-[1.3rem] ltr:pl-[2.4rem] ltr:pr-[3.3rem] rtl:pr-[2.4rem] rtl:pl-[3.3rem] font-medium text-[var(--vs-column-panel-button-text-color)]">
+    <span class="flex-1 h-full rounded-[0.4rem] bg-gradient-to-b cursor-pointer
+          from-[var(--vs-column-panel-button-color-from)] to-[var(--vs-column-panel-button-color-to)] flex items-center justify-center"
+          (click)="onUpdate()">
+      {{"vs.paginationGrid.column.panel.update" | transloco}}
+    </span>
+      <span class="flex-1 h-full rounded-[0.4rem] p-[1px] cursor-pointer bg-gradient-to-b cancel-btn
+      text-[var(--vs-column-panel-button-cancel-text-color)] flex items-center justify-center"
+            (click)="onCancel()">
+        {{"vs.paginationGrid.column.panel.cancel" | transloco}}
+      </span>
+    </div>
+  </div>
+</div>

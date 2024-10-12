@@ -1,0 +1,30 @@
+<div class="vehicle-profile-list flex-1 flex flex-col items-center px-[1.7rem]" *transloco="let tl; read: 'vs.vehicleProfile'">
+  <div
+    class="vehicle-profile-item"
+    aria-hidden="true"
+    *ngFor="let item of noDataBaseList; let i = index"
+    [ngClass]="activeIndex === i ? 'active-item' : ''"
+    (click)="handleChecked(item, i)"
+  >
+    <p class="text-sm font-bold text-[var(--vs-timeline-node-color)]">{{ tl('vehicleProfile') }} - {{ i + 1 }}</p>
+    <img
+      *ngIf="activeIndex === i"
+      class="thumbnail ltr:top-[0.6rem] ltr:right-[0.6rem] rtl:top-[0.6rem] rtl:left-[0.6rem]"
+      src="assets/vehicle-system/icons/vehicle-profile-icon/tick-circle.png"
+      alt=""
+      width="18"
+      height="18"
+    >
+    <div class="item-content text-base mt-[0.4rem] ltr:pl-4 left: rtl:pr-4 text-[var(--vs-vp-list-st-text-color)]">
+      <p *ngIf="item.plateNumber">{{ tl('plateNumber') }} : {{item.region}}  {{item.plateCategory}}  {{ item.plateNumber }}</p>
+      <p>
+        <span>{{ tl('checkResult') }} : </span>
+        <span
+          [ngClass]="{'text-red-600' : colorHandle(item.checkResult, '0'), 'text-green-600': colorHandle(item.checkResult, '1')}"
+        >
+          {{fakePlateCheckMap[item.checkResult]}}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="switch-button-com" [ngClass]="{'disable-switch': disableSwitch}" *transloco="let tl; read: 'vs.public'">
+  <input
+    class="switch-button"
+    type="checkbox"
+    (change)="switchChange()"
+    (click)="$event.stopPropagation()"
+    [(ngModel)]="switchValue"
+    [disabled]="disableSwitch"
+  >
+  <span class="ml-2 mr-2" *ngIf="!switchValue">{{tl('disabled')}}</span>
+  <span class="ml-2 mr-2" *ngIf="switchValue">{{tl('enabled')}}</span>
+</div>
+<!-- Waiting for users to improve -->
+<div class="mt-2 desc" *ngIf="false">0 channels succeed</div>

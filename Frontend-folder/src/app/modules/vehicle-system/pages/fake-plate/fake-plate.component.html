@@ -1,0 +1,84 @@
+<section class="fake-plate text-[1.2rem]" *transloco="let tl; read: 'vs.fakePlateNumber'">
+	<div class="box-border flex flex-col h-full fake-plate-left">
+		<vs-fake-plate-side-search
+      #fakePlateSideSearch
+			[activeLangValue]="activeLangValue"
+			[plateColorList]="plateColorList"
+			[fakeInformationStatusList]="fakeInformationStatusList"
+			[fakeSearchTypeList]="fakeSearchTypeList"
+			[regionList]="regionList"
+			[categoryList]="categoryListMap[currentRegion]"
+			[exactNumList]="exactNumList"
+      (regionChange)="regionChange($event)"
+      (syncDataControlEmit)="syncDataControlEmit($event)"
+			(getFakePlateTableListEmit)="getFakePlateList($event)"
+      (showDeviceTreeEmit)="showDeviceTree()"
+		></vs-fake-plate-side-search>
+
+		<div class="flex-1 load-container w-full h-full overflow-y-auto pointer-events bg-[var(--vs-vehicle-search-background)] ">
+			<ngx-ui-loader [loaderId]="'loader-no-database'"></ngx-ui-loader>
+			<vs-fake-plate-no-database
+				[noDataBaseList]="noDataBaseList"
+				[fakePlateCheckMap]="fakePlateCheckMap"
+				(handleCheckedEmit)="handleCheckedEmit($event)"
+			></vs-fake-plate-no-database>
+		</div>
+	</div>
+
+	<div class="fake-plate-right bg-[var(--vs-vehicle-content-background)]">
+		<ng-container *ngIf="isNoDataBase !== '1'">
+			<vs-fake-plate-table
+				[currentPage]="fakePlateSearchParams.pageNo"
+				[totalElements]="totalElements"
+				[searchTableInfo]="fakePlateList"
+				(getLayerInfoEmit)="getLayerInfo($event)"
+				(openDrawerEmit)="openDrawerEmit(true)"
+				(getFakePlateTableListEmit)="getFakePlateList($event)"
+			></vs-fake-plate-table>
+		</ng-container>
+
+		<ng-container *ngIf="isNoDataBase === '1'">
+			<vs-fake-plate-no-database-table
+				[currentPage]="trafficSearchPageNo"
+				[totalElements]="trafficSearchTotal"
+				[searchTableInfo]="trafficSearchTableList"
+				(pageEventEmit)="getFakePlateList($event)"
+			>
+			</vs-fake-plate-no-database-table>
+		</ng-container>
+
+		<vs-fake-plate-details-layer
+			*ngIf="isShowDrawer"
+			[layerInfo]="layerInfo"
+			(checkFakePlateEmit)="checkFakePlateEmit($event)"
+			(closeDrawerEmit)="closeDrawerEmit(false)
+    "></vs-fake-plate-details-layer>
+
+    <div class="bottom-container">
+      <div class="search-conditions">
+        <vs-toolbox
+          [title]="'vs.map.traffic'"
+          [toolSet]="toolSet"
+          [disableDate]="true"
+          (selectedDateEmit)="onSelectedDateEmit($event)"
+          (confirmEmit)="selectorConfirmOn($event)"
+          [selectedList]="siteSelectedList"
+          (changeLocationVisible)="changeLocationVisible($event)"
+          selectWidth="78rem"
+          [showSelect]="showLevel2Select"
+          [selectOptions]="selectOptions"
+          (onClickback)="onClickbackFn($event)"
+          (changeLevel2SelectVisible)="changeLevel2SelectVisibleFn($event)"
+          (changeSelectedEmit)="changeSelectedFn($event)"
+          #vsToolbox
+        ></vs-toolbox>
+        <vs-screenful
+          *ngIf="false"
+          [hidden]="showLocationFlag || showLevel2Select"
+          class="ml-[1rem] mr-[1rem] box-border w-[6.4rem] h-[6.4rem]"
+        ></vs-screenful>
+      </div>
+    </div>
+	</div>
+</section>
+

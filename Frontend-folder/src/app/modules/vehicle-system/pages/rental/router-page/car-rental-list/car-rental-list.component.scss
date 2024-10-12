@@ -1,0 +1,9 @@
+.load-container {
+  ::ng-deep .unset .ag-row {
+    cursor: unset !important;
+  }
+
+  ::ng-deep .pointer .ag-row {
+    cursor: pointer !important;
+  }
+}

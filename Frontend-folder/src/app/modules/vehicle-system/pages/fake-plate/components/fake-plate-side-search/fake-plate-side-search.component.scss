@@ -1,0 +1,148 @@
+/**
+  side search style
+ */
+.err-tips-input {
+  border-bottom: 1px solid red;
+}
+
+.err-tips-select {
+  ::ng-deep .ng-select-container {
+    border-bottom: 1px solid red;
+  }
+}
+
+.error-tips {
+  position: relative;
+  top: -0.5rem;
+  color: rgb(220 38 38 / 100%);
+}
+
+.fake-plate-side-search {
+  .title {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .current-time {
+    margin-bottom: 2rem;
+    color: #979797;
+    font-size: 1.1rem;
+  }
+
+  .search-form {
+    .ordinary-search,
+    .advanced-search {
+      .item {
+        position: relative;
+        margin-bottom: 1rem;
+
+        .category {
+          width: 8.5rem;
+        }
+
+        .number-plate {
+          width: calc(100% - 10rem);
+        }
+      }
+
+      .choose-site {
+        .pos-right {
+          right: 0.6rem;
+        }
+
+        .pos-left {
+          left: 0.6rem;
+        }
+
+        position: relative;
+
+        ::ng-deep .ng-select-container {
+          z-index: auto;
+          overflow: auto;
+          max-height: 20rem;
+          -ms-overflow-style: none; /* IE 10+ */
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+
+        ::ng-deep .ng-select .ng-dropdown-panel {
+          display: none;
+        }
+
+        ::ng-deep .ng-arrow-wrapper {
+          opacity: 0;
+        }
+
+        .add-icon {
+          position: absolute;
+          z-index: auto;
+          bottom: 50%;
+          width: 1.2rem;
+          height: 1.2rem;
+          background: url('../../../../../../../assets/vehicle-system/icons/add.png') no-repeat;
+          background-size: 1.2rem 1.2rem;
+          pointer-events: none;
+        }
+
+        :is([dir='rtl'] .add-icon) {
+          transform: translate(3px, 50%);
+        }
+
+        :is([dir='ltr'] .add-icon) {
+          transform: translate(-3px, 50%);
+        }
+      }
+    }
+
+    .advanced-search-control-bar {
+      width: fit-content;
+      border-bottom: 0.05rem solid var(--vs-traffic-search-advance-border-color);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+
+      .arrow-up {
+        position: relative;
+        bottom: 0.8rem;
+        width: 0;
+        height: 0;
+        border-right: 0.65rem solid transparent;
+        border-bottom: 0.65rem solid var(--vs-title-color);
+        border-left: 0.65rem solid transparent;
+      }
+
+      .arrow-down {
+        position: relative;
+        top: 1.2rem;
+        width: 0;
+        height: 0;
+        border-top: 0.65rem solid var(--vs-title-color);
+        border-right: 0.65rem solid transparent;
+        border-left: 0.65rem solid transparent;
+      }
+    }
+
+    .operate {
+      margin-top: 2rem;
+
+      .operate-button {
+        width: 100%;
+        height: 3.4rem;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      .search {
+        background: linear-gradient(93.24deg, #009739 30.3%, #beef33 94%);
+      }
+
+      .reset {
+        margin-top: 1rem;
+      }
+    }
+
+    margin-top: 1rem;
+  }
+}

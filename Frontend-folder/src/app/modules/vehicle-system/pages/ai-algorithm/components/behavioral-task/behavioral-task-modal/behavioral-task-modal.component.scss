@@ -1,0 +1,220 @@
+.err-tips-input {
+  border-bottom: 1px solid red;
+}
+
+.err-tips-select {
+  ::ng-deep .ng-select-container {
+    border-bottom: 1px solid red;
+  }
+}
+
+.pos-right {
+  right: 4.5rem;
+}
+
+.pos-left {
+  left: 4.5rem;
+}
+
+.choose-camera {
+  position: relative;
+
+  ::ng-deep .ng-select-container {
+    .ng-value-container {
+      overflow: auto;
+      max-height: 8rem;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .ng-value {
+        display: flex;
+        align-items: center;
+
+        .ng-value-label {
+          overflow: hidden;
+          max-width: 22rem;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .ng-select .ng-dropdown-panel {
+    display: none;
+  }
+
+  ::ng-deep .ng-arrow-wrapper {
+    opacity: 0;
+  }
+
+  .task-value {
+    position: relative;
+
+    .add-icon {
+      position: absolute;
+      z-index: 1060;
+      top: 50%;
+      width: 1.2rem;
+      height: 1.2rem;
+      background: url('../../../../../../../../assets/vehicle-system/icons/add.png') no-repeat;
+      background-size: 1.2rem 1.2rem;
+      pointer-events: none;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+.new-task-flex {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  padding: 0.8rem 3rem;
+
+  .threshold-input {
+    position: relative;
+
+    .vehicle-input-number {
+      width: 9.3rem;
+    }
+
+    .triangle-box {
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      display: flex;
+      height: 22px;
+      flex-flow: column;
+      justify-content: space-between;
+      transform: translateY(-50%);
+
+      .triangle-top {
+        width: 0;
+        height: 0;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #5b5b5b;
+        border-left: 8px solid transparent;
+        cursor: pointer;
+
+        &:hover {
+          border-bottom-color: #7e7c7c;
+        }
+      }
+
+      .triangle-bottom {
+        width: 0;
+        height: 0;
+        border-top: 8px solid #5b5b5b;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+        cursor: pointer;
+
+        &:hover {
+          border-top-color: #7e7c7c;
+        }
+      }
+    }
+  }
+
+  .task-label {
+    width: 15rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+
+    & > span {
+      color: var(--vs-ai-task-create-star-color);
+    }
+  }
+
+  .task-value {
+    position: relative;
+    width: calc(100% - 15rem);
+
+    &.category {
+      flex: unset;
+      margin-right: 0.5rem;
+
+      ::ng-deep .ng-select-container {
+        width: 10rem;
+      }
+    }
+
+    ::ng-deep .vehicle-date-input input {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.error-tips {
+  position: relative;
+  top: -0.5rem;
+  display: flex;
+  padding: 0 3rem;
+
+  .space {
+    width: 15rem;
+  }
+}
+
+.description {
+  .task-label {
+    align-self: flex-start;
+  }
+
+  .task-value {
+    height: 9rem;
+    resize: none;
+  }
+}
+
+.required-tips {
+  color: rgb(220 38 38 / 100%);
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 3rem;
+  margin: 2rem 0;
+  color: #fff;
+
+  .space {
+    width: 15rem;
+  }
+
+  .button-box {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+:is([dir='ltr'] .new-task-flex) {
+  &.choose-camera {
+    .add-icon {
+      right: 0.5rem;
+      left: unset;
+    }
+  }
+}
+
+:is([dir='rtl'] .new-task-flex) {
+  &.choose-camera {
+    .add-icon {
+      right: unset;
+      left: 0.5rem;
+    }
+  }
+}
+
+// .behavioral-modal-container {
+//   .choose-camera .add-icon {
+//     z-index: 10;
+//   }
+// }

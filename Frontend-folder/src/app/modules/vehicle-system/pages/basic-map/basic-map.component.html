@@ -1,0 +1,61 @@
+<section class="basic-map-position" aria-hidden="true">
+  <!-- map render container -->
+  <div id="basic-map-container">
+    <vb-gomap
+      [markers]="markers"
+      [heatmap]="heatmap"
+      [trackers]="trackers"
+      [cluster]="cluster"
+      [center]="center"
+      [zoom]="zoom"
+      [mode]="mapMode"
+      (handleMarkerClick)="handleMarkerClickFn($event)"
+      (handleClusterMarkerClick)="handleClusterMarkerClickFn($event)"
+      (hanlderZoomchangeScroll)="hanlderZoomchangeScrollFn($event)"
+      #goMap
+    ></vb-gomap>
+  </div>
+
+  <div class="alert-detail-description" [ngClass]="language" [ngStyle]="styleObj">
+    <div class="site-name">
+      <p>
+        <span class="label">
+          {{language === 'ar' ? 'اسم الموقع' : 'Site Name'}}:
+        </span>
+        <span class="value">{{currentAlertMarker?.siteName}}</span>
+      </p>
+      <p>
+        <span class="label">
+          {{language === 'ar' ? 'مجموع الانذارات' : 'Total Alert'}}:
+        </span>
+        <span class="value">{{currentAlertMarker?.totalAlert}}</span>
+      </p>
+    </div>
+
+    <div class="three-alert">
+      <div class="icon-w w-h"></div>
+      <div class="line"></div>
+      <div class="title">
+        <span class="num">{{currentAlertMarker?.watchListAlert}}</span>
+        <span>{{language === 'ar' ? 'قائمة المراقبة تنبيه' : 'Watchlist Alert'}}</span>
+      </div>
+    </div>
+    <div class="three-alert">
+      <div class="icon-b w-h"></div>
+      <div class="line"></div>
+      <div class="title">
+        <span class="num">{{currentAlertMarker?.behavioralAlert}}</span>
+        <span>{{language === 'ar' ? 'سلوك تنبيه' : 'Behavioral Alert'}}</span>
+      </div>
+    </div>
+
+    <div class="three-alert">
+      <div class="icon-g w-h"></div>
+      <div class="line"></div>
+      <div class="title">
+        <span class="num">{{currentAlertMarker?.geofenceAlert}}</span>
+        <span>{{language === 'ar' ? 'تحذير السياج الجغرافي' : 'Geofence Alert'}}</span>
+      </div>
+    </div>
+  </div>
+</section>

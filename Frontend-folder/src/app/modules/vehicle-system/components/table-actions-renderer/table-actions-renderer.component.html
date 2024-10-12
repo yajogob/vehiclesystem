@@ -1,0 +1,11 @@
+<div aria-hidden="true" class="table-actions-renderer">
+  <ng-container *ngFor="let item of iconsList">
+    <div
+      id= "ele"
+      class="img-box"
+      (click)="clickIcon(item.imgType);$event.stopPropagation();"
+      [ngClass]="item.imgClass"
+    >
+    </div>
+  </ng-container>
+</div>

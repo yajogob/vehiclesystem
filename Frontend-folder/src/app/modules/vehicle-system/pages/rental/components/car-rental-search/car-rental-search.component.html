@@ -1,0 +1,15 @@
+<div class="car-rental-search" *transloco="let tl; read: 'vs.rental'">
+  <div class="title text-[var(--vs-rental-title-color)]">{{ tl('carRental') }}</div>
+  <div class="search-area bg-[var(--vs-vehicle-form-input-background)]">
+    <div class="ml-3 mr-3">
+      <img class="search-icon" src="assets/vehicle-system/icons/car-rental/search-icon.png" alt="" />
+    </div>
+    <input
+      class="search-input bg-[var(--vs-vehicle-form-input-background)]"
+      type="text"
+      [placeholder]="tl(placeholder)"
+      [(ngModel)]="searchName"
+      (keyup.enter)="searchCompanyList()">
+  </div>
+  <button class="search public-search-btn" (click)="searchCompanyList()">{{tl('search')}}</button>
+</div>

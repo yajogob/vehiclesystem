@@ -1,0 +1,124 @@
+<section class="new-task-container" aria-hidden="true">
+  <ngx-ui-loader [loaderId]="'new-task-loader'"></ngx-ui-loader>
+  <p class="task-title">
+    Create New Task
+    <svg (click)="close()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="close-icon">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </p>
+  <div class="new-task-flex select-task">
+    <span class="task-label">Select Your Task: </span>
+    <ng-select class="task-value" [(ngModel)]="newTaskType" placeholder="Select Task">
+      <ng-option *ngFor="let item of alertTypeList" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+    </ng-select>
+  </div>
+
+  <!-- add watchList task params -->
+  <div class="hidden-container" [hidden]="newTaskType !== '1'">
+    <div class="new-task-flex">
+      <span class="task-label">Region: <span>*</span></span>
+      <ng-select class="task-value" [class]="{'required-error': showWatchlistTaskParamsError && !newWatchlistTaskParams.region}" [(ngModel)]="newWatchlistTaskParams.region" placeholder="Please Select">
+        <ng-option *ngFor="let item of regionList" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+      </ng-select>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Number Plate: <span>*</span></span>
+      <ng-select class="task-value category" [class]="{'required-error': showWatchlistTaskParamsError && !newWatchlistTaskParams.plateCategory}" [(ngModel)]="newWatchlistTaskParams.plateCategory" placeholder="Category">
+        <ng-option *ngFor="let item of categoryList" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+      </ng-select>
+      <input class="vehicle-input task-value" [maxlength]="10" [class]="{'required-error': showWatchlistTaskParamsError && !newWatchlistTaskParams.plateNumber}" [(ngModel)]="newWatchlistTaskParams.plateNumber" type="text" placeholder="Number plate"/>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Plate Color: <span>*</span></span>
+      <ng-select class="task-value" [class]="{'required-error': showWatchlistTaskParamsError && !newWatchlistTaskParams.plateColor}" [(ngModel)]="newWatchlistTaskParams.plateColor" placeholder="Please Select">
+        <ng-option *ngFor="let item of plateColorList" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+      </ng-select>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Task Level: </span>
+      <vs-task-level-btn
+        [(taskLevel)]="newWatchlistTaskParams.taskLevel"
+      ></vs-task-level-btn>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Date Range: <span>*</span></span>
+      <div class="task-value">
+        <vs-vehicle-date-input
+          [class]="{'required-error': showWatchlistTaskParamsError && !newWatchlistTaskParams.startDateTime}"
+          [selected]="searchDate"
+          [position]="language === 'ar' ? 'bottom-left' : 'bottom-right'"
+          (selectedDateEmit)="selectedDateFn($event)"
+        ></vs-vehicle-date-input>
+      </div>
+    </div>
+  </div>
+
+  <!-- add behavioral task params -->
+  <div class="hidden-container" [hidden]="newTaskType !== '2'">
+    <div class="new-task-flex">
+      <span class="task-label">Task Name: <span>*</span></span>
+      <input class="vehicle-input task-value" [class]="{'required-error': showBehavioralTaskParamsError && !newBehavioralTaskParams.taskName}" [(ngModel)]="newBehavioralTaskParams.taskName" type="text" placeholder="Enter Your Task Name"/>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Choose algorithm: <span>*</span></span>
+      <ng-select class="task-value" [class]="{'required-error': showBehavioralTaskParamsError && !newBehavioralTaskParams.algorithm}" [(ngModel)]="newBehavioralTaskParams.algorithm" placeholder="Select Event">
+        <ng-option *ngFor="let item of behavioralAlgorithmList" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+      </ng-select>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Task Level: </span>
+      <div class="task-value">
+        <vs-task-level-btn
+          [(taskLevel)]="newBehavioralTaskParams.taskLevel"
+        ></vs-task-level-btn>
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Task Cycle: <span>*</span></span>
+      <div class="task-value">
+        <ng-container class="flex flex-row radio" *ngFor="let item of taskCycleList">
+          <input type="radio" [id]="item.key" name="timeCycle" [(ngModel)]="newBehavioralTaskParams.timeCycle" [value]="item.value">
+          <label [for]="item.key" class="radio-label">{{item.value}}</label>
+        </ng-container>
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Devices: <span>*</span></span>
+      <ng-select class="task-value" [class]="{'required-error': showBehavioralTaskParamsError && !newBehavioralTaskParams.devices}" [(ngModel)]="newBehavioralTaskParams.devices" placeholder="Select Devices">
+        <ng-option>devices123</ng-option>
+        <ng-option>devices456</ng-option>
+      </ng-select>
+    </div>
+  </div>
+
+  <!-- add geofence task params -->
+  <div class="hidden-container" [hidden]="newTaskType !== '3'">
+    <div class="new-task-flex">
+      <span class="task-label">Task Name: <span>*</span></span>
+      <input class="vehicle-input task-value" [class]="{'required-error': showGeofenceTaskParamsError && !newGeofenceTaskParams.taskName}" [(ngModel)]="newGeofenceTaskParams.taskName" type="text" placeholder="Enter Your Task Name"/>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Task Level: </span>
+      <div class="task-value">
+        <vs-task-level-btn
+          [(taskLevel)]="newGeofenceTaskParams.taskLevel"
+        ></vs-task-level-btn>
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">Traffic Threshold: <span>*</span></span>
+      <vs-switch-button-form (switchChangedEmit)="switchChanged($event)"></vs-switch-button-form>
+      <input class="traffic-threshold-number" type="number">
+    </div>
+  </div>
+
+
+  <div class="new-task-flex description">
+    <span class="task-label">Description:</span>
+    <textarea class="vehicle-textarea task-value" [(ngModel)]="description" cols="30" rows="10" placeholder="Enter remarks"></textarea>
+  </div>
+  <div class="new-task-btns">
+    <button class="principal-btn" (click)="createTask()">Create Task</button>
+    <button class="secondary-btn" (click)="resetParams()">Reset</button>
+  </div>
+</section>

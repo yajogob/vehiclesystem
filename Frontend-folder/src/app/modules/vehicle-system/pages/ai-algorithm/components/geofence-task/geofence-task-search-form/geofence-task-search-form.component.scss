@@ -1,0 +1,24 @@
+.geofence-task-search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 0;
+  font-size: 1.2rem;
+
+  .form {
+    display: flex;
+
+    .task-name-input {
+      width: 60rem;
+    }
+
+    .date-input {
+      position: relative;
+      width: 29rem;
+    }
+
+    .search-btn {
+      width: 11.8rem;
+    }
+  }
+}

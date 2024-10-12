@@ -1,0 +1,40 @@
+.car-rental-date-input {
+  display: flex;
+  height: 3rem;
+  align-items: center;
+  padding: 0 1.1rem 0 1.5rem;
+  border-radius: 0.6rem;
+
+  ::ng-deep .md-drppicker {
+    margin-top: 2rem;
+  }
+
+  .date-input {
+    width: 100%;
+    height: 2.8rem;
+    box-sizing: border-box;
+    padding: 0 0.8rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 400;
+    outline: none;
+  }
+
+  .calendar {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .search-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .close-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0 0.4rem;
+    color: #979797;
+    cursor: pointer;
+  }
+}

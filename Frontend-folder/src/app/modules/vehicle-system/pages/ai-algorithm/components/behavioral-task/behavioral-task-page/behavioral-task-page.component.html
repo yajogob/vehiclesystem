@@ -1,0 +1,49 @@
+<div class="behavioral-task-page flex flex-col w-full h-[100%]" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="flex-none behavioral-task-search-form">
+    <vs-behavioral-task-search-form
+      (createNewTaskEmit)="createNewTaskEmit()"
+      (searchClickEmit)="searchClickEmit($event)"
+      (selectedDateFnEmit)="selectedDateFnEmit($event)"
+    >
+    </vs-behavioral-task-search-form>
+  </div>
+
+  <div class="data-total text-[var(--vs-text-color-regular)]">
+    {{dataTotal}} {{tl('tasksInTotal')}}
+  </div>
+
+  <div class="flex-1 px-[2rem] load-container">
+    <ngx-ui-loader [loaderId]="'task-loader'"></ngx-ui-loader>
+    <vs-pagination-grid
+      [id]="'behavioralTaskPage'"
+      [itemsPerPage]="pageSize"
+      [columnDefs]="tableColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="pagedBehavioralTask"
+      [totalItems]="dataTotal"
+      [currentPage]="pageNo"
+      (totalChange)="dataTotal = $event"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (cellOperated)="onCellOperated($event)"
+      (switchchanged)="onSwitchChange($event)"
+    ></vs-pagination-grid>
+  </div>
+
+</div>
+
+<vs-shared-task-modal
+  [isShow]="isShowCreateModal"
+  [taskOrDetails]="taskOrDetails"
+  [addOrEdit]="addOrEdit"
+  [taskChannel]="behavioral"
+  [editModalDate]="editModalDate"
+  (closeModalEvent)="closeModalEvent()"
+  (saveSucEmit)="saveSucEvent($event)"
+>
+  <vs-behavioral-task-detail
+    publicModalContent
+    [detailData]="detailData"
+  ></vs-behavioral-task-detail>
+</vs-shared-task-modal>

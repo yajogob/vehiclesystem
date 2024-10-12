@@ -1,0 +1,24 @@
+<div aria-hidden="true" class="behavioral-task-search-form" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="form">
+    <input type="text"class="task-name-input vehicle-input ltr:mr-2 rtl:ml-2" [placeholder]="tl('searchByTaskName')" [(ngModel)]="taskName" />
+    <div class="date-input ltr:mr-2 rtl:ml-2">
+      <vs-vehicle-date-input
+        [dateSelectRestrict]="'noRestrict'"
+        [selected]="null"
+        [position]="language === 'ar' ? 'bottom-left' : 'bottom-right'"
+        (selectedDateEmit)="selectedDateFn($event)"
+      ></vs-vehicle-date-input>
+    </div>
+    <button class="search-btn public-search-btn" (click)="searchClick()">{{tl('search')}}</button>
+  </div>
+
+  <div
+    vsAccessControlDirective
+    [accessParams]="allResourceList.BehavioralCreateTask"
+    class="public-create-task-btn"
+    (click)="createNewTask()"
+  >
+    <div class="">{{tl('createNewTask')}}</div>
+    <div class="icon ltr:ml-2 rtl:mr-2"></div>
+  </div>
+</div>

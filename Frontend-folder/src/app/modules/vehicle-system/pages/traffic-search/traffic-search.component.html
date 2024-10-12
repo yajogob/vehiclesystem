@@ -1,0 +1,20 @@
+<section id='trafficSearch' class="relative flex w-full h-full text-[1.2rem]">
+  <div class="w-[28.5rem] h-full box-border">
+    <vs-side-search
+      #sideSearch
+      [pageSize]="pageSize"
+      (syncDataControlEmit)="syncDataControlEmit($event)"
+      (getTrafficSearchListEmit)="getTrafficSearchList($event)"
+      (showDeviceTreeEmit)="showDeviceTree()"
+    ></vs-side-search>
+  </div>
+  <div class="flex flex-col items-center flex-1 h-full">
+    <vs-search-table
+      class="w-full flex-1 px-[1.5rem] pt-[1.5rem] bg-[var(--vs-vehicle-content-background)]"
+      [trafficSearchParams]="trafficSearchParams"
+      [trafficSearchTableListInfo]="trafficSearchTableListInfo"
+      (getTrafficSearchListEmit)="getTrafficSearchList($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    ></vs-search-table>
+  </div>
+</section>

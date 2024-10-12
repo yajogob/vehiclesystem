@@ -1,0 +1,30 @@
+<div *transloco="let tl; read: 'vs.aiAlgorithm'" class="gpu-lpr-task-detail" >
+    <div class="modal-content">
+      <div class="task-name">
+        <div class="name-key">{{tl('taskName')}}:</div>
+        <div class="name-value">{{editModalDate.taskName}}</div>
+      </div>
+  
+      <div class="details-content text-[var(--vs-dialog-text-color-regular)]">
+        <div class="bg-[var(--vs-watch-task-detail-odd-bg-color)]  ">
+          <span>{{tl('createTime')}}:</span>
+          <span>{{editModalDate.createTime | date:"MMM d, YYYY h:mm a"}}</span>
+        </div>
+        <div class="bg-[var(--vs-watch-task-detail-even-bg-color)]  ">
+          <span>{{tl('creator')}}:</span>
+          <span>{{editModalDate.creator}}</span>
+        </div>
+        <div class="bg-[var(--vs-watch-task-detail-odd-bg-color)]  ">
+          <span>{{tl('taskStatus')}}:</span>
+          <span>{{statusHandle(editModalDate.taskStatus)}}</span>
+        </div>
+        <div class="bg-[var(--vs-watch-task-detail-even-bg-color)]  ">
+          <span class="desc">{{tl('cameraList')}}:</span>
+          <div class="camera-list">
+            <div *ngFor="let item of editModalDate.deviceList">{{item.deviceName || 'Unnamed device'}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>

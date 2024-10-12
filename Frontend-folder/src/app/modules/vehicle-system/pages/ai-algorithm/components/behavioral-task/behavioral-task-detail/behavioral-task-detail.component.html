@@ -1,0 +1,34 @@
+<div aria-hidden="true" class="behavioral-task-detail" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="plate-number">
+    <div class="num-key">{{tl('taskName')}}:</div>
+    <div class="num-value">{{detailData.taskName}}</div>
+  </div>
+  <div class="details-content text-[var(--vs-dialog-text-color-regular)]">
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]">
+      <span>{{tl('algorithmType')}}:</span>
+      <span>{{detailData.algoTaskType}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]">
+      <span>{{tl('taskLevel')}}:</span>
+      <span>{{cssMap[detailData.taskLevel]}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]">
+      <span>{{tl('taskCycle')}}:</span>
+      <span>{{detailData.taskCycle}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]  ">
+      <span>{{tl('taskStatus')}}:</span>
+      <span>{{detailData.enabled ? tl('enabled') : tl('disabled') }}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]">
+      <span class="desc">{{tl('cameraList')}}:</span>
+      <div class="camera-list">
+        <div class="text-ellipsis overflow-hidden whitespace-nowrap" [title]="item.deviceId" *ngFor="let item of detailData.deviceInfo">{{ item.deviceName }}</div>
+      </div>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]">
+      <span class="desc">{{tl('description')}}:</span>
+      <span class="word-break">{{detailData.description}}</span>
+    </div>
+  </div>
+</div>

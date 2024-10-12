@@ -1,0 +1,39 @@
+<div aria-hidden="true" *transloco="let tl; read: 'vs.aiAlgorithm'" class="create-edit-watch-task">
+  <div class="modal-tab bg-[var(--vs-ai-create-task-modal-content-bg)]">
+    <div
+      class="tab-item"
+      [ngClass]="{actived: curTabValue === 'alert'}"
+      (click)="tabEvent('alert')"
+    >
+      {{tl('alertInformation')}}</div>
+    <div class="mid-line"></div>
+    <div
+      class="tab-item"
+      [ngClass]="{actived: curTabValue === 'capture'}"
+      (click)="tabEvent('capture')"
+    >
+      {{tl('captureInformation')}}
+    </div>
+  </div>
+
+  <div class="modal-content bg-[var(--vs-ai-create-task-modal-content-bg)]">
+    <vs-white-list-task-details-table
+      [paginationComponent]="paginationComponent"
+      [pagedwhitelistTaskDetail]="whitelistTaskDetailData"
+      [curTabValue]="curTabValue"
+    ></vs-white-list-task-details-table>
+  </div>
+
+  <div class="bg-[var(--vs-ai-create-task-modal-content-bg)]">
+    <vs-pagination
+      #paginationComponent
+      class=""
+      [id]="'whiteListTaskDetailsTable'"
+      [itemsPerPage]="9"
+      [totalItems]="dataTotal"
+      [currentPage]="1"
+      (pageChange)="onPageChange($event)"
+    ></vs-pagination>
+  </div>
+
+</div>

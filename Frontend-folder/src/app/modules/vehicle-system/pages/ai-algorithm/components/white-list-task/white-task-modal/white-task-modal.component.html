@@ -1,0 +1,119 @@
+<div aria-hidden="true" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <form [formGroup]="createEditWatchTaskForm" class="text-[var(--vs-dialog-label-color)]">
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('region')}}: <span>*</span></span>
+      <ng-select
+        class="task-value"
+        [ngClass]="{'err-tips-select': region.errors?.['required'] && region.dirty}"
+        [items]="regionList"
+        bindLabel="key"
+        bindValue="value"
+        [placeholder]="tl('pleaseSelect')"
+        formControlName="region"
+        (clear)="clearRegion()"
+        (change)="regionChange($event)"
+      ></ng-select>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="region.errors?.['required'] && region.dirty">
+        {{tl('regionIsRequired')}}
+      </div>
+    </div>
+
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('numberPlate')}}: <span>*</span></span>
+      <ng-select
+        class="task-value category"
+        [items]="categoryListMap[currentRegion]"
+        bindLabel="key"
+        bindValue="value"
+        [placeholder]="tl('category')"
+        formControlName="plateCategory"
+      ></ng-select>
+
+      <input
+        class="vehicle-input task-value"
+        [ngClass]="{'err-tips-input': (plateNumber.errors?.['required'] || plateNumber.errors?.['pattern']) && plateNumber.dirty}"
+        type="text"
+        [maxlength]="10"
+        [placeholder]="tl('numberPlate')"
+        formControlName="plateNumber"
+      />
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div>
+        <div class="required-tips plate-number" *ngIf="plateNumber.errors?.['required'] && plateNumber.dirty">
+          {{tl('numberPlateIsRequired')}}
+        </div>
+        <div class="required-tips" *ngIf="plateNumber.errors?.['pattern'] && plateNumber.dirty">
+          {{tl('justNumber')}}
+        </div>
+      </div>
+    </div>
+
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('plateColor')}}: </span>
+      <ng-select
+        class="task-value"
+        [ngClass]="{'err-tips-select': plateColor.errors?.['required'] && plateColor.dirty}"
+        [items]="plateColorList"
+        bindLabel="key"
+        bindValue="value"
+        [placeholder]="tl('pleaseSelect')"
+        formControlName="plateColor"
+      >
+      </ng-select>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <!-- <div class="required-tips" *ngIf="plateColor.errors?.['required'] && plateColor.dirty">
+        {{tl('plateColorIsRequired')}}
+      </div> -->
+    </div>
+
+    <div class="new-task-flex white-modal">
+      <span class="task-label">{{tl('dateRange')}}: <span>*</span></span>
+      <div class="task-value">
+        <vs-vehicle-date-input
+          [ngClass]="{'err-tips-input': selectErrorTips}"
+          [dateSelectRestrict]="limitationType"
+          [ranges]="ranges"
+          [lockStartDate]="lockStartDate"
+          [showCustomClear]="false"
+          [selected]="selected"
+          [translate]="'translate'"
+          [position]="activeLangValue === 'ar' ? 'bottom-base-left' : 'bottom-base-right'"
+          [inputDatePlaceholder]="'vs.aiAlgorithm.selectDate'"
+          (selectedDateEmit)="selectedDateFn($event)"
+        ></vs-vehicle-date-input>
+      </div>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="selectErrorTips">
+        {{tl('endDateSelected')}}
+      </div>
+    </div>
+
+    <div class="new-task-flex description">
+      <span class="task-label">{{tl('description')}}:</span>
+      <textarea maxlength="2000" class="vehicle-textarea task-value" [placeholder]="tl('enterRemarks')" formControlName="description"></textarea>
+    </div>
+  </form>
+
+  <div class="button-group">
+    <div class="space"></div>
+    <div class="flex-1 button-box">
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="!editModalDate?.taskId">
+        {{tl('createTaskBtn')}}
+      </button>
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="editModalDate?.taskId">
+        {{tl('editTaskBtn')}}
+      </button>
+      <button class="reset public-reset-btn-second" (click)="reset()">{{tl('reset')}}</button>
+    </div>
+  </div>
+
+</div>

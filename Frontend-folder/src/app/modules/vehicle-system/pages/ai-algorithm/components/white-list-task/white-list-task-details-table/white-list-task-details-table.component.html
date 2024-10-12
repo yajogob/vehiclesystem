@@ -1,0 +1,49 @@
+<div class="white-list-task-details-table" aria-hidden="true">
+  <div class="details-item" *ngFor="let item of pagedwhitelistTaskDetail | paginate: paginationComponent.config; index as i">
+    <div class="img-area">
+      <img class="image" (click)="setBigImageUrl(item.imageFileUrl)" [src]="item.imageFileUrl" alt="">
+      <div *ngIf="isAlert" class="alerts-info" [ngClass]="{'small-width': clientWidth < 1600}">
+        <div
+          class="alerts-icon"
+          [ngClass]="{'green-width': item.alertIcon === 'geofence'}"
+          [ngClass]="item.alertIcon"
+        >
+        </div>
+        <div [ngClass]="{'scale': clientWidth < 1600}">{{item.alertType}} {{'vs.public.Alert' | transloco}}</div>
+      </div>
+    </div>
+    <div class="car-info bg-[var(--vs-white-list-task-details-table-bg)]">
+      <div class="car-info-item left ltr:ml-7 rtl:mr-7" [ngClass]="{'scale': clientWidth < 1600}">
+        <ng-container *transloco="let tl; read: 'vs.aiAlgorithm'">
+          <span>{{tl('plateNumber')}}:</span>
+          <span>{{tl('cameraName')}}:</span>
+        </ng-container>
+        <ng-container *transloco="let tl; read: 'vs.public'">
+          <span>{{tl('time')}}:</span>
+          <span>{{tl('date')}}:</span>
+        </ng-container>
+
+      </div>
+      <div class="car-info-item right ltr:ml-2 rtl:mr-2" [ngClass]="{'scale': clientWidth < 1600}">
+        <span [title]="item.plateNumber">{{item.plateNumber}}</span>
+        <span [title]="item.cameraName">{{item.cameraName}}</span>
+        <span [title]="item.alertDateTime | date: 'h:mm a'">
+          {{item.alertDateTime | date: 'h:mm a'}}
+        </span>
+        <span [title]="item.alertDateTime | date: 'MMM d, YYYY'">
+          {{item.alertDateTime | date: 'MMM d, YYYY'}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <p class="no-data-title" *ngIf="!pagedwhitelistTaskDetail.length">
+    {{language === 'en' ? 'No data available' : 'لا يوجد بيانات متوفرة'}}
+  </p>
+</div>
+
+<div class="big-vehicle-image-bg" aria-hidden="true" *ngIf="checkBigImage">
+  <div class="big-img-container">
+    <span class="close-big-img" (click)="closeBigImage()"></span>
+    <img [src]="bigImageUrl" alt="">
+  </div>
+</div>

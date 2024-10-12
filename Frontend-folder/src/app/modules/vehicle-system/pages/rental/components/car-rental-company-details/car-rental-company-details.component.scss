@@ -1,0 +1,31 @@
+.car-rental-company-details {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #b2b2b2;
+  font-weight: 500;
+
+  .company-info-item {
+    display: flex;
+    width: 21rem;
+    flex-direction: column;
+    margin: 0 3.3rem;
+
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .fs-18 {
+      font-size: 1.2rem;
+    }
+
+    .fs-14 {
+      font-size: 1rem;
+    }
+  }
+
+  .vertical-line {
+    border-left: 1px solid #979797;
+  }
+}

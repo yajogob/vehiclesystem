@@ -1,0 +1,89 @@
+<div aria-hidden="true" class="vp-detail text-[var(--vs-vp-list-details-text-color)] bg-[var(--vs-sidebar-second-bg-color)]" *transloco="let tl; read: 'vs.vehicleProfile'">
+  <div class="detail-item">
+    <p class="item-title">{{ tl('vehicleMakeModel') }}</p>
+    <div class="item-content">
+      <p class="content-child">{{ tl('year') }} : {{ vehicleProfileDetails.vehicleMakeModel.year }}</p>
+      <p class="content-child" *ngIf="language === 'en'">{{ tl('color') }} : {{ vehicleProfileDetails.carColorEn}}</p>
+      <p class="content-child" *ngIf="language === 'ar'">{{ tl('color') }} : {{ vehicleProfileDetails.carColorAr}}</p>
+      <p class="content-child">{{ tl('numberOfDoors') }} : {{ vehicleProfileDetails.vehicleMakeModel.door }}</p>
+      <p class="content-child">{{ tl('numberOfSeats') }} : {{ vehicleProfileDetails.vehicleMakeModel.seat }}</p>
+      <p class="content-child" *ngIf="language === 'en'">{{ tl('make') }} : {{ vehicleProfileDetails.carMakeEn }}</p>
+      <p class="content-child" *ngIf="language === 'ar'">{{ tl('make') }} : {{ vehicleProfileDetails.carMakeAr }}</p>
+      <p class="content-child" *ngIf="language === 'en'">{{ tl('model') }} : {{ vehicleProfileDetails.carModelEn }}</p>
+      <p class="content-child" *ngIf="language === 'ar'">{{ tl('model') }} : {{ vehicleProfileDetails.carModelAr }}</p>
+      <p class="content-child">{{ tl('kind') }} : {{ vehicleProfileDetails.vehicleMakeModel.kind }}</p>
+      <p class="content-child" *ngIf="language === 'en'">{{ tl('type') }} : {{ vehicleProfileDetails.carTypeEn }}</p>
+      <p class="content-child" *ngIf="language === 'ar'">{{ tl('type') }} : {{ vehicleProfileDetails.carTypeAr }}</p>
+      <p class="content-child">{{ tl('vehicleIdentificationNo') }} : {{ vehicleProfileDetails.vehicleMakeModel.indentificationNo }}</p>
+      <p class="content-child">{{ tl('engineNumber') }} : {{ vehicleProfileDetails.vehicleMakeModel.engineNumber }}</p>
+      <p class="content-child">{{ tl('gearType') }} : {{ vehicleProfileDetails.vehicleMakeModel.gearType }}</p>
+      <p class="content-child">{{ tl('vehicleNationality') }} : {{ vehicleProfileDetails.vehicleMakeModel.vehicleNationality }}</p>
+      <p class="content-child">{{ tl('vehicleYear') }} : {{ vehicleProfileDetails.vehicleMakeModel.vehicleYear }}</p>
+      <p class="content-child">{{ tl('certificateNumber') }} : {{ vehicleProfileDetails.vehicleMakeModel.certificateNumber }}</p>
+      <p class="content-child">{{ tl('certificateDate') }} : {{ vehicleProfileDetails.vehicleMakeModel.certificateDate }}</p>
+      <p class="content-child">{{ tl('certificateCode') }} : {{ vehicleProfileDetails.vehicleMakeModel.certificateCode }}</p>
+    </div>
+  </div>
+  <div class="detail-item">
+    <p class="item-title">{{ tl('financialLoanInformation') }}</p>
+    <div class="item-content">
+      <p class="content-child">{{ tl('reference') }} : {{ vehicleProfileDetails.financialLoanInfo.reference }}</p>
+      <p class="content-child">{{ tl('code') }} : {{ vehicleProfileDetails.financialLoanInfo.code }}</p>
+    </div>
+  </div>
+  <div class="detail-item">
+    <p class="item-title">{{ tl('vehicleRegistrationInformation') }}</p>
+    <div class="item-content">
+      <p class="content-child">{{ tl('registrationDate') }} : {{ vehicleProfileDetails.vehicleRegInfo.registrationDate }}</p>
+      <p class="content-child">{{ tl('registrationRenewDate') }} : {{ vehicleProfileDetails.vehicleRegInfo.registrationRenewDate }}</p>
+      <p class="content-child">{{ tl('registrationExpiryDate') }} : {{ vehicleProfileDetails.vehicleRegInfo.registrationExpiryDate }}</p>
+    </div>
+  </div>
+  <div class="detail-item">
+    <p class="item-title">{{ tl('insuranceDetails') }}</p>
+    <div class="item-content">
+      <p class="content-child">{{ tl('insurancePolicyNo') }} : {{ vehicleProfileDetails.insuranceDetails.insurancePolicyNo }}</p>
+      <p class="content-child">{{ tl('insuranceType') }} : {{ vehicleProfileDetails.insuranceDetails.insuranceType }}</p>
+      <p class="content-child">{{ tl('insuranceDate') }} : {{ vehicleProfileDetails.insuranceDetails.insuranceDate }}</p>
+      <p class="content-child">{{ tl('insuranceExpiryDate') }} : {{ vehicleProfileDetails.insuranceDetails.insuranceExpiryDate }}</p>
+    </div>
+  </div>
+  <div class="last-item" vsAccessControlDirective [accessParams]="allResourceList.VehicleProfileOwner">
+    <div *ngIf="vehicleProfileDetails.vehicleOwnership === 'Company'" class="yellow-car w-[1.8rem] h-[1.8rem] ltr:mr-[1.1rem] rtl:ml-[1.1rem]"[ngClass]=""></div>
+    <div *ngIf="vehicleProfileDetails.vehicleOwnership === 'Private'" class="last-item-left w-[1.8rem] h-[1.8rem] ltr:mr-[1.1rem] rtl:ml-[1.1rem]"[ngClass]=""></div>
+    <div *ngIf="vehicleProfileDetails.vehicleOwnership === 'Rental'"  class="rental-key w-[1.8rem] h-[1.8rem] ltr:mr-[1.1rem] rtl:ml-[1.1rem]"[ngClass]=""></div>
+    <div class="last-item-right">
+      <p class="text-base font-bold leading-4 text-[var(--vs-vp-list-details-text-color)]">
+        {{ tl('vehicleRegisteredTo') }}
+        <span *ngIf="vehicleProfileDetails.vehicleOwnership === 'Company'">{{tl('company')}}</span>
+        <span *ngIf="vehicleProfileDetails.vehicleOwnership === 'Private'">{{tl('private')}}</span>
+        <span *ngIf="vehicleProfileDetails.vehicleOwnership === 'Rental'" >{{tl('rentalCompany')}}</span>
+      </p>
+      <p class="text-sm leading-5 pointer-events desc item-title">
+        <span class="no-click-style" *ngIf="vehicleProfileDetails.vehicleOwnership === 'Company'">
+          {{language === 'ar' ? vehicleProfileDetails.companyNameArabic : vehicleProfileDetails.companyNameEnglish}}
+        </span>
+        <span class="no-click-style" *ngIf="vehicleProfileDetails.vehicleOwnership === 'Private'">
+          {{language === 'ar' ? vehicleProfileDetails.nameArabic : vehicleProfileDetails.nameEnglish}}
+        </span>
+        <span class="underline" *ngIf="accessHandle(allResourceList.CarRentalHistory) && vehicleProfileDetails.vehicleOwnership === 'Rental'" (click)="goRentalHistory(vehicleProfileDetails)">
+          {{language === 'ar' ? vehicleProfileDetails.rentalCompanyNameArabic : vehicleProfileDetails.rentalCompanyNameEnglish}}
+        </span>
+        <span class="no-click-style" *ngIf="!accessHandle(allResourceList.CarRentalHistory)">
+          {{language === 'ar' ? vehicleProfileDetails.rentalCompanyNameArabic : vehicleProfileDetails.rentalCompanyNameEnglish}}
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="to-fine" vsAccessControlDirective [accessParams]="allResourceList.TrafficFineFine">
+    <div class="img-bc">
+      <img src="assets/vehicle-system/icons/vehicle-profile-icon/to-fine.png" alt="">
+    </div>
+    <div aria-hidden="true" class="btn" (click)="toTrafficFine()">{{tl('checkTrafficFine')}}</div>
+  </div>
+  <div *ngIf="isShowTimeLineSwitch" (click)="changeTimeLineState()" class="pointer-events cursor-pointer absolute top-[1.6rem] ltr:right-[1.4rem] rtl:rotate-180 rtl:left-[1rem] text-white" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" [ngClass]="{'rotate-180': !isShowTimeLine}">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
+    </svg>
+  </div>
+</div>

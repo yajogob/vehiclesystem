@@ -1,0 +1,78 @@
+// ng-select, ng-option   custom-style
+.ng-select {
+  .ng-select-container,
+  &.ng-select-opened > .ng-select-container,
+  .ng-dropdown-panel {
+    border-color: var(--vs-vehicle-form-input-border-color);
+    background: var(--vs-vehicle-form-input-background);
+    color: var(--vs-vehicle-form-value-color);
+  }
+
+  &.ng-select-disabled > .ng-select-container {
+    background: var(--vs-vehicle-form-input-disabled-background);
+  }
+
+  &.ng-select-single .ng-select-container .ng-value-container {
+    .ng-input {
+      top: 50% !important;
+      color: var(--vs-vehicle-form-value-color);
+      transform: translateY(-50%);
+    }
+  }
+
+  &.ng-select-single .ng-select-container,
+  &.ng-select-multiple .ng-select-container {
+    min-height: 3.4rem;
+    max-height: 8rem;
+
+    .ng-placeholder {
+      color: var(--vs-vehicle-form-placeholder-color);
+    }
+  }
+
+  &.ng-select-multiple .ng-select-container .ng-value-container {
+    .ng-placeholder {
+      top: 54% !important;
+      transform: translateY(-50%);
+    }
+  }
+
+  .ng-dropdown-panel .ng-dropdown-panel-items {
+    .ng-option {
+      background: var(--vs-vehicle-form-input-background);
+      color: var(--vs-vehicle-form-value-color);
+
+      &.ng-option-selected {
+        background-color: var(--vs-vehicle-form-input-background-focused);
+      }
+
+      &:not(.ng-option-selected).ng-option-marked {
+        background: var(--vs-vehicle-form-input-background-hover);
+      }
+    }
+  }
+
+  .ng-clear-wrapper .ng-clear {
+    font-size: 1.8rem !important;
+  }
+
+  .ng-arrow-wrapper {
+    display: flex;
+    width: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    .ng-arrow {
+      border-width: 0.5rem 0.5rem 0.25rem;
+      border-color: var(--vs-vehicle-form-input-arrowicon-background) transparent transparent;
+    }
+  }
+
+  &.ng-select-opened > .ng-select-container {
+    .ng-arrow {
+      border-width: 0 0.5rem 0.5rem;
+      border-color: transparent transparent var(--vs-vehicle-form-input-arrowicon-background);
+    }
+  }
+}

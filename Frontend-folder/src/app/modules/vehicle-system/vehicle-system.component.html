@@ -1,0 +1,14 @@
+<section class="vehicle-system-layout" *ngIf="isInit">
+  <div class="layout-left-menu">
+    <vs-side-menu></vs-side-menu>
+  </div>
+  <!-- basic-map is used for multiple pages -->
+  <div class="layout-basic" [class]="{'show-map': isShowBasicMap}">
+    <vs-basic-map></vs-basic-map>
+  </div>
+  <!-- business function, render to router-outlet -->
+  <div class="layout-right-content" [class]="{'none-event': isShowBasicMap}">
+    <router-outlet></router-outlet>
+    <vs-pop-confirm></vs-pop-confirm>
+  </div>
+</section>

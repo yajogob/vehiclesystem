@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jpa module="lprSystemLocation">
+
+    <jpql id="findLprSystemLocationPageList" resultClass="com.micro.dto.location.LprSystemLocationDTO" native="true">
+        SELECT
+			 id as id,  code as code,  name as name,  description as description,  path as path,  status as status,  parent_code as parent_code,  code_level as code_level,  sort_index as sort_index,  code_type as code_type,  reserve1 as reserve1,  reserve2 as reserve2,  reserve3 as reserve3,  version as version,  created_time as created_time,  created_by as created_by,  updated_time as updated_time,  updated_by as updated_by 
+		FROM
+			lpr_system_location tab1 
+		WHERE 1=1 
+			
+		#if("$!{code}"!="")
+	        and code = :code
+	    #end
+				#if("$!{name}"!="")
+	        and name = :name
+	    #end
+				#if("$!{description}"!="")
+	        and description = :description
+	    #end
+				#if("$!{path}"!="")
+	        and path = :path
+	    #end
+				#if("$!{status}"!="")
+	        and status = :status
+	    #end
+		#if("$!{parentCode}"!="")
+	        and parent_code = :parentCode
+	    #end
+				#if("$!{codeLevel}"!="")
+	        and code_level = :codeLevel
+	    #end
+		#if("$!{sortIndex}"!="")
+	        and sort_index = :sortIndex
+	    #end
+		#if("$!{codeType}"!="")
+	        and code_type = :codeType
+	    #end
+				#if("$!{reserve1}"!="")
+	        and reserve1 = :reserve1
+	    #end
+				#if("$!{reserve2}"!="")
+	        and reserve2 = :reserve2
+	    #end
+				#if("$!{reserve3}"!="")
+	        and reserve3 = :reserve3
+	    #end
+				<!-- default use createTime to order -->
+		#if("$!{orderBy}"!="")
+			order by :orderBy
+		#else
+			order by created_time
+		#end
+		
+		#if("$!{dir}" =='ASC' || "$!{dir}" =='asc' )
+			ASC
+		#else
+		    DESC
+		#end
+        
+
+    </jpql>
+
+</jpa>

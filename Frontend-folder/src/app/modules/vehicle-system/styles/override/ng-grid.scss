@@ -1,0 +1,100 @@
+// Plugin / Library styles will be overridden here
+.ag-theme-alpine {
+  --ag-font-family: ubuntu, sans-serif;
+  --ag-borders: none;
+  --ag-border-color: transparent;
+  --ag-background-color: transparent;
+  --ag-foreground-color: var(--vs-ag-foreground-color);
+  --ag-odd-row-background-color: var(--vs-ag-odd-row-background-color);
+  --ag-header-foreground-color: var(--vs-ag-header-foreground-color);
+  --ag-header-background-color: var(--vs-ag-header-background-color);
+  --ag-row-hover-color: var(--vs-ag-row-hover-color);
+  --ag-selected-row-background-color: var(--vs-ag-selected-row-background-color);
+  --ag-header-height: 4.8rem;
+  --ag-row-height: 4.4rem;
+  --ag-data-color: rgb(255 255 255 / 60%);
+
+  /* then add back a border between rows */
+  --ag-row-border-width: 0.3rem;
+  --ag-row-border-color: var(--vs-vehicle-content-background);
+  --ag-header-column-separator-width: 2px;
+  --ag-cell-horizontal-border: var(--ag-header-column-separator-width) solid var(--vs-vehicle-content-background);
+  --ag-header-column-separator-display: 'block';
+  --ag-header-column-separator-color: var(--vs-vehicle-content-background);
+  --ag-header-column-separator-height: 100%;
+
+  .ag-icon-asc {
+    background:
+      transparent
+      url('../../../../../assets/vehicle-system/icons/up-light.svg') center/contain no-repeat;
+    color: transparent;
+  }
+
+  .ag-icon-desc {
+    background:
+      transparent
+      url('../../../../../assets/vehicle-system/icons/down-light.svg') center/contain no-repeat;
+    color: transparent;
+  }
+
+  .ag-icon-none {
+    background:
+      transparent
+      url('../../../../../assets/vehicle-system/icons/up-down-light.svg') center/contain no-repeat;
+    color: transparent;
+  }
+
+  .ag-header {
+    border-radius: 0.46rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+
+    .ag-header-cell-text {
+      overflow: visible;
+      font-size: 1.4rem;
+      text-overflow: clip;
+      white-space: normal;
+    }
+
+    .ag-header-row {
+      font-weight: 500;
+    }
+  }
+
+  .ag-row {
+    border-radius: 0.6rem;
+    font-size: 1.2rem;
+    font-weight: normal;
+
+    .ag-cell {
+      display: flex;
+      align-items: center;
+      border-right-width: var(--ag-header-column-separator-width);
+      line-height: 1.4rem;
+      white-space: normal;
+    }
+  }
+
+  .ag-row-even {
+    background-color: var(--vs-ag-row-even-background-color);
+  }
+
+  .ag-body {
+    margin-top: 0.3rem;
+  }
+
+  .ag-paging-panel {
+    justify-content: center;
+    background-color: transparent;
+  }
+
+  vs-no-rows-overlay {
+    width: 100%;
+    height: 100%;
+    padding-top: 5rem;
+  }
+
+  .ag-header-cell {
+    margin: 0 1px;
+  }
+}

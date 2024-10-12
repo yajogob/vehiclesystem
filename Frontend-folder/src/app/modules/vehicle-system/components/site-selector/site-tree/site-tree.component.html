@@ -1,0 +1,41 @@
+<ng-container *ngFor="let treeNode of treeData">
+  <div class="site-tree-node" aria-hidden="true" [ngClass]="['level-'+treeNode._level]">
+    <div class="flex-checkbox">
+      <div class="custom-checkbox" (click)="treeNodeChecked(treeNode); $event.stopPropagation()">
+        <vs-custom-checkbox [checked]="treeNode._isChecked" [indeterminate]="treeNode._indeterminate"></vs-custom-checkbox>
+      </div>
+      <p
+        *ngIf="treeNode.areaType !== 1"
+        class="tree-node-label"
+        (click)="treeNodeChecked(treeNode); $event.stopPropagation()"
+      >{{treeNode.codeDesc}}</p>
+      <!-- areaType: 1:siteGroup  2:site  3:camera -->
+      <p
+        *ngIf="treeNode.areaType === 1"
+        class="site-group-node"
+        [ngClass]="{'actived': currentSiteGroup?.code === treeNode.code}"
+        (click)="treeNodeChecked(treeNode); $event.stopPropagation()">
+        <span class="group-label">{{treeNode.codeDesc}}</span>
+        <span class="children-count">({{treeNode.childrenCount || 0}})</span>
+        <span class="site-arrow" (click)="setCurrentSiteGroup(treeNode); $event.stopPropagation()"></span>
+      </p>
+    </div>
+
+    <ng-container *ngIf="(treeNode._level && treeNode._level > 1) && isHasChildren(treeNode) && treeNode.areaType === 0">
+      <div class="unfold-btn" *ngIf="!treeNode._showChildren" (click)="treeNode._showChildren=true; $event.stopPropagation()"></div>
+      <div class="pack-up-btn" *ngIf="treeNode._showChildren" (click)="treeNode._showChildren=false; $event.stopPropagation()"></div>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="treeNode._showChildren && isHasChildren(treeNode)">
+    <vs-site-tree
+      [treeData]="treeNode.children || []"
+      [treeIndex]="treeIndex"
+      [currentSiteGroup]="currentSiteGroup"
+      (nodeClick)="setCheckboxIndeterminate(treeNode)"
+      (checkTreeIndexEmit)="checkTreeIndexEmit.emit($event)"
+      (checkSiteGroupEmit)="checkSiteGroupEmit.emit($event)"
+    ></vs-site-tree>
+  </ng-container>
+
+</ng-container>

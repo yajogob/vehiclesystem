@@ -1,0 +1,88 @@
+<section
+	class="vehicle-profile-container"
+	*transloco="let tl; read: 'vs.vehicleProfile'">
+	<div class="vehicle-profile-left flex flex-col h-full box-border bg-[var(--vs-vehicle-search-background)]">
+		<vs-side-vp-search
+			[activeIndex]="activeIndex"
+			[isShowVpDetails]="isShowVpDetails"
+			[trafficSearchEnterShowArrow]="trafficSearchEnterShowArrow"
+			(getDataFromSideVpSearchComponentEmit)="getDataFromSideVpSearchComponentEmit($event)"
+			(changeDetailsStateEmit)="changeDetailsStateEmit()"
+			(toggleBackButtonEmit)="toggleBackButtonEmit($event)"
+			(getVehicleProfileListEmit)="getVehicleProfileListEmit($event)"
+			(changeTimeLineStateEmit)="changeTimeLineStateEmit()"
+      (resetSearch)="resetSearchFn()"
+		></vs-side-vp-search>
+		<div class="flex-1 load-container w-full h-full mt-[1rem] overflow-y-auto pointer-events">
+			<ngx-ui-loader [loaderId]="'loader-vp'"></ngx-ui-loader>
+			<vs-side-vp-list
+				class="flex-1 overflow-y-auto"
+				[activeIndex]="activeIndex"
+				[vehicleProfileList]="vehicleProfileList"
+        [visibleNoData]="isSearched && !vehiclePlateRecords.length"
+				(handleCheckedEmit)="handleCheckedEmit($event)"
+			></vs-side-vp-list>
+
+      <div class="flex flex-col items-center flex-1 vehicle-plate-record">
+        <div
+          class="vehicle-profile-item"
+          aria-hidden="true"
+          *ngFor="let plate of vehiclePlateRecords"
+          (click)="changeSelectedPlate(plate)"
+          [ngClass]="selectedPlate === plate ? 'active-item' : ''">
+          <img *ngIf="selectedPlate === plate" class="thumbnail ltr:top-[0.6rem] ltr:right-[0.6rem] rtl:top-[0.6rem] rtl:left-[0.6rem]" [ngSrc]="selectedImg" alt="" width="18" height="18">
+          <div class="item-content text-[1rem] ltr:pl-4 left: rtl:pr-4 text-[var(--vs-vp-list-st-text-color)]">
+            <p>{{ tl('plateNumber') }} : {{plate}}</p>
+          </div>
+        </div>
+      </div>
+		</div>
+	</div>
+	<div class="flex flex-row vehicle-profile-right">
+		<vs-vp-details
+			*ngIf="isShowVpDetails"
+			[language]="currentLanguage"
+			[isShowTimeLine]="isShowTimeLine"
+			[vehicleProfileDetails]="vehicleProfileDetails"
+			[isShowTimeLineSwitch]="isShowTimeLineSwitch"
+			(changeTimeLineStateEmit)="changeTimeLineStateEmit()"
+			(toTrafficFineEmit)="toTrafficFineEmit($event)"
+		></vs-vp-details>
+		<vs-vp-time-line
+			*ngIf="isShowTimeLine"
+			[timeLineDetailsList]="timeLineDetailsList"
+			(checkItemEmit)="checkItemEmit($event)"
+		></vs-vp-time-line>
+		<div
+			class="flex flex-row-reverse flex-1 pl-10 pr-10 back-to-traffic-search"
+			*ngIf="isShowBackButton">
+			<p
+				class="text-tips pointer-events"
+				aria-hidden="true"
+				(click)="routeTrafficSearch()">
+				{{ tl("backToTrafficSearch") }}
+			</p>
+		</div>
+	</div>
+	<div class="tools">
+		<vs-progress-bar *ngIf="vehicleProfileTrackers.length > 1 && isShowTrack" [vehicleProfileTrackers]="vehicleProfileTrackers" class="pointer-events map-control-wrap"></vs-progress-bar>
+		<div class="flex mb-[0.5rem] pointer-events map-control-wrap">
+			<vs-toolbox
+				*ngIf="isShowTimeLine"
+				[disableLocation]="true"
+				[disableDate]="true"
+				[toolSet]="toolSet"
+        [disableAnimation]="true"
+        selectWidth="30rem"
+        [showSelect]="showLevel2Select"
+        [selectTitle]="selectTitle"
+        [selectedLabel]="selectedLabel"
+        [selectOptions]="selectOptions"
+        (onClickback)="onClickbackFn($event)"
+        (changeLevel2SelectVisible)="changeLevel2SelectVisibleFn($event)"
+        (changeSelectedEmit)="changeSelectedFn($event)"
+			></vs-toolbox>
+			<vs-map-controller></vs-map-controller>
+		</div>
+	</div>
+</section>

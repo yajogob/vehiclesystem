@@ -1,0 +1,109 @@
+.vehicle-profile-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+
+  .vehicle-profile-left {
+    width: 28.5rem;
+    font-size: 1.2rem;
+    pointer-events: auto;
+  }
+
+  .vehicle-plate-record {
+    box-sizing: border-box;
+    padding: 0 2rem;
+    margin-top: 1rem;
+
+    .vehicle-profile-item {
+      position: relative;
+      width: 100%;
+      height: max-content;
+      padding: 1rem 1.7rem;
+      border: 0.2rem solid transparent;
+      margin-bottom: 0.6rem;
+      cursor: pointer;
+
+      .thumbnail {
+        position: absolute;
+      }
+
+      .item-content {
+        position: relative;
+        padding: 0 0.9rem;
+
+        &::before {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          width: 0.1rem;
+          height: 100%;
+          border-radius: 0.6rem;
+          background: var(--vs-timeline-node-color);
+          content: '';
+        }
+      }
+    }
+
+    .vehicle-profile-item.active-item {
+      box-sizing: border-box;
+      border: 0.2rem solid #009739;
+      border-radius: 0.6rem;
+      background: var(--vs-vp-list-active-item-bg-color);
+    }
+  }
+
+  .vehicle-profile-right {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+
+    :is([dir='ltr'] .back-to-traffic-search) {
+      left: 10rem !important;
+    }
+
+    :is([dir='rtl'] .back-to-traffic-search) {
+      right: 10rem !important;
+    }
+
+    .back-to-traffic-search {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4rem;
+      padding-right: 2.2rem;
+      background: rgb(27 65 31 / 80%);
+      text-align: right;
+
+      .text-tips {
+        display: inline-block;
+        height: 4rem;
+        color: rgb(12 231 94);
+        cursor: pointer;
+        font-size: 1.2rem;
+        font-weight: 700;
+        line-height: 4rem;
+
+        &::after {
+          position: relative;
+          bottom: 1rem;
+          display: block;
+          border-bottom: 0.1rem solid rgb(12 231 94);
+          content: '';
+        }
+      }
+    }
+  }
+
+  .tools {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

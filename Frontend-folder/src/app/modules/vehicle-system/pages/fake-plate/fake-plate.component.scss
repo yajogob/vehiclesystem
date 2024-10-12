@@ -1,0 +1,43 @@
+.fake-plate {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+
+  &-left {
+    display: flex;
+    width: 28.5rem;
+    height: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  &-right {
+    position: relative;
+    box-sizing: border-box;
+    flex: 1;
+    padding: 1.5rem 1.5rem 8rem;
+
+    .bottom-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      height: 8rem;
+      box-sizing: border-box;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 1rem;
+
+      .search-conditions {
+        position: relative;
+        display: flex;
+        width: max-content;
+        height: max-content;
+        align-items: center;
+      }
+    }
+  }
+}

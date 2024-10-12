@@ -1,0 +1,36 @@
+.cover-view {
+  position: fixed;
+  z-index: 6;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  // background-color: rgb(000 000 000 / 50%);
+
+  .modal {
+    padding: 1.6667rem 1.6667rem 0;
+
+    .title-area {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 0.8333rem;
+
+      .title {
+        font-size: 1.8333rem;
+      }
+
+      .close-icon {
+        width: 1.9167rem;
+        height: 1.9167rem;
+        background: var(--close-logo) no-repeat;
+        background-size: 1.9167rem 1.9167rem;
+        cursor: pointer;
+      }
+    }
+  }
+}

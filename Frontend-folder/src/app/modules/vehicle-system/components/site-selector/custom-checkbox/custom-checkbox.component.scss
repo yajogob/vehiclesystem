@@ -1,0 +1,32 @@
+.custom-checkbox-svg {
+  display: flex;
+  width: 1.2rem;
+  height: 1.2rem;
+
+  .checkbox-nomal {
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/checkbox-nomal.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .checkbox-checked {
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/checkbox-checked.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .checkbox-indeterminate {
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/checkbox-indeterminate.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}

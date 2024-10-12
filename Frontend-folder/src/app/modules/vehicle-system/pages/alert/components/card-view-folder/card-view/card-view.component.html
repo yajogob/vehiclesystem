@@ -1,0 +1,66 @@
+<div aria-hidden="true" class="card-view-table">
+  <vs-no-rows-overlay *ngIf="!tableRowData.length"></vs-no-rows-overlay>
+  <div
+    class="details-item"
+    *ngFor="let item of tableRowData | paginate: paginationComponent.config; index as i"
+    (click)="checkCardItem(item)">
+    <div class="img-area">
+      <img class="image" [src]="item.vehicleImage" alt="">
+
+      <div class="priority" *ngIf="tableId !== 'noNumberPlateTable'">
+        <ng-container [ngSwitch]="item.priorityValue">
+          <div class="minor-btn" *ngSwitchCase="'1'">{{'vs.levelBtn.MINOR' | transloco}}</div>
+          <div class="major-btn" *ngSwitchCase="'2'">{{'vs.levelBtn.MAJOR' | transloco}}</div>
+          <div class="critical-btn" *ngSwitchCase="'3'">{{'vs.levelBtn.CRITICAL' | transloco}}</div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="car-info bg-[var(--vs-white-list-task-details-table-bg)]">
+      <div class="car-info-item" *transloco="let tl; read: 'vs.alert.table'">
+        <div class="single" *ngIf="tableId === 'geofenceTable'">
+          <div class="desc">{{tl('threshold')}}:&nbsp;&nbsp;</div>
+          <div class="threshold value" [title]="item.trafficThresholdNumber">
+            {{item.trafficThresholdNumber}}
+          </div>
+        </div>
+        <div class="single" *ngIf="tableId === 'behavioralTable'">
+          <div class="desc">{{tl('alertType')}}:&nbsp;&nbsp;</div>
+          <div class="behavior value" [title]="item.behaviorAlertType">
+            {{item.behaviorAlertType}}
+          </div>
+        </div>
+        <div class="single" *ngIf="tableId !== 'noNumberPlateTable'">
+          <div class="desc">{{tl('plateNumber')}}:&nbsp;&nbsp;</div>
+          <div class="plate value" [title]="plateNumberFn(item)">
+            {{plateNumberFn(item)}}
+          </div>
+        </div>
+        <div class="single">
+          <div class="desc">{{tl('makeModel')}}:&nbsp;&nbsp;</div>
+          <div class="model value" [title]="getMakeModelKey((item.vehicleMake || item.vehicleMark), item.vehicleModel)">
+            {{getMakeModelKey((item.vehicleMake || item.vehicleMark), item.vehicleModel)}}
+          </div>
+        </div>
+        <div class="single">
+          <div class="desc">{{tl('Time')}}:&nbsp;&nbsp;</div>
+          <div class="time value" [title]="(item.time || item.captureTime) | date:'MMM d, YYYY h:mm:ss a'">
+            {{(item.time || item.captureTime) | date: "MMM d, YYYY h:mm:ss a"}}
+          </div>
+        </div>
+        <div class="single">
+          <div class="desc">{{tl('site')}}:&nbsp;&nbsp;</div>
+          <div class="site value" [title]="item.siteName">
+            {{item.siteName}}
+          </div>
+        </div>
+
+        <div class="single">
+          <div class="desc">{{tl('Camera')}}:&nbsp;&nbsp;</div>
+          <div class="camera value" [title]="item.cameraName">
+            {{item.cameraName}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

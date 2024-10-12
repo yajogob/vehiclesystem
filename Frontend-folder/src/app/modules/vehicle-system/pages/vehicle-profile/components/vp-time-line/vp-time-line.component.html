@@ -1,0 +1,64 @@
+<div class="flex h-full">
+	<div class="time-line-container pointer-events bg-[var(--vs-vp-timeline-bg-color)]">
+		<div class="time-line">
+			<!-- content -->
+			<div class="tree-data ltr:ml-2 rtl:mr-2">
+				<div class="tree-data-item ltr:pl-3 rtl:pr-3"
+				     *ngFor="let item of timeLineDetailsList; index as i; trackBy: trackByIndex">
+					<div>
+						<div class="pointer-events" (click)="checkItem(i)" aria-hidden="true">
+							<div
+                [ngClass]="item.open === '1' ? 'close-icon' : 'open-icon'"
+                class="left-0 pointer-events rtl:-right-4"
+              ></div>
+							<div class="calendar-icon w-[1rem] h-[1rem] mx-[0.5rem]"></div>
+							<div class="text-sm node">{{item.time}}</div>
+						</div>
+						<ng-container *ngIf="item.open === '1'" aria-hidden="true">
+							<div class="font-medium details-item" *ngFor="let child of item.value">
+								<div class="item-time">
+									<div class="icon-time mx-[0.3rem]"></div>
+									<div class="text-base text-[var(--vs-timeline-node-color)]">{{(child.captureTimeFormat)}}</div>
+								</div>
+								<img
+									class="w-auto h-[5rem] cursor-pointer"
+                  (click)="setBigImage(child.vehicleImage); $event.stopPropagation()"
+									(mouseenter)="onMouseEnter($event, child)"
+									(mouseleave)="onMouseLeave()"
+									[src]="child.vehicleImage" alt="thumbnail">
+								<p class="mt-[0.6rem] text-base font-normal">{{ child.region }} {{ child.category }} {{ child.plateNumber }}</p>
+								<p class="text-base font-normal device-name">{{child.siteName}}</p>
+								<p class="text-base font-normal device-name">{{child.deviceId}}</p>
+							</div>
+						</ng-container>
+						<div class="border-left left-0 rtl:-right-0.5" *ngIf="i !== timeLineDetailsList.length - 1"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <div class="big-vehicle-image-bg" *ngIf="checkBigImage" aria-hidden="true">
+    <div class="big-img-container">
+      <span class="close-big-img" (click)="closeBigImage()"></span>
+      <img [src]="currentBigImage" alt="">
+    </div>
+  </div>
+
+	<div class="relative">
+		<div
+			class="preview-container absolute min-w-max h-auto py-[0.9rem] z-10 bg-[rgba(0,0,0,.6)] cursor-pointer"
+			[ngStyle]="yAxisLocation" *ngIf="isShowPreview">
+			<div class="flex items-center px-[1rem] mb-[0.8rem]">
+				<div class="icon-time w-[1.2rem] h-[1.2rem]"></div>
+				<div class="mx-[0.4rem] text-sm text-[var(--vs-timeline-node-color)]">{{ previewInfo.captureTimeFormat }}</div>
+			</div>
+			<div class="preview-img w-[29rem] h-[24rem] ">
+				<img class="block w-auto h-full m-auto" [src]="previewInfo.vehicleImage" alt="thumbnail">
+			</div>
+			<div class="px-[1rem] text-[var(--vs-vp-list-details-text-color)] my-[0.8rem] text-lg font-medium">
+				<p>{{ previewInfo.region }} {{ previewInfo.category }} {{ previewInfo.plateNumber }}</p>
+			</div>
+		</div>
+	</div>
+</div>

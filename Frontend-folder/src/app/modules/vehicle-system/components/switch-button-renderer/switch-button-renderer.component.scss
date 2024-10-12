@@ -1,0 +1,49 @@
+.switch-button-com {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 500;
+
+  &.disable-switch {
+    & > input {
+      cursor: not-allowed;
+    }
+  }
+
+  .switch-button {
+    position: relative;
+    width: 3.2rem;
+    height: 1.6rem;
+    border-radius: 10rem;
+    appearance: none;
+    background-color: #8b8889;
+    outline: none;
+  }
+
+  .switch-button:checked {
+    background-color: #009739;
+  }
+
+  .switch-button::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background-color: #fff;
+    content: '';
+    transform: scale(0.7);
+    transition: 0.2s;
+  }
+
+  .switch-button:checked::before {
+    left: 1.7rem;
+  }
+}
+
+.desc {
+  font-size: 1rem;
+  font-weight: 400;
+  transform: scale(0.9);
+}

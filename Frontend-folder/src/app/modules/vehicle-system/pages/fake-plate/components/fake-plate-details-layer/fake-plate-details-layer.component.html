@@ -1,0 +1,79 @@
+<div class="overlay" aria-hidden="true" (click)="closeDrawer(); $event.stopPropagation()"></div>
+
+<div class="ltr:right-0 rtl:left-0 flex flex-col items-center text-xl w-[51rem] h-full bg-[var(--vs-sidebar-right-bg-color)] fake-plate-drawer"
+     *transloco="let tl; read: 'vs.fakePlateNumber'">
+	<div class="header w-full h-[6.4rem] mb-[1.2rem] px-[2.4rem]">
+		<p class="title text-[var(--vs-fake-plate-layer-title-color)]">{{ tl('fakeNumberPlateDetails') }}</p>
+		<div aria-hidden="true" class="close-btn absolute top-[2.3rem] ltr:right-[2rem] rtl:left-[2rem] w-[1.8rem] h-[1.8rem] z-10 cursor-pointer"
+		     (click)="closeDrawer()"></div>
+	</div>
+	<div class="content w-full flex flex-col items-center box-border px-[2.6rem]">
+		<div class="w-full fake-plate-compare-info">
+			<div class="flex flex-row justify-between image-compare">
+				<div class="compare-item w-[22rem]">
+					<p class="mb-2 title text-[var(--vs-vp-timeline-layer-text-color)]">{{ tl('vehicle1') }}</p>
+					<div
+						class="rounded-2xl overflow-hidden bg-[var(--vs-vp-details-layer-desc-bg-color)] text-[var(--vs-vp-timeline-layer-desc-text-color)] pb-4
+						flex-1 min-h-[36rem] border-solid border-[0.1rem] border-[var(--vs-fake-plate-layer-border-color)]">
+						<div class="flex flex-col items-center thumbnail-wrap">
+							<img class="thumbnail rounded-2xl" [src]="layerInfo.lastVehicle.vehicleImage" alt="layer-image">
+						</div>
+						<p class="mx-8 mt-4 plate-number">{{ tl('plateNumber') }}:</p>
+						<p class="mx-8 text-[var(--vs-fake-plate-layer-number-bold-color)] text-lg plate-number-value">
+							{{ layerInfo.lastVehicle.region }} {{ layerInfo.lastVehicle.plateType }} {{ layerInfo.lastVehicle.plateNumber }}
+						</p>
+						<p class="mx-8 mt-4 text-sm desc mark">{{ tl('vehicleMake') }}: {{ layerInfo.lastVehicle.vehicleMake }}</p>
+						<p class="mx-8 mt-2 desc catch-time">{{ tl('captureDateAndTime') }}:</p>
+						<p class="mx-8 desc catch-time">{{ layerInfo.lastVehicle.captureDateTime }}</p>
+						<p class="mx-8 mt-2 desc">{{ tl('cameraName') }}:</p>
+						<p class="mx-8 desc">{{ layerInfo.lastVehicle.cameraName }}</p>
+						<p class="mx-8 mt-2 desc">{{ tl('vehicleModel') }}: {{ layerInfo.lastVehicle.vehicleModel }}</p>
+					</div>
+				</div>
+				<div class="compare-item w-[22rem]">
+					<p class="mb-2 title text-[var(--vs-vp-timeline-layer-text-color)]">{{ tl('vehicle2') }}</p>
+					<div
+						class="rounded-2xl overflow-hidden bg-[var(--vs-vp-details-layer-desc-bg-color)] text-[var(--vs-vp-timeline-layer-desc-text-color)] pb-4
+						flex-1 min-h-[36rem] border-solid border-[0.1rem] border-[var(--vs-fake-plate-layer-border-color)]">
+						<div class="flex flex-col items-center thumbnail-wrap">
+							<img class="thumbnail rounded-2xl" [src]="layerInfo.vehicleImage" alt="layer-image">
+						</div>
+						<p class="mx-8 mt-4 plate-number">{{ tl('plateNumber') }}:</p>
+						<p class="mx-8 text-[var(--vs-fake-plate-layer-number-bold-color)] text-lg plate-number-value">
+							{{ layerInfo.region }} {{ layerInfo.plateType }} {{ layerInfo.plateNumber }}
+						</p>
+						<p class="mx-8 mt-4 text-sm desc mark">{{ tl('vehicleMake') }}: {{ layerInfo.vehicleMake }}</p>
+						<p class="mx-8 mt-2 desc catch-time">{{ tl('captureDateAndTime') }}:</p>
+						<p class="mx-8 desc catch-time">{{ layerInfo.captureDateTime }}</p>
+						<p class="mx-8 mt-2 desc">{{ tl('cameraName') }}:</p>
+						<p class="mx-8 desc">{{ layerInfo.cameraName }}</p>
+						<p class="mx-8 mt-2 desc">{{ tl('vehicleModel') }}: {{ layerInfo.vehicleModel }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p class="alert-str text-center text-white w-full h-[2.6rem] leading-[2.6rem] text-lg mt-[1.4rem] mb-[1.4rem]">{{
+			tl('theNumberPlate') }} {{ layerInfo.region }} {{ layerInfo.plateType }} {{ layerInfo.plateNumber }} - {{ tl('carsFind') }}</p>
+		<p class="card w-full h-[3.4rem] px-[1.083rem] leading-[3.4rem] mt-[0.3rem] rounded-xm text-xl odd">
+			<span class="label">{{ tl('plateNumber') }} :</span><span class="value">
+				{{ layerInfo.region }} {{ layerInfo.plateType }} {{ layerInfo.plateNumber }}
+			</span>
+		</p>
+		<p class="card w-full h-[3.4rem] px-[1.083rem] leading-[3.4rem] mt-[0.3rem] rounded-xm text-xl even">
+			<span class="label">{{ tl('plateColor') }} :</span><span class="value">{{ layerInfo.plateColor }}</span>
+		</p>
+		<!-- <p class="card w-full h-[3.4rem] px-[1.083rem] leading-[3.4rem] mt-[0.3rem] rounded-xm text-xl odd">
+			<span class="label">{{ tl('owner') }} :</span><span class="value">{{ layerInfo.owner }}</span>
+		</p>
+		<p class="card w-full h-[3.4rem] px-[1.083rem] leading-[3.4rem] mt-[0.3rem] rounded-xm text-xl even">
+			<span class="label">{{ tl('model') }} :</span><span class="value">{{ layerInfo.vehicleModel }}</span>
+		</p>
+		<p class="card w-full h-[3.4rem] px-[1.083rem] leading-[3.4rem] mt-[0.3rem] rounded-xm text-xl odd">
+			<span class="label">{{ tl('vehicleYear') }} :</span><span class="value">{{ layerInfo.vehicleYear }}</span>
+		</p> -->
+	</div>
+	<div class="btn-group w-full mt-[1.4rem] mb-[1.4rem] flex flex-row items-center justify-center">
+		<button class="public-search-btn px-[3.8rem] mx-[0.45rem]" (click)="checkFakePlate('1')">{{tl('verified')}}</button>
+		<button class="public-reset-btn px-[3.8rem] mx-[0.45rem]" (click)="checkFakePlate('2')">{{tl('fakeNumberPlate')}}</button>
+	</div>
+</div>

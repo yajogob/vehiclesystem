@@ -1,0 +1,168 @@
+<section class="site-selector-wrapper"
+  [ngClass]="{'visible': visible, 'position-bottom-left': position === 'bottom-left', 'position-bottom-right': position === 'bottom-right'}"
+  aria-hidden="true">
+  <section class="site-border-and-bg" *transloco="let tl; read: 'vs.deviceTree'">
+    <div class="site-and-device-options">
+      <div class="site-camera-filter">
+        <div class="search-type" (click)="$event.stopPropagation()">
+          <div class="radio" (click)="activedSearchType = 'site'">
+            <input type="radio" [checked]="activedSearchType === 'site' ? 'checked' : false" id="siteName">
+            <label for="siteName" class="radio-label">
+              <span>{{tl('label.siteName')}}</span>
+            </label>
+          </div>
+          <div class="radio" (click)="activedSearchType = 'camera'">
+            <input type="radio" [checked]="activedSearchType === 'camera' ? 'checked' : false" id="cameraName">
+            <label for="cameraName" class="radio-label">
+              <span>{{tl('label.cameraName')}}</span>
+            </label>
+          </div>
+        </div>
+        <div class="search-input-area">
+          <span class="search-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 11" fill="none">
+            <path d="M10.7788 10.5222L10.5116 10.7834C10.2158 11.0722 9.73721 11.0722 9.44215 10.7834L7.30328 8.69317C7.05608 8.45077 7.02857 8.08754 7.19739 7.80462L6.02772 6.66189C5.3988 7.11795 4.62291 7.39092 3.77995 7.39092C1.69233 7.39092 0 5.7365 0 3.69565C0 1.65479 1.69233 0 3.77995 0C5.86795 0 7.5599 1.65442 7.5599 3.69565C7.5599 4.64571 7.19061 5.50921 6.58769 6.16383L7.73136 7.28188C8.02076 7.11721 8.39231 7.14374 8.63951 7.38613L10.7784 9.47636C11.0738 9.76554 11.0738 10.2338 10.7788 10.5222ZM6.60804 3.68054C6.60804 2.1499 5.33851 0.909176 3.77279 0.909176C2.20707 0.909176 0.937545 2.14953 0.937545 3.68054C0.937545 5.21155 2.2067 6.45191 3.77241 6.45191C5.33813 6.45191 6.60804 5.21119 6.60804 3.68054Z" fill="white"/>
+            </svg>
+          </span>
+          <input class="search-input"
+            type="text"
+            [placeholder]="activedSearchType === 'site' ? tl('placeholder.searchBySiteName') : tl('placeholder.searchByCamera')"
+            name="searchContent"
+            autocomplete="off"
+            [(ngModel)]="searchContent"
+            (keyup.enter)="searchContentFn(); $event.stopPropagation()">
+        </div>
+        <div class="search-btn" [ngClass]="{'disabled': !searchContent.length}" (click)="searchContentFn(); $event.stopPropagation()">{{tl('button.search')}}</div>
+      </div>
+
+      <!-- render site tree -->
+      <div class="site-tree-container">
+        <div class="column-tree-flex"
+          *ngFor="let siteTree of siteTreeList; let i = index;"
+          [ngClass]="['tree-'+i]"
+          [hidden]="currentSiteTreeIndex && currentSiteTreeIndex !== (i + 1)">
+          <div class="site-tree-scroll">
+            <vs-site-tree
+              [treeData]="[siteTree]"
+              [treeIndex]="i + 1"
+              [currentSiteGroup]="treeCurrentSiteGroup"
+              (nodeClick)="treeNodeCheckOn()"
+              (checkTreeIndexEmit)="siteGroupCheckOn($event)"
+              (checkSiteGroupEmit)="setTreeCurrentSiteGroup($event)"
+            ></vs-site-tree>
+          </div>
+        </div>
+        <div class="width-placeholder-label" *ngIf="currentSiteTreeIndex">
+          <ngx-ui-loader loaderId="site-tree-search-loader"></ngx-ui-loader>
+
+          <div class="tree-current-site-group-container" *ngIf="treeCurrentSiteGroup && treeCurrentSiteGroup.code" aria-hidden="true">
+            <div class="leaf-site-header">
+              <span class="back-arrow" (click)="emptyTreeCurrentSiteGroup()"></span>
+              <div class="flex-checkbox select-all-site" (click)="setTreeCurrentSiteGroupStatus(treeCurrentSiteGroup); $event.stopPropagation()">
+                <div class="custom-checkbox">
+                  <vs-custom-checkbox [checked]="treeCurrentSiteGroup._isChecked" [indeterminate]="treeCurrentSiteGroup._indeterminate"></vs-custom-checkbox>
+                </div>
+                <span class="tree-node-label all-select">{{treeCurrentSiteGroup._isChecked ? tl('label.unselectAll') : tl('label.selectAll')}}</span>
+              </div>
+            </div>
+
+            <div class="leaf-site-scroll">
+              <div class="flex-checkbox leaf-site" *ngFor="let leafSite of treeCurrentSiteGroup.children">
+                <div class="custom-checkbox" (click)="leafSiteChecked(leafSite, treeCurrentSiteGroup); $event.stopPropagation()">
+                  <vs-custom-checkbox [checked]="leafSite._isChecked" [indeterminate]="leafSite._indeterminate"></vs-custom-checkbox>
+                </div>
+                <span class="leaf-site-name" (click)="leafSiteChecked(leafSite, treeCurrentSiteGroup); $event.stopPropagation()" [title]="leafSite.codeDesc">{{leafSite.codeDesc}}</span>
+                <span class="children-count">({{leafSite.childrenCount || 0}})</span>
+                <div class="unfold-btn" *ngIf="leafSite.childrenCount" (click)="unfoldTreeCurrentSiteGroup(leafSite); $event.stopPropagation()"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tree-current-leaf-site-container" *ngIf="treeCurrentLeafSite" aria-hidden="true">
+            <div class="leaf-camera-header">
+              <span class="back-close" (click)="emptyTreeCurrentLeafSite()"></span>
+              <div class="flex-checkbox select-all-camera" (click)="setTreeCurrentLeafSiteStatus(treeCurrentLeafSite); $event.stopPropagation()">
+                <div class="custom-checkbox">
+                  <vs-custom-checkbox [checked]="treeCurrentLeafSite._isChecked" [indeterminate]="treeCurrentLeafSite._indeterminate"></vs-custom-checkbox>
+                </div>
+                <span class="tree-node-label all-select">{{treeCurrentLeafSite._isChecked ? tl('label.unselectAll') : tl('label.selectAll')}}</span>
+              </div>
+            </div>
+            <p class="site-name">{{treeCurrentLeafSite.codeDesc}}</p>
+
+            <div class="leaf-camera-scroll">
+              <div
+                class="flex-checkbox leaf-camera"
+                *ngFor="let camera of treeCurrentLeafSite.children"
+                (click)="leafCameraChecked(camera); $event.stopPropagation()">
+                <div class="custom-checkbox">
+                  <vs-custom-checkbox [checked]="camera._isChecked"></vs-custom-checkbox>
+                </div>
+                <span class="leaf-camera-name" [title]="camera.cameraName || camera.codeDesc">{{camera.cameraName || camera.codeDesc}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ngx-ui-loader loaderId="site-and-device-search-loader"></ngx-ui-loader>
+
+        <div class="site-and-device-list" *ngIf="showLeafSiteList">
+          <div class="leaf-site-list-container" [hidden]="currentLeafSite" aria-hidden="true">
+            <div class="leaf-site-header">
+              <span class="back-arrow" (click)="siteListBackToTree()"></span>
+              <div class="flex-checkbox select-all-site" (click)="setAllLeafSiteCheckStatus(); $event.stopPropagation()">
+                <div class="custom-checkbox">
+                  <vs-custom-checkbox [checked]="searchLeafSite._isChecked" [indeterminate]="searchLeafSite._indeterminate"></vs-custom-checkbox>
+                </div>
+                <span class="tree-node-label all-select">{{searchLeafSite._isChecked ? tl('label.unselectAll') : tl('label.selectAll')}}</span>
+              </div>
+            </div>
+            <div class="leaf-site-scroll no-padding">
+              <vs-site-list
+                [treeData]="siteTreeList"
+                [filterStr]="filterSiteStrLowerCase"
+                (changeSelectEmit)="changeLeafSiteStatus($event)"
+                (unfoldEmit)="addLeafCamera2LeafSite($event)"
+              ></vs-site-list>
+              <div class="no-result-image" [hidden]="searchLeafSite.children.length">{{tl('label.nodata')}}</div>
+            </div>
+          </div>
+
+          <div class="leaf-camera-list-container" *ngIf="currentLeafSite" aria-hidden="true">
+            <div class="leaf-camera-header">
+              <span class="back-close" (click)="cameraListBackTo()"></span>
+              <div class="flex-checkbox select-all-camera" (click)="setAllLeafCameraCheckStatus(); $event.stopPropagation()">
+                <div class="custom-checkbox">
+                  <vs-custom-checkbox [checked]="currentLeafSite._isChecked" [indeterminate]="currentLeafSite._indeterminate"></vs-custom-checkbox>
+                </div>
+                <span class="tree-node-label all-select">{{currentLeafSite._isChecked ? tl('label.unselectAll') : tl('label.selectAll')}}</span>
+              </div>
+            </div>
+            <p *ngIf="currentLeafSite.codeDesc" class="site-name">{{currentLeafSite.codeDesc}}</p>
+
+            <div class="leaf-camera-scroll no-padding">
+              <vs-camera-list
+                [treeData]="siteTreeList"
+                [parentCode]="currentLeafSite.code || ''"
+                [filterStr]="filterCameraStrLowerCase"
+                (changeSelectEmit)="changeLeafCameraStatus($event)"
+              ></vs-camera-list>
+              <div class="no-result-image" [hidden]="currentLeafSite.children.length">{{tl('label.nodata')}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="site-border-and-bg mt-[0.7rem]" *transloco="let tl; read: 'vs.deviceTree'" [hidden]="hiddenConfirmBtn">
+    <div class="site-selected-value">
+      <p class="selected count">Selected {{selectedCount}} devices.</p>
+      <div class="btns">
+        <div class="reset-btn" (click)="resetTree()">{{tl('button.reset')}}</div>
+        <div class="confirm-btn" (click)="confirmSelected()">{{tl('button.done')}}</div>
+      </div>
+    </div>
+  </section>
+  <div aria-hidden="true" [hidden]="hiddenCloseModal" class="close-device-tree-dialog-wrapper" (click)="closeSiteModal()"></div>
+</section>

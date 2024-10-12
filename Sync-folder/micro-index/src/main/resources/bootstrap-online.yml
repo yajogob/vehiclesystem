@@ -1,0 +1,161 @@
+server:
+  tomcat:
+    max-http-form-post-size: 1024000000
+  servlet:
+    context-path: /ezview
+spring:
+  cloud:
+    kubernetes:
+      config:
+        enabled: true
+        name: project-${PROJECT_NAME}
+      client:
+        master-url: https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}
+        namespace: ${CONFIG_NS}
+        ca-cert-file:  /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        token: /var/run/secrets/kubernetes.io/serviceaccount/token
+      reload:
+        enabled: true
+  kafka:
+    bootstrap-servers: 10.165.77.67:19297
+    consumer:
+      group-id: video-analysis-dev
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      bootstrap-servers: 10.165.77.67:19297
+    secondary:
+      servers:
+        synoSearch:
+          topic: topic-video-syno
+        videoAnalysis:
+          consumer:
+            group-id: defaultConsumerGroup
+          topic: kafka-vr
+          bootstrap-servers: 10.165.77.67:19297
+  redis:
+    #    cluster:
+    #      nodes: 192.168.9.135:7001,192.168.9.135:7002,192.168.9.135:7003,192.168.9.135:7004,192.168.9.135:7005,192.168.9.135:7006
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 10
+        max-wait: -1s
+        max-idle: 8
+        min-idle: 0
+    timeout: 60s
+    database: 1
+  #spring.data.redis.repositories.enabled: false
+  elasticsearch:
+    rest:
+      uris: http://10.165.77.103:30060
+  datasource:
+    url: jdbc:mysql://10.165.78.7:24200/devstructuredservice?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC&useSSL=false
+    username: devstructuredservice
+    password: fB0@jC0^qE0!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      validation-query: select 'X'
+  main:
+    allow-bean-definition-overriding: true
+
+spring.jpa:
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+      jdbc.batch_size: 500
+      order_inserts: true
+      order_updates: true
+
+
+commons.oauth2.client:
+  client_id: yuanqu-ezview-backend
+  clientSecret: bcMxgr
+  grantType: password
+  #maxAge: 86400
+  username: shenguanfeng
+  password: kedacom666...
+  jwtEnable: true
+  serverName: cloud-rbac
+  cas: false
+  clientUri:
+commons.authz.simpleToken: false
+
+file.server.path: /data/private
+
+
+
+logout:
+  trigger:
+    time: 60000
+
+feign.hystrix.enabled: false
+
+
+
+media.services.username: admin
+media.services.password: kedacom123
+media.services.port: 554
+
+
+http-pool:
+  maxTotal: 5000
+  defaultMaxPerRoute: 300
+  connectTimeout: 30000
+  connectionRequestTimeout: 30000
+  socketTimeout: 30000
+  validateAfterInactivity: 30000
+
+cconfig:
+  project-mark-frontend: yuanqu-ezview-front
+  project-secret-frontend: z7W5nv
+project-monitor:
+  server-monitor:
+    enable: false
+    interval: 5
+
+
+
+common.websocket.log.enable: false
+#system:
+#  device:
+#    url: 172.16.119.101:8080
+
+log-manager:
+  ismanager: false
+  isHighAvailability: true
+
+commons:
+  websocket:
+    enable: true
+    endPoint: "/ws/stomp"
+    allowedOrigins: "*"
+    enableSimpleBroker:
+      - "/topic"
+      - "/queue"
+      - "/user"
+      - "/client"
+      - "/downloadInfo"
+      - "/downloadComplete"
+      - "/onlineNumber"
+    applicationDestinationPrefixes: "/ws"
+    heartBeatInterval: 10000
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1
+    #      sentinel:
+    #        master: redisServerName
+    #        nodes: 192.168.8.238:3679,192.168.8.238:6380,192.168.8.238:6381
+    mode: default
+
+
+lpr:
+  geofence:
+    test: true

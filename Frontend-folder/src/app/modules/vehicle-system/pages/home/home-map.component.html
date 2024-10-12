@@ -1,0 +1,108 @@
+<section class="home-map-container padding-top" [class]="['language-'+language]" aria-hidden="true">
+  <vs-top-alarm (goAlertsEmit)="setAlertSearch($event)"></vs-top-alarm>
+
+  <div class="funciont-content">
+    <div class="bottom-container">
+      <div class="bottom-search-conditions">
+        <vs-toolbox
+          class="select-device-tree"
+          [title]="'vs.map.traffic'"
+          [defSelectAll]="true"
+          [customPosition]="customPosition"
+          [dateLimit]="dateLimit"
+          [ranges]="ranges"
+          [selectedList]="selectedList"
+          [selectedDate]="defaultDate"
+          [toolSet]="toolSet"
+          (confirmEmit)="onDeviceTreeChange($event)"
+          (selectedDateEmit)="setParamsTimes($event)"
+          (click)="$event.stopPropagation();"
+          (changeLocationVisible)="changeLocationVisible($event)"
+          selectWidth="54rem"
+          [showSelect]="showLevel2Select"
+          [selectTitle]="selectTitle"
+          [selectedLabel]="selectedLabel"
+          [selectOptions]="selectOptions"
+          (onClickback)="onClickbackFn($event)"
+          (changeLevel2SelectVisible)="changeLevel2SelectVisibleFn($event)"
+          (changeSelectedEmit)="changeSelectedFn($event)"
+          (changeDateSelectVisible)="changeDateSelectVisibleFn($event)"
+        ></vs-toolbox>
+        <vs-map-controller
+          [hidden]="showLocationFlag || showLevel2Select || showDateSelect"
+          (click)="$event.stopPropagation();"
+        ></vs-map-controller>
+      </div>
+    </div>
+  </div>
+
+  <div class="graph-statistics" [class]="language">
+    <div class="graph-scroll-list">
+      <vs-vehicle-counts [counts]="vehicleCount"></vs-vehicle-counts>
+
+      <vs-alert-counts
+        [alertCountParams]="trafficSitesParams"
+        (checkSearch)="setAlertSearch($event)"
+      ></vs-alert-counts>
+      <vs-traffic-sites
+        #trafficSitesObj
+        [trafficSitesParams]="trafficSitesParams"
+      ></vs-traffic-sites>
+      <div class="small-live-traffic" vsAccessControlDirective [accessParams]="allResourceList.TrafficSearch">
+        <ngx-ui-loader loaderId="live-traffic-loader"></ngx-ui-loader>
+        <vs-live-traffic
+          [liveTrafficParams]="trafficSitesParams"
+          [chartData]="liveTrafficChartOption"
+          (click)="goTrafficSearch()"
+          (mouseenter)="setShowBigLiveTraffic(true)"
+          (mouseleave)="setShowBigLiveTraffic(false, 'delay')"
+        ></vs-live-traffic>
+      </div>
+      <div class="small-behavioral-alert" vsAccessControlDirective [accessParams]="allResourceList.BehavioralListAlerts">
+        <ngx-ui-loader loaderId="behavioral-alert-loader"></ngx-ui-loader>
+        <vs-behavioral-alert
+          [chartData]="behavioralAlertChartOption"
+          [lineChartData]="behavioralAlertLineChartOption"
+          (click)="setAlertSearch('behavioral')"
+          (mouseenter)="setShowBigBehavioralAlert(true)"
+          (mouseleave)="setShowBigBehavioralAlert(false, 'delay')"
+        ></vs-behavioral-alert>
+      </div>
+    </div>
+
+    <div
+      class="big-live-traffic"
+      (mouseenter)="clearShowTimer()"
+      (mouseleave)="setShowBigLiveTraffic(false, 'delay')"
+      *ngIf="showBigLiveTraffic">
+      <vs-live-traffic
+        [liveTrafficParams]="trafficSitesParams"
+        [chartData]="liveTrafficChartOption"
+        [size]="'big'"
+      ></vs-live-traffic>
+    </div>
+
+    <div
+      class="big-behavioral-alert"
+      (mouseenter)="clearShowTimer()"
+      (mouseleave)="setShowBigBehavioralAlert(false, 'delay')"
+      *ngIf="showBigBehavioralAlert">
+      <vs-behavioral-alert
+        [chartData]="behavioralAlertChartOption"
+        [lineChartData]="behavioralAlertLineChartOption"
+        [showStackedLine]="true"
+        [size]="'big'"
+      ></vs-behavioral-alert>
+    </div>
+  </div>
+
+  <vs-alert-detail
+    *ngIf="showAlertPointDetail"
+    [cameraId]="cameraId"
+    [alertId]="alertId"
+    [alertType]="detailAlertType"
+    [alertPosition]="detailAlertPosition"
+    (colse)="closeDetail()"
+  ></vs-alert-detail>
+</section>
+

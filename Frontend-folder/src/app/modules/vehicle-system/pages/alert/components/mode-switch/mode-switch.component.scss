@@ -1,0 +1,22 @@
+.option-btns {
+  display: flex;
+  width: max-content;
+  height: 2.5rem;
+  align-items: center;
+
+  svg:hover {
+    cursor: pointer;
+  }
+
+  .line {
+    width: 1px;
+    height: 1.9rem;
+    margin: 0 1rem;
+    background: #858467;
+    opacity: 0.6;
+  }
+
+  .img-type {
+    margin-left: 0.4rem;
+  }
+}

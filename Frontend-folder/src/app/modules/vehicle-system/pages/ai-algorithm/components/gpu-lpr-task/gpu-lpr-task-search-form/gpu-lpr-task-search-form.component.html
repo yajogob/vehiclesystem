@@ -1,0 +1,17 @@
+<div aria-hidden="true" class="gpu-lpr-task-search-form" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <form class="form" [formGroup]="gpuLprTaskForm">
+    <input type="text" class="task-name-input vehicle-input ltr:mr-2 rtl:ml-2" [placeholder]="tl('searchByTaskName')" formControlName="taskName" />
+    <vs-vehicle-date-input
+      class="date-input ltr:mr-2 rtl:ml-2"
+      [dateSelectRestrict]="'noRestrict'"
+      [selected]="selected"
+      (selectedDateEmit)="selectedDateFn($event)"
+    ></vs-vehicle-date-input>
+    <button class="search-btn public-search-btn" (click)="searchClick()">{{tl('search')}}</button>
+  </form>
+
+  <div class="public-create-task-btn" (click)="createNewTask()">
+    <div class="">{{tl('createNewTask')}}</div>
+    <div class="icon"></div>
+  </div>
+</div>

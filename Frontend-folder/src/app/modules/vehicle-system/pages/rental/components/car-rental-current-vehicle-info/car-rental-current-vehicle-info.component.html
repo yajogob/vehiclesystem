@@ -1,0 +1,45 @@
+<div class="car-rental-current-vehicle-info " *transloco="let tl; read: 'vs.rental'">
+  <ng-container>
+    <div class="company-info-item">
+      <span class="fs-18">{{tl('numberPlate')}}</span>
+      <span class="fs-14" *ngIf="!currentCarRentalData.channel">
+        {{currentCarRentalData.registrationPlace}} {{currentCarRentalData.plateType}} {{currentCarRentalData.plateNumber}}
+      </span>
+      <span class="fs-14" *ngIf="currentCarRentalData.channel === 'vehicle-profile'">
+        {{currentCarRentalData.region}} {{currentCarRentalData.plateCategory}} {{currentCarRentalData.plateNumber}}
+      </span>
+    </div>
+
+    <!-- middle vertical line -->
+    <div class="vertical-line"></div>
+
+    <div class="company-info-item">
+      <span class="fs-18">{{tl('registrationNumber')}}</span>
+      <span class="fs-14">{{currentCarRentalData.registrationNum}}</span>
+    </div>
+
+    <!-- middle vertical line -->
+    <div class="vertical-line"></div>
+
+    <div class="company-info-item">
+      <span class="fs-18">{{tl('registrationDate')}}</span>
+      <span class="fs-14">{{registrationDateFormat()}}</span>
+    </div>
+
+    <!-- middle vertical line -->
+    <div class="vertical-line"></div>
+
+    <div class="company-info-item">
+      <span class="fs-18">{{tl('registrationExpiry')}}</span>
+      <span class="fs-14">{{registrationExpiryFormat()}}</span>
+    </div>
+
+    <!-- middle vertical line -->
+    <div class="vertical-line"></div>
+
+    <div class="company-info-item">
+      <span class="fs-18">{{tl('currentStatus')}}</span>
+      <span class="fs-14 text-[var(--vs-car-rental-current-vehicle-info-text-color)]">{{currentCarRentalData.status}}</span>
+    </div>
+  </ng-container>
+</div>

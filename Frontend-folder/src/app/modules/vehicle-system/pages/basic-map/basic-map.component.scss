@@ -1,0 +1,593 @@
+.basic-map-position {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  .alert-detail-description {
+    position: absolute;
+    z-index: 999;
+    top: -200px;
+    left: -200px;
+    width: max-content;
+    height: max-content;
+    padding: 15px;
+    border-radius: 10px;
+    background: var(--vs-map-marker-description-background);
+
+    &.en {
+      top: 0;
+      left: calc(100% + 14px);
+      direction: ltr;
+
+      ::after {
+        position: absolute;
+        top: 16px;
+        left: -11px;
+        border-top: 12px solid transparent;
+        border-right: 12px solid var(--vs-map-marker-description-background);
+        border-bottom: 12px solid transparent;
+        content: '';
+      }
+    }
+
+    &.ar {
+      top: 0;
+      right: calc(100% + 14px);
+      direction: rtl;
+
+      ::after {
+        position: absolute;
+        top: 16px;
+        right: -11px;
+        border-top: 12px solid transparent;
+        border-bottom: 12px solid transparent;
+        border-left: 12px solid var(--vs-map-marker-description-background);
+        content: '';
+      }
+    }
+
+    & > .site-name {
+      color: #ffd600;
+    }
+
+    & > p {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      color: rgba($color: #fff, $alpha: 70%);
+      font-size: 1.2rem;
+
+      .value {
+        margin: 0 8px;
+        color: #fff;
+      }
+    }
+
+    .three-alert {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+
+      .w-h {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+
+      .icon-w {
+        background-image: url('../../assets/icons/warn.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 85%;
+      }
+
+      .icon-b {
+        background-image: url('../../assets/icons/vehicle.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 95%;
+      }
+
+      .icon-g {
+        background-image: url('../../assets/icons/adress.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+      }
+
+      .line {
+        height: 1.6rem;
+        border-left: 2px solid #fff;
+        margin: 0 0.5rem 0 0.3rem;
+      }
+
+      .title {
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        cursor: pointer;
+
+        >span {
+          font-size: 1rem;
+          line-height: 1.2rem;
+        }
+
+        >.num {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+
+  #basic-map-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #86836b;
+  }
+
+  ::ng-deep .point-description {
+    position: absolute;
+    z-index: 999;
+    display: none;
+    width: max-content;
+    height: max-content;
+    padding: 15px 15px 10px;
+    border-radius: 6px;
+    background: var(--vs-map-marker-description-background);
+
+    &.en {
+      top: -1rem;
+      left: calc(100% + 14px);
+      direction: ltr;
+
+      ::after {
+        position: absolute;
+        top: 16px;
+        left: -11px;
+        border-top: 13px solid transparent;
+        border-right: 12px solid var(--vs-map-marker-description-background);
+        border-bottom: 13px solid transparent;
+        content: '';
+      }
+    }
+
+    &.ar {
+      top: -1rem;
+      right: calc(100% + 14px);
+      direction: rtl;
+
+      ::after {
+        position: absolute;
+        top: 16px;
+        right: -11px;
+        border-top: 13px solid transparent;
+        border-bottom: 13px solid transparent;
+        border-left: 12px solid var(--vs-map-marker-description-background);
+        content: '';
+      }
+    }
+
+    & > p {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      color: rgba($color: #fff, $alpha: 70%);
+      font-size: 1.2rem;
+
+      .value {
+        margin: 0 8px;
+        color: #fff;
+      }
+    }
+  }
+
+  ::ng-deep .map-site-point {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    align-items: center;
+    cursor: pointer;
+    filter: drop-shadow(0 1px 3px rgb(2 15 40));
+
+    &.type-4 .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/map-hotel.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.type-5 .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/map-mall.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.type-6 .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/map-gantry.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.type-7 .icon,
+    &.type-8 .icon,
+    &.type-9 .icon,
+    &.type-other .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/map-camera.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &:hover > .point-description {
+      display: block;
+    }
+  }
+
+  ::ng-deep .map-camera-point {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    align-items: center;
+    cursor: pointer;
+    filter: drop-shadow(0 1px 3px rgb(2 15 40));
+
+    &.type-1 .icon {
+      width: 34px;
+      height: 40px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/hotel-camera.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.type-2 .icon {
+      width: 34px;
+      height: 40px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/street-camera.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.type-3 .icon {
+      width: 34px;
+      height: 40px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/mall-camera.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.type-4 .icon {
+      width: 34px;
+      height: 40px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/gantry-camera.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &.type-99 .icon {
+      width: 34px;
+      height: 40px;
+      border-radius: 10px;
+      background-image: url('../../assets/icons/map-camera1.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &:hover > .point-description {
+      display: block;
+    }
+  }
+
+  ::ng-deep .map-alert-point {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    align-items: center;
+    padding: 3px 1px 4px 6px;
+    border-radius: 16px;
+    background: var(--vs-map-cluster-background);
+    cursor: pointer;
+
+    .item-label {
+      padding: 0 8px;
+      color: #fff;
+      font-size: 12px;
+
+      & > .number {
+        position: relative;
+        top: -1px;
+        font-size: 19px;
+        line-height: 1;
+      }
+    }
+
+    &::after {
+      position: absolute;
+      bottom: -11px;
+      left: calc(50% - 10px);
+      border-top: 13px solid var(--vs-map-cluster-background);
+      border-right: 10px solid transparent;
+      border-left: 10px solid transparent;
+      content: '';
+    }
+
+    &.type-geofence .icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      background-image: url('../../assets/icons/bell.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    &.type-behavioral .icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      background-image: url('../../assets/icons/bell.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    &.type-watchlist .icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      background-image: url('../../assets/icons/bell.svg');
+      background-position: 55% 45%;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    .alert-description {
+      position: absolute;
+      z-index: 999;
+      display: none;
+      width: max-content;
+      height: max-content;
+      padding: 15px;
+      border-radius: 6px;
+      background: var(--vs-map-marker-description-background);
+
+      &.en {
+        top: 0;
+        left: calc(100% + 14px);
+        direction: ltr;
+
+        ::after {
+          position: absolute;
+          top: 16px;
+          left: -11px;
+          border-top: 13px solid transparent;
+          border-right: 12px solid var(--vs-map-marker-description-background);
+          border-bottom: 13px solid transparent;
+          content: '';
+        }
+      }
+
+      &.ar {
+        top: 0;
+        right: calc(100% + 14px);
+        direction: rtl;
+
+        ::after {
+          position: absolute;
+          top: 16px;
+          right: -11px;
+          border-top: 13px solid transparent;
+          border-bottom: 13px solid transparent;
+          border-left: 12px solid var(--vs-map-marker-description-background);
+          content: '';
+        }
+      }
+
+      & > p {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        color: rgba($color: #fff, $alpha: 70%);
+        font-size: 1.2rem;
+
+        .value {
+          margin: 0 8px;
+          color: #fff;
+        }
+      }
+
+      .three-alert {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+
+        .w-h {
+          width: 1.8rem;
+          height: 1.8rem;
+        }
+
+        .icon-w {
+          background-image: url('../../assets/icons/warn.svg');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 85%;
+        }
+
+        .icon-b {
+          background-image: url('../../assets/icons/vehicle.svg');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 95%;
+        }
+
+        .icon-g {
+          background-image: url('../../assets/icons/adress.svg');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: 100%;
+        }
+
+        .line {
+          height: 1.6rem;
+          border-left: 2px solid #fff;
+          margin: 0 0.5rem 0 0.3rem;
+        }
+
+        .title {
+          display: flex;
+          flex-direction: column;
+          color: #fff;
+
+          >span {
+            font-size: 1rem;
+            line-height: 1.2rem;
+          }
+
+          >.num {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+
+    &:hover > .alert-description {
+      display: block;
+    }
+  }
+
+  ::ng-deep .map-cluster-style {
+    overflow: unset;
+    border-radius: 16px;
+    background: var(--vs-map-cluster-background);
+
+    .cluster-title {
+      font-size: 12px;
+    }
+
+    .cluster-total {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    &.ar {
+      direction: ltr;
+    }
+  }
+
+  ::ng-deep div.l7-marker {
+    &:hover {
+      z-index: 999;
+      transform: scale(1.1) translate(-50%, -100%) !important;
+      transform-origin: 0 0;
+      transition: all 0.1s linear;
+
+      & > .map-site-point,
+      & > .map-camera-point {
+        filter: drop-shadow(0 2px 3px rgb(2 15 40));
+      }
+    }
+
+    &.no-scale {
+      transform: scale(1) translate(-50%, -100%) !important;
+    }
+  }
+
+  ::ng-deep svg.l7-marker.map-cluster-style {
+    &:hover {
+      z-index: 9999999 !important;
+      filter: drop-shadow(0 2px 3px rgb(2 15 40));
+      transform: scale(1.1) translate(-50%, -100%) !important;
+      transform-origin: 0 0;
+      transition: all 0.1s linear;
+    }
+  }
+
+  ::ng-deep .map-appearance-marker {
+    position: relative;
+    display: flex;
+    width: max-content;
+    height: max-content;
+    align-items: center;
+    cursor: pointer;
+    filter: drop-shadow(0 1px 2px rgb(2 15 40));
+
+    .corner-icon {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 14px;
+      background-image: url('../../assets/icons/camera-icon-round.svg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .appearance-count {
+      display: flex;
+      min-width: 40px;
+      min-height: 40px;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+
+      &.type-1 {
+        background: #752e6e;
+      }
+
+      &.type-2 {
+        background: #988645;
+      }
+
+      &.type-3 {
+        background: #88603c;
+      }
+
+      &.type-4 {
+        background: #437570;
+      }
+
+      &.type-99 {
+        background: #ff8c05;
+      }
+    }
+
+    .svg-arrow {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-top: -1px;
+      margin-left: -6px;
+    }
+  }
+}

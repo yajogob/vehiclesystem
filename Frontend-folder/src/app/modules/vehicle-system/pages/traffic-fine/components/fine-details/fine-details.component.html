@@ -1,0 +1,53 @@
+<div aria-hidden="true" class="fine-details bg-[var(--vs-sidebar-second-bg-color)]" *transloco="let tl; read: 'vs.trafficFine'">
+	<!-- title -->
+	<div class="top">
+		<p class="title">{{tl('searchResults')}}, {{searchType}}</p>
+		<p class="flex total">
+			<span>{{tl('total')}}</span>
+			<span class="ml-2 mr-2">{{ dataTotal.toLocaleString() }}</span>
+		</p>
+		<!-- arrow -->
+		<ng-container *ngIf="activeLangValue === 'en'">
+			<div class="ltr-arrow-right rtl:justify-end" *ngIf="!wFull" (click)="expandList(true)">
+				<img src="assets/vehicle-system/icons/arrow-right.png" alt="">
+			</div>
+			<div class="ltr-arrow-left ltr:justify-end rtl:justify-start" *ngIf="wFull" (click)="expandList(false)">
+				<img src="assets/vehicle-system/icons/arrow-left.png" alt="">
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="activeLangValue === 'ar'">
+			<div class="rtl-arrow-right rtl:justify-end" *ngIf="wFull" (click)="expandList(false)">
+				<img src="assets/vehicle-system/icons/arrow-right.png" alt="">
+			</div>
+			<div class="rtl-arrow-left ltr:justify-end rtl:justify-start" *ngIf="!wFull" (click)="expandList(true)">
+				<img src="assets/vehicle-system/icons/arrow-left.png" alt="">
+			</div>
+		</ng-container>
+	</div>
+
+
+	<div class="flex-1 content">
+		<vs-fine-details-retracted-expanded
+			[imgFull]="imgFull"
+			[wFull]="wFull"
+			[paginationComponent]="paginationComponent"
+			[allDetailsData]="allDetailsData"
+		>
+		</vs-fine-details-retracted-expanded>
+	</div>
+
+  <div>
+    <vs-pagination
+      #paginationComponent
+      class=""
+      [id]="'whiteListTaskDetailsTable'"
+      [itemsPerPage]="8"
+      [totalItems]="dataTotal"
+      [currentPage]="1"
+      (pageChange)="onPageChange($event)"
+    >
+    </vs-pagination>
+  </div>
+
+</div>

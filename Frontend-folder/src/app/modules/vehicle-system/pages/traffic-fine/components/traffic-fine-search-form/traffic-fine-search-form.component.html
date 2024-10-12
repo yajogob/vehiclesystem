@@ -1,0 +1,79 @@
+<div aria-hidden="true" class="load-container search-form bg-[var(--vs-vehicle-search-background)]" *transloco="let tl; read: 'vs.trafficFine'">
+	<div>
+		<p class="title text-[var(--vs-title-color)]">{{tl('trafficFine')}}</p>
+		<p class="date text-[var(--vs-sidebar-title-time-color)]">{{currentDate | date:"EEEE, MMM d, YYYY h:mm a"}}</p>
+	</div>
+	<!-- <div class="mt-4 radio-box">
+		<span class="search-by">{{tl('searchBy')}}:</span>
+	</div> -->
+	<div class="search-box">
+		<ng-container>
+			<ng-select
+				class="mt-4 pointer-events ng-select"
+				bindLabel="key"
+				bindValue="value"
+				[placeholder]="tl('region')"
+				[items]="regionList"
+				[(ngModel)]="regionBindValue"
+        (clear)="clearRegion()"
+        (change)="regionChange($event)"
+			></ng-select>
+
+			<div class="row-item">
+				<ng-select
+					class="mt-4 category pointer-events ng-select"
+					bindLabel="key"
+					bindValue="value"
+					[placeholder]="tl('category')"
+					[items]="categoryListMap[currentRegion]"
+					[(ngModel)]="categoryBindValue"
+				></ng-select>
+
+				<ng-select
+					class="exact-num mt-4 pointer-events ng-select mr-0.5 ml-0.5"
+					bindLabel="key"
+					bindValue="value"
+					[clearable]="false"
+					[placeholder]="tl('exactNum')"
+					[items]="exactNumList"
+					[(ngModel)]="exactNumBindValue"
+				></ng-select>
+
+				<input
+					class="mt-4 vehicle-input"
+					type="text"
+          [maxlength]="10"
+					[(ngModel)]="numberPlateBindValue"
+					[placeholder]="tl('numberPlate')"
+          (keydown.enter)="searchResult()"
+				/>
+			</div>
+
+			<ng-select
+				class="mt-4 pointer-events ng-select"
+				bindLabel="key"
+				bindValue="value"
+				[placeholder]="tl('plateColor')"
+        [multiple]="true"
+				[items]="plateColorList"
+				[(ngModel)]="plateColorBindValue"
+			></ng-select>
+		</ng-container>
+
+		<div class="mt-4 date-input pointer-events">
+			<vs-vehicle-date-input
+        [dateInputPosition]="'traffic-fine-search'"
+        [selected]="selected"
+        [show24Time]="true"
+        [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+				(selectedDateEmit)="selectedDateEmit($event)">
+			</vs-vehicle-date-input>
+		</div>
+	</div>
+
+	<div class="button-group pointer-events">
+		<button class="w-full public-search-btn" (click)="searchResult()">{{tl('search')}}</button>
+		<button class="w-full reset public-reset-btn" (click)="resetForm()">{{tl('reset')}}</button>
+	</div>
+
+</div>

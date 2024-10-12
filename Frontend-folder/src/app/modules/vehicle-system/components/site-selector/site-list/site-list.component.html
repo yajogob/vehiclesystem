@@ -1,0 +1,23 @@
+<ng-container *ngFor="let treeNode of treeData">
+  <vs-site-list
+    [treeData]="treeNode.children"
+    [filterStr]="filterStr"
+    (nodeClick)="setCheckboxIndeterminate(treeNode)"
+    (changeSelectEmit)="changeSelectEmit.emit($event)"
+    (unfoldEmit)="unfoldEmit.emit($event)"
+  ></vs-site-list>
+
+  <ng-container *ngFor="let leafSite of treeNode.children">
+    <div
+      class="inline-flex-checkbox leaf-site"
+      *ngIf="leafSite.areaType === 2 && leafSite.codeDesc?.toLocaleLowerCase()?.includes(filterStr)"
+      aria-hidden="true">
+      <div class="custom-checkbox" (click)="siteNodeChecked(leafSite, treeNode);$event.stopPropagation()">
+        <vs-custom-checkbox [checked]="leafSite._isChecked" [indeterminate]="leafSite._indeterminate"></vs-custom-checkbox>
+      </div>
+      <span class="leaf-site-name" (click)="siteNodeChecked(leafSite, treeNode); $event.stopPropagation()" [title]="leafSite.codeDesc">{{leafSite.codeDesc}}</span>
+      <span class="children-count">({{leafSite.childrenCount || 0}})</span>
+      <div class="unfold-btn" *ngIf="leafSite.childrenCount" (click)="unfoldLeafSite(leafSite); $event.stopPropagation()"></div>
+    </div>
+  </ng-container>
+</ng-container>

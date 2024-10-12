@@ -1,0 +1,6 @@
+// add css here
+.no-access {
+  ::ng-deep .ag-row {
+    cursor: default !important;
+  }
+}

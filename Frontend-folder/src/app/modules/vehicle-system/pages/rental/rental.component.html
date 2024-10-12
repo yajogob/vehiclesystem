@@ -1,0 +1,26 @@
+<div class="rental-cp bg-[var(--vs-vehicle-content-background)] dark:text-dark-primary flex flex-col w-full h-full">
+  <vs-car-rental-search class="flex-none"
+    placeholder="searchByName"
+    (carRentalSearchEvent)="carRentalSearchEvent($event)"
+  ></vs-car-rental-search>
+
+  <div class="flex-1 py-[1rem] px-[3rem] mb-[1rem] load-container">
+    <ngx-ui-loader [loaderId]="'rental'"></ngx-ui-loader>
+    <!-- AG Grid Angular Component -->
+    <vs-pagination-grid
+      [id]="'companyList'"
+      [ngClass]="{'no-access': !accessHandle(allResourceList.CarRentalList)}"
+      [switchHeight]="true"
+      [columnDefs]="tableColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="carRentalList"
+      [currentPage]="pageNo"
+      [totalItems]="dataTotal"
+      [pageMode]="'server'"
+      (totalChange)="dataTotal = $event"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    ></vs-pagination-grid>
+  </div>
+</div>

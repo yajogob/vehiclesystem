@@ -1,0 +1,14 @@
+.car-rental-back-button {
+  display: flex;
+  height: 3rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2.2rem;
+  background-color: #1b411f;
+
+  .text {
+    border-bottom: 1px solid #0ce75e;
+    color: #0ce75e;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,96 @@
+.pop-confirm {
+  position: fixed;
+  z-index: 99999;
+  inset: 0;
+
+  .pop-box {
+    position: fixed;
+    display: flex;
+    width: 25rem;
+    min-height: 10rem;
+    max-height: 15rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: var(--vs-sidebar-right-bg-color);
+    color: var(--vs-text-color);
+    font-size: 1.2rem;
+
+    .box-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .title {
+        color: var(--vs-dialog-header-text-color);
+        font-size: 1.6rem;
+      }
+
+      .close {
+        width: 1.3rem;
+        height: 1.3rem;
+        background: var(--close-logo) no-repeat;
+        background-size: 1.3rem 1.3rem;
+        cursor: pointer;
+      }
+    }
+
+    .content-box {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        position: relative;
+        top: 1px;
+        width: 2rem;
+        height: 1.4rem;
+        background: var(--vs-tips-icon) no-repeat;
+        background-size: contain;
+      }
+
+      .content {
+        width: 100%;
+        cursor: pointer;
+        line-height: 1.8rem;
+        word-break: break-all;
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      %btn {
+        height: 2.2rem;
+        padding: 0 1.2rem;
+        border-radius: 5px;
+        margin: 0 5px;
+      }
+
+      .cancel {
+        @extend %btn;
+
+        border: 1px solid transparent;
+        background-clip: padding-box, border-box;
+        background-image: var(--vs-button-cancel-color);
+        background-origin: padding-box, border-box;
+      }
+
+      .confirm {
+        @extend %btn;
+
+        background: var(--vs-confirm-btn-color);
+        color: #fff;
+      }
+    }
+
+    .triangle {
+      position: absolute;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      background-color: var(--vs-sidebar-right-bg-color);
+      transform: rotate(45deg) translate(-50%, -50%);
+    }
+  }
+}

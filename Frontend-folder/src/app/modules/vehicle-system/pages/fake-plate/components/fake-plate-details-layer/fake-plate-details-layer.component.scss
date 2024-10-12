@@ -1,0 +1,102 @@
+.overlay {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(000 000 000 / 40%);
+}
+
+.fake-plate-drawer {
+  position: absolute;
+  z-index: 100000;
+  top: 0;
+  box-sizing: border-box;
+
+  .header {
+    position: relative;
+    border-bottom: 0.1rem solid #5b5b5b;
+
+    .title {
+      height: 7rem;
+      font-size: 2.4rem;
+      font-weight: 700;
+      line-height: 7rem;
+    }
+
+    .close-btn {
+      background: var(--close-logo) no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+
+  .content {
+    overflow: auto;
+    height: 100%;
+
+    .fake-plate-compare-info {
+      .image-compare {
+        .compare-item {
+          .title {
+            font-size: 1.333rem;
+            font-weight: 700;
+          }
+
+          .thumbnail {
+            width: 25.2rem;
+            height: 18.8rem;
+          }
+
+          .plate-number {
+            font-size: 1.2rem;
+            font-weight: 500;
+          }
+
+          .plate-number-value {
+            font-size: 1.4rem;
+            font-weight: 500;
+          }
+
+          .desc {
+            font-size: 1.2rem;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .alert-str {
+      border-radius: 3.667rem;
+      background: #e71d36;
+    }
+
+    .card {
+      .label,
+      .value {
+        color: var(--vs-vp-timeline-layer-card-text-color);
+        font-weight: 400;
+      }
+
+      .label {
+        display: inline-block;
+        width: 12.5rem;
+      }
+    }
+
+    .odd {
+      background: var(--vs-dialog-li-bg-color-striped);
+    }
+
+    .even {
+      background: var(--vs-dialog-li-bg-color-striped-light);
+    }
+  }
+
+  .btn-group {
+    .public-search-btn,
+    .public-reset-btn {
+      font-size: 1.6rem;
+    }
+  }
+}

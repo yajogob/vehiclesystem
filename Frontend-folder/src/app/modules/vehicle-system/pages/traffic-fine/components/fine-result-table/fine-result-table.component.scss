@@ -1,0 +1,39 @@
+.fine-result-table {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: 1.5rem;
+
+  .title {
+    color: var(--vs-title-color);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .total {
+    margin-bottom: 1.5rem;
+    color: var(--vs-text-color-regular);
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .no-opration-table {
+    ::ng-deep .ag-row {
+      cursor: auto !important;
+    }
+  }
+
+  ::ng-deep .ag-header-container {
+    .ag-header-cell-text {
+      font-size: 1.1rem;
+    }
+
+    .ag-sort-order {
+      display: none;
+    }
+  }
+}

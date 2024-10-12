@@ -1,0 +1,15 @@
+<div aria-hidden="true" class="cover-view pointer-events bg-neutral-50/50 dark:bg-zinc-950/50" *ngIf="isShow" (click)="close()">
+    <div class="modal bg-[var(--vs-modal-component-bg-color)]" [ngStyle]="modalCss" (click)="$event.stopPropagation();">
+        <div class="title-area border-b border-[var(--vs-title-color)]">
+            <div class="title text-[var(--vs-title-color)]">
+                <!-- title slot -->
+                <ng-content select="[publicModalTitle]">
+                </ng-content>
+            </div>
+            <div class="close-icon" (click)="close()"></div>
+        </div>
+        <!-- content slot -->
+        <ng-content select="[publicModalContent]">
+        </ng-content>
+    </div>
+</div>

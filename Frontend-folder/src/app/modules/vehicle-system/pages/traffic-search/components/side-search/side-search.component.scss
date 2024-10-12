@@ -1,0 +1,141 @@
+.side-search {
+  background: var(--vs-vehicle-search-background);
+
+  .big-title {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .search-form {
+    .ordinary-search,
+    .advanced-search {
+      .item {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+
+      .choose-site {
+        .pos-right {
+          right: 0.6rem;
+        }
+
+        .pos-left {
+          left: 0.6rem;
+        }
+
+        position: relative;
+
+        ::ng-deep .ng-select-container {
+          .ng-value-container {
+            overflow: auto;
+            max-height: 8rem;
+
+            &::-webkit-scrollbar {
+              display: none;
+            }
+
+            .ng-value {
+              display: flex;
+              align-items: center;
+
+              .ng-value-label {
+                overflow: hidden;
+                max-width: 18rem;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+
+        ::ng-deep .ng-select .ng-dropdown-panel {
+          display: none;
+        }
+
+        ::ng-deep .ng-arrow-wrapper {
+          opacity: 0;
+        }
+
+        .add-icon {
+          position: absolute;
+          z-index: auto;
+          bottom: 50%;
+          width: 1.2rem;
+          height: 1.2rem;
+          background: url('../../../../../../../assets/vehicle-system/icons/add.png') no-repeat;
+          background-size: 1.2rem 1.2rem;
+          pointer-events: none;
+        }
+
+        :is([dir='rtl'] .add-icon) {
+          transform: translate(3px, 50%);
+        }
+
+        :is([dir='ltr'] .add-icon) {
+          transform: translate(-3px, 50%);
+        }
+      }
+
+      .md-drppicker.double {
+        min-width: 50rem;
+      }
+    }
+
+    .advanced-search-control-bar {
+      width: fit-content;
+      border-bottom: 0.05rem solid var(--vs-traffic-search-advance-border-color);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+
+      .arrow-up {
+        position: relative;
+        bottom: 0.8rem;
+        width: 0;
+        height: 0;
+        border-right: 0.65rem solid transparent;
+        border-bottom: 0.65rem solid var(--vs-sidebar-title-color);
+        border-left: 0.65rem solid transparent;
+      }
+
+      .arrow-down {
+        position: relative;
+        top: 1.2rem;
+        width: 0;
+        height: 0;
+        border-top: 0.65rem solid var(--vs-sidebar-title-color);
+        border-right: 0.65rem solid transparent;
+        border-left: 0.65rem solid transparent;
+      }
+    }
+
+    .operate {
+      margin-top: 2rem;
+
+      .operate-button {
+        width: 100%;
+        height: 3.4rem;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      .search {
+        background: linear-gradient(53deg, #009739 0%, #beef33 100%);
+      }
+
+      .reset {
+        margin-top: 1rem;
+      }
+    }
+
+    margin-top: 1rem;
+  }
+
+  .modal-operate {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+}

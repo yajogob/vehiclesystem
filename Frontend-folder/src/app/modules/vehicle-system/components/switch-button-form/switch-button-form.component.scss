@@ -1,0 +1,33 @@
+.switch-button-com {
+  .switch-button {
+    position: relative;
+    width: 3.2rem;
+    height: 1.6rem;
+    border-radius: 10rem;
+    appearance: none;
+    background-color: #8b8889;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .switch-button:checked {
+    background-color: #009739;
+  }
+
+  .switch-button::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background-color: #fff;
+    content: '';
+    transform: scale(0.7);
+    transition: 0.2s;
+  }
+
+  .switch-button:checked::before {
+    left: 1.7rem;
+  }
+}

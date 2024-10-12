@@ -1,0 +1,18 @@
+<div class="flex flex-col fake-plate-table" *transloco="let tl; read: 'vs.fakePlateNumber'">
+  <p class="mb-[2rem] line-h text-[1.8rem] font-bold text-[var(--vs-title-color)]">{{ tl('listOfFakeNumberPlate') }}</p>
+  <div class="flex-1 w-full h-full load-container">
+    <ngx-ui-loader [loaderId]="'loader-fake-number-plate'"></ngx-ui-loader>
+    <vs-pagination-grid
+      class="no-access"
+      [id]="'fakePlate'"
+      [columnDefs]="tableColumnDefs"
+      [rowData]="searchTableInfo"
+      [currentPage]="currentPage"
+      [totalItems]="totalElements"
+      (totalChange)="totalElements = $event"
+      [pageMode]="'server'"
+      (cellOperated)="onCellOperated($event)"
+      (pageChange)="onPageChange($event)"
+    > </vs-pagination-grid>
+  </div>
+</div>

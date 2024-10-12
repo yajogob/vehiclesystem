@@ -1,0 +1,106 @@
+<div class="behavioral-modal-container" aria-hidden="true" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <!-- form area -->
+  <form [formGroup]="createEditBehavioralTaskForm" class="text-[var(--vs-car-rental-history-progress-bg-color)]">
+    <div class="new-task-flex">
+      <span class="task-label">{{ tl('taskName') }}: <span>*</span></span>
+      <input class="vehicle-input task-value" [ngClass]="{'err-tips-input': (taskName.errors?.['required'] || taskName.errors?.['maxlength']) && taskName.dirty}" type="text" [maxlength]="maxlength" [placeholder]="tl('pleaseEnterTaskName')" formControlName="taskName"/>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="taskName.errors?.['required'] && taskName.dirty">
+        {{tl('taskNameIsRequired')}}
+      </div>
+      <div class="required-tips" *ngIf="taskName.errors?.['maxlength'] && taskName.dirty">
+        {{tl('taskNameLengthLimitation')}}
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('chooseAlgorithm')}}: <span>*</span></span>
+      <ng-select
+        class="task-value"
+        [ngClass]="{'err-tips-select': algorithm.errors?.['required'] && algorithm.dirty}"
+        [items]="algorithmList"
+        bindLabel="name"
+        bindValue="id"
+        [placeholder]="tl('pleaseSelect')"
+        formControlName="algorithm"
+        (change)="getAssociatedDevice($event.id)"
+      >
+      </ng-select>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="algorithm.errors?.['required'] && algorithm.dirty">
+        {{ tl('regionIsRequired') }}
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('taskLevel')}}: <span>*</span></span>
+      <div class="task-value">
+        <ng-container *ngFor="let item of taskLevelList">
+          <span
+            [ngClass]="{'critical-btn': item['value'] === '3', 'major-btn': item['value'] === '2', 'minor-btn': item['value'] === '1'}"
+            (click)="setParamsPriority(item['value'])"
+          >
+            {{item['key']}}<b *ngIf="priorityList.includes(item['value'])">✓</b>
+          </span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="!priorityList.length && priorityDirty > 0">
+        {{tl('eventLevelIsRequired')}}
+      </div>
+    </div>
+    <div class="new-task-flex choose-camera">
+      <span class="task-label">{{tl('devices')}}: <span>*</span></span>
+      <div class="task-value">
+        <vs-site-selector
+          *ngIf="reloadTreeFlag"
+          [treeData]="algorithmDeviceTree"
+          [(visible)]="dtVisible"
+          [selectedList]="siteSelectedList"
+          [position]="activeLangValue === 'ar' ? 'bottom-left' : 'bottom-right'"
+          (confirmEmit)="selectorConfirmOn($event)"
+        ></vs-site-selector>
+
+        <ng-select
+          [ngClass]="{'err-tips-select': sitesCodeList.errors?.['required'] && sitesCodeList.dirty}"
+          [items]="siteSelectedList"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          bindLabel="codeDesc"
+          [placeholder]="tl('selectCamera')"
+          formControlName="sitesCodeList"
+          (open)="showSiteModal()"
+          (change)="chooseSitesChange($event)"
+        ></ng-select>
+        <div
+          class="add-icon"
+          [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+        ></div>
+      </div>
+      <div class="">
+        <img class="image" [src]="imageFileUrl" alt="">
+      </div>
+    </div>
+    <div class="new-task-flex description">
+      <span class="task-label">{{tl('description')}}:</span>
+      <textarea class="vehicle-textarea task-value" [placeholder]="tl('enterRemarks')" formControlName="description"></textarea>
+    </div>
+  </form>
+  <div class="button-group">
+    <div class="space"></div>
+    <div class="flex-1 button-box">
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="!editModalDate?.taskId">
+        {{tl('createTaskBtn')}}
+      </button>
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="editModalDate?.taskId">
+        {{tl('editTaskBtn')}}
+      </button>
+      <button class="reset public-reset-btn-second" (click)="reset()">{{tl('reset')}}</button>
+    </div>
+  </div>
+</div>
+

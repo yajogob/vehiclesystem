@@ -1,0 +1,30 @@
+.table-actions-renderer {
+  .delete {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.8rem;
+    background-image: url('../../assets/icons/delete.svg');
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  .update {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../../assets/icons/update.svg');
+    background-size: cover;
+    cursor: pointer;
+  }
+
+  .detail {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../../assets/icons/table-detail.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+}

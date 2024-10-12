@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jpa module="lprGeofenceCameraInfo">
+
+    <jpql id="findLprGeofenceCameraInfoPageList" resultClass="com.micro.dto.geofence.LprGeofenceCameraInfoDTO" native="true">
+        SELECT
+			 camera_id as camera_id,  camera_name as camera_name,  disposition_id as disposition_id,  geofence_task_id as geofence_task_id,  id as id,  site_code as site_code,  site_name as site_name,  version as version,  created_time as created_time,  created_by as created_by,  updated_time as updated_time,  updated_by as updated_by 
+		FROM
+			lpr_geofence_camera_info tab1 
+		WHERE 1=1 
+			
+		#if("$!{cameraId}"!="")
+	        and camera_id = :cameraId
+	    #end
+				#if("$!{cameraName}"!="")
+	        and camera_name = :cameraName
+	    #end
+				#if("$!{dispositionId}"!="")
+	        and disposition_id = :dispositionId
+	    #end
+				#if("$!{geofenceTaskId}"!="")
+	        and geofence_task_id = :geofenceTaskId
+	    #end
+		#if("$!{siteCode}"!="")
+	        and site_code = :siteCode
+	    #end
+				#if("$!{siteName}"!="")
+	        and site_name = :siteName
+	    #end
+				<!-- default use createTime to order -->
+		#if("$!{orderBy}"!="")
+			order by :orderBy
+		#else
+			order by created_time
+		#end
+		
+		#if("$!{dir}" =='ASC' || "$!{dir}" =='asc' )
+			ASC
+		#else
+		    DESC
+		#end
+        
+
+    </jpql>
+
+</jpa>

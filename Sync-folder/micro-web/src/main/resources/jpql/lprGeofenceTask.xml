@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jpa module="lprGeofenceTask">
+
+	<!-- TODO taskStatus  -->
+    <jpql id="findLprGeofenceTaskPageList" resultClass="com.micro.dto.geofence.LprGeofenceTaskDTO" native="true">
+		<![CDATA[
+        SELECT
+			task_name as task_name,  task_level as task_level, alarm_type as alarm_type,
+			start_time as start_date_time_str, end_time as end_date_time_str, description as description,  disposition_id as disposition_id,   id as id,  location as location,
+			 site_code as site_code,       task_type as task_type,
+			 traffic_threshold_enable as traffic_threshold_enable,  traffic_threshold_number as traffic_threshold_number,  version as version,
+			 task_status as task_status,
+			 sites as sites_text,
+			 created_time as created_time,  created_by as created_by,  updated_time as updated_time,  updated_by as updated_by
+		FROM
+			lpr_geofence_task tab1 
+		WHERE 1=1
+		#if("$!{taskName}"!="")
+		and task_name like :%taskName%
+		#end
+
+		#if("$!{startDateTime}"!="")
+		and start_time >= :startDateTime
+		#end
+		#if("$!{endDateTime}"!="")
+		and end_time <= :endDateTime
+		#end
+			
+		#if("$!{alarmType}"!="")
+	        and alarm_type = :alarmType
+	    #end
+				#if("$!{description}"!="")
+	        and description = :description
+	    #end
+				#if("$!{dispositionId}"!="")
+	        and disposition_id = :dispositionId
+	    #end
+
+		#if("$!{location}"!="")
+	        and location = :location
+	    #end
+
+		#if("$!{taskLevel}"!="")
+	        and task_level = :taskLevel
+	    #end
+
+		#if("$!{taskType}"!="")
+	        and task_type = :taskType
+	    #end
+				#if("$!{trafficThresholdEnable}"!="")
+	        and traffic_threshold_enable = :trafficThresholdEnable
+	    #end
+		#if("$!{trafficThresholdNumber}"!="")
+	        and traffic_threshold_number = :trafficThresholdNumber
+	    #end
+		#if("$!{orderBy}"!="")
+			order by :orderBy
+		#else
+			order by id
+		#end
+		
+		#if("$!{dir}" =='ASC' || "$!{dir}" =='asc' )
+			ASC
+		#else
+		    DESC
+		#end
+		]]>
+    </jpql>
+
+</jpa>

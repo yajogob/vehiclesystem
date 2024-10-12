@@ -1,0 +1,68 @@
+.live-traffic {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 18rem;
+  height: 100%;
+  flex-direction: column;
+
+  .chart-title {
+    position: absolute;
+    bottom: 4rem;
+    left: 1.45rem;
+    width: max-content;
+    height: 1.5rem;
+    color: #fff84d;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+  }
+
+  .line-chart {
+    position: relative;
+    width: calc(100% - 1.3rem);
+    height: calc(100% - 2rem);
+    margin-left: 1.3rem;
+  }
+
+  &.small {
+    :is([dir='rtl'] .graph-statistics-title) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .no-data-available {
+      position: absolute;
+      top: 40%;
+      left: 5rem;
+      color: #fff;
+      pointer-events: none;
+    }
+  }
+
+  &.big {
+    .chart-title {
+      bottom: 14rem;
+      left: 1.6rem;
+      font-size: 1.6rem;
+    }
+
+    .no-data-available {
+      position: absolute;
+      top: 45%;
+      left: 40%;
+      color: #fff;
+      font-size: 1.6rem;
+    }
+  }
+
+  :is([data-theme='light'] .theme) {
+    color: #363525;
+  }
+
+  :is([data-theme='dark'] .theme) {
+    color: #fff84d;
+  }
+}

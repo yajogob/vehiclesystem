@@ -1,0 +1,11 @@
+.search-table {
+  .line-h {
+    line-height: 1;
+  }
+
+  .no-access {
+    ::ng-deep .ag-row {
+      cursor: default !important;
+    }
+  }
+}

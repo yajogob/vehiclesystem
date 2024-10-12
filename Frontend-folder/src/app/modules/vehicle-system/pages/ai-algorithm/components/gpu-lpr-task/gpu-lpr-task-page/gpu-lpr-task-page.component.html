@@ -1,0 +1,47 @@
+<div class="flex flex-col w-full h-[100%]" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="flex-none gpu-lpr-task-search-form">
+    <vs-gpu-lpr-task-search-form
+      (createNewTaskEmit)="createNewTaskEmit()"
+      (searchClickEmit)="searchClickEmit($event)"
+      (selectedDateFnEmit)="selectedDateFnEmit($event)"
+    ></vs-gpu-lpr-task-search-form>
+  </div>
+
+  <div class="data-total text-[var(--vs-text-color-regular)]">
+    {{dataTotal.toLocaleString()}} {{tl('tasksInTotal')}}
+  </div>
+
+  <div class="flex-1 px-[2rem] load-container">
+    <ngx-ui-loader [loaderId]="'task-loader'"></ngx-ui-loader>
+    <vs-pagination-grid
+      [id]="'gpuLprTaskPage'"
+      [columnDefs]="tableColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="gpuLprTaskData"
+      [totalItems]="dataTotal"
+      [currentPage]="pageNo"
+      [pageMode]="'server'"
+      (totalChange)="dataTotal = $event"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (cellOperated)="onCellOperated($event)"
+    ></vs-pagination-grid>
+  </div>
+</div>
+
+<vs-shared-task-modal
+  [isShow]="isShowCreateModal"
+  [taskOrDetails]="taskOrDetails"
+  [addOrEdit]="addOrEdit"
+  [taskChannel]="gpuLpr"
+  [editModalDate]="editModalDate"
+  (closeModalEvent)="closeModalEvent()"
+  (saveSucEmit)="saveSucEvent($event)">
+  <vs-gpu-lpr-task-detail
+    publicModalContent
+    [taskStatusObj]="taskStatusObj"
+    [editModalDate]="editModalDate"
+    (closeModalEvent)="closeModalEvent()"
+  ></vs-gpu-lpr-task-detail>
+</vs-shared-task-modal>

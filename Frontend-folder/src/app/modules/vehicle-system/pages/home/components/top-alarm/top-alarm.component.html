@@ -1,0 +1,200 @@
+<div class="home-top-alarm" aria-hidden="true">
+  <div
+    class="alarm-list"
+    [ngClass]="{'no-access': !accessHandle(allResourceList.WatchListListAlerts)}"
+    (click)="goAlerts('watchList', allResourceList.WatchListListAlerts)"
+    vsAccessControlDirective [accessParams]="allResourceList.WatchListListAlerts">
+    <span class="warn-icon"></span>
+    <ng-template #noWatch>
+      <div class="no-alert">{{'vs.home.noWatchlistAlerts' | transloco}}</div>
+    </ng-template>
+    <ng-container *ngIf="watchlistAlerts.length && accessHandle(allResourceList.WatchListListAlerts); else noWatch">
+      <div class="content">
+        <div class="li odd" [title]="watchlistAlerts[watchlistIndex].plateNo">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[0].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{watchlistAlerts[watchlistIndex].plateNo}}
+            </span>
+          </div>
+        </div>
+        <div class="li" [title]="watchlistAlerts[watchlistIndex].warningTime | date: 'MMM d, YYYY h:mm a'">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[1].value}}
+              {{transLocoList[2].value}}
+              /
+              {{transLocoList[3].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{watchlistAlerts[watchlistIndex].warningTime | date: 'MMM d, YYYY h:mm a'}}
+            </span>
+          </div>
+        </div>
+        <div class="li odd" [title]="watchlistAlerts[watchlistIndex].deviceName">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[4].value}}:&nbsp;&nbsp;
+            </span>
+            <span  class="flex-1 line-clamp-1">
+              {{watchlistAlerts[watchlistIndex].deviceName}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <span>{{watchlistIndex + 1}}/{{watchlistAlerts.length}}</span>
+      <div class="prev-next">
+        <span class="prev" (click)="setWatchlistIndex('prev');$event.stopPropagation()"></span>
+        <span class="next" (click)="setWatchlistIndex('next');$event.stopPropagation()"></span>
+      </div>
+    </ng-container>
+  </div>
+  <div
+    class="vehicle-list"
+    (click)="goAlerts('behavioral', allResourceList.BehavioralListAlerts)"
+    [ngClass]="{'no-access': !accessHandle(allResourceList.BehavioralListAlerts)}"
+    vsAccessControlDirective [accessParams]="allResourceList.BehavioralListAlerts">
+    <span class="vehicle-icon"></span>
+    <ng-template #noBehavioral>
+      <div class="no-alert">{{'vs.home.noBehavioralAlerts' | transloco}}</div>
+    </ng-template>
+    <ng-container *ngIf="behavioralAlerts.length && accessHandle(allResourceList.BehavioralListAlerts); else noBehavioral">
+      <div class="content">
+        <div class="li" [title]="behavioralAlerts[behavioralIndex].plateNo" *ngIf="behavioralAlerts[behavioralIndex].plateNo">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[0].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{behavioralAlerts[behavioralIndex].plateNo}}
+            </span>
+          </div>
+        </div>
+        <div class="li" [title]="behavioralAlerts[behavioralIndex].warningTime | date: 'MMM d, YYYY h:mm a'">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[1].value}}
+              {{transLocoList[2].value}}
+              /
+              {{transLocoList[3].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{behavioralAlerts[behavioralIndex].warningTime | date: 'MMM d, YYYY h:mm a'}}
+            </span>
+          </div>
+        </div>
+        <div class="li" [title]="behavioralAlerts[behavioralIndex].deviceName">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[4].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{behavioralAlerts[behavioralIndex].deviceName}}
+            </span>
+          </div>
+        </div>
+        <div class="li" [title]="behavioralAlerts[behavioralIndex].warningName" *ngIf="behavioralAlerts[behavioralIndex].warningName">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[5].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{behavioralAlerts[behavioralIndex].warningName}}
+            </span>
+          </div>
+        </div>
+        <div class="li" [title]="behavioralAlerts[behavioralIndex].algorithmName" *ngIf="behavioralAlerts[behavioralIndex].algorithmName">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[6].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{behavioralAlerts[behavioralIndex].algorithmName}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <span>{{behavioralIndex + 1}}/{{behavioralAlerts.length}}</span>
+      <div class="prev-next">
+        <span class="prev" (click)="setBehavioralIndex('prev');$event.stopPropagation()"></span>
+        <span class="next" (click)="setBehavioralIndex('next');$event.stopPropagation()"></span>
+      </div>
+    </ng-container>
+  </div>
+  <div
+    class="adress-list"
+    (click)="goAlerts('geofenceList', allResourceList.GeofenceListAlerts)"
+    [ngClass]="{'no-access': !accessHandle(allResourceList.GeofenceListAlerts)}"
+    vsAccessControlDirective [accessParams]="allResourceList.GeofenceListAlerts">
+    <span class="adress-icon"></span>
+    <ng-template #noGeofence>
+      <div class="no-alert">{{'vs.home.noGeofenceAlerts' | transloco}}</div>
+    </ng-template>
+    <ng-container *ngIf="geofenceAlerts.length && accessHandle(allResourceList.GeofenceListAlerts); else noGeofence">
+      <div class="content">
+        <div class="li odd" [title]="geofenceAlerts[geofenceIndex].plateNumber">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[0].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{geofenceAlerts[geofenceIndex].plateNumber}}
+            </span>
+          </div>
+        </div>
+        <div class="li" [title]="geofenceAlerts[geofenceIndex].warningTime | date: 'MMM d, YYYY h:mm a'">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[1].value}}
+              {{transLocoList[2].value}}
+              /
+              {{transLocoList[3].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{geofenceAlerts[geofenceIndex].warningTime | date: 'MMM d, YYYY h:mm a'}}
+            </span>
+          </div>
+        </div>
+        <div class="li odd" [title]="geofenceAlerts[geofenceIndex].cameraName">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[4].value}}:&nbsp;&nbsp;
+            </span>
+            <span class="flex-1 line-clamp-1">
+              {{geofenceAlerts[geofenceIndex].cameraName}}
+            </span>
+          </div>
+        </div>
+        <div class="li" [title]="geofenceAlerts[geofenceIndex].warningName">
+          <span class="round">●</span>
+          <div class="flex">
+            <span>
+              {{transLocoList[5].value}}:&nbsp;&nbsp;
+            </span>
+            <span>
+              {{geofenceAlerts[geofenceIndex].warningName}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <span>{{geofenceIndex + 1}}/{{geofenceAlerts.length}}</span>
+      <div class="prev-next">
+        <span class="prev" (click)="setGeofenceIndex('prev');$event.stopPropagation()"></span>
+        <span class="next" (click)="setGeofenceIndex('next');$event.stopPropagation()"></span>
+      </div>
+    </ng-container>
+  </div>
+</div>

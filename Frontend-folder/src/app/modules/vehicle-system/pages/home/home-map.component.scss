@@ -1,0 +1,176 @@
+.home-map-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+
+  &.padding-top {
+    padding-top: 4.3rem;
+  }
+
+  .funciont-content {
+    display: flex;
+    height: 100%;
+    box-sizing: border-box;
+    flex: 1;
+    align-items: flex-end;
+
+    .bottom-container {
+      position: absolute;
+      z-index: 10;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+
+      .bottom-search-conditions {
+        position: relative;
+        display: flex;
+        width: max-content;
+        height: max-content;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        margin-bottom: 0.5rem;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  .graph-statistics {
+    position: relative;
+    width: max-content;
+    height: 100%;
+
+    .graph-scroll-list {
+      overflow: auto;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      pointer-events: auto;
+
+      ::ng-deep .vehicle-counts {
+        margin-bottom: 0.5rem;
+        pointer-events: auto;
+      }
+
+      ::ng-deep .alert-counts {
+        margin-bottom: 2.7rem;
+      }
+
+      ::ng-deep .traffic-sites {
+        margin-bottom: 1.8rem;
+      }
+
+      .small-live-traffic {
+        position: relative;
+        width: 100%;
+        height: 17rem;
+        margin-bottom: 1.5rem;
+        pointer-events: auto;
+
+        ::ng-deep .live-traffic {
+          ::ng-deep canvas {
+            cursor: pointer !important;
+          }
+        }
+      }
+
+      .small-behavioral-alert {
+        position: relative;
+        width: 100%;
+        height: 14rem;
+        pointer-events: auto;
+
+        ::ng-deep .behavioral-alert {
+          ::ng-deep canvas {
+            cursor: pointer !important;
+          }
+        }
+      }
+
+      .small-live-traffic,
+      .small-behavioral-alert {
+        ::ng-deep .ngx-position-absolute.ngx-progress-bar {
+          display: none;
+        }
+      }
+    }
+
+    .big-live-traffic {
+      position: absolute;
+      z-index: 15;
+      top: 13rem;
+      width: 63rem;
+      height: 46rem;
+      box-sizing: border-box;
+      background: var(--vs-chart-preview-bg-color);
+      pointer-events: auto;
+
+      ::ng-deep .live-traffic .graph-statistics-title {
+        font-size: 2.4rem;
+      }
+    }
+
+    .big-behavioral-alert {
+      position: absolute;
+      z-index: 15;
+      bottom: 2rem;
+      width: 63rem;
+      height: calc(100% - 5rem);
+      box-sizing: border-box;
+      background: var(--vs-chart-preview-bg-color);
+      pointer-events: auto;
+    }
+  }
+}
+
+:is([dir='ltr'] .home-map-container) {
+  & > .graph-statistics {
+    background: linear-gradient(270deg, rgb(0 0 0 / 90%) 0%, rgb(0 0 0 / 45%) 60%, rgb(0 0 0 / 0%) 98%);
+
+    .graph-scroll-list {
+      padding: 2rem 2rem 1rem 12rem;
+    }
+
+    .big-live-traffic {
+      right: unset;
+      left: -52rem;
+      padding: 2rem 1rem 1rem 2rem;
+    }
+
+    .big-behavioral-alert {
+      right: unset;
+      left: -52rem;
+      padding: 2rem 1rem 1rem 2rem;
+    }
+  }
+}
+
+:is([dir='rtl'] .home-map-container) {
+  & > .graph-statistics {
+    background: linear-gradient(-270deg, rgb(0 0 0 / 90%) 0%, rgb(0 0 0 / 45%) 60%, rgb(0 0 0 / 0%) 98%);
+
+    .graph-scroll-list {
+      padding: 2rem 12rem 1rem 2rem;
+    }
+
+    .big-live-traffic {
+      right: -52rem;
+      left: unset;
+      padding: 2rem 2rem 1rem 1rem;
+    }
+
+    .big-behavioral-alert {
+      right: -52rem;
+      left: unset;
+      padding: 2rem 2rem 1rem 1rem;
+    }
+  }
+}

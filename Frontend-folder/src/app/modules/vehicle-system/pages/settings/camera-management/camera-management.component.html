@@ -1,0 +1,47 @@
+<div class="camera-management bg-[var(--vs-vehicle-content-background)] flex flex-col w-full h-full">
+  <vs-camera-management-search
+    class="flex-none"
+    [activeLangValue]="lang"
+    (cameraSearchEvent)="cameraSearchEvent($event)"
+    (cameraListUpdate)="cameraListUpdateFn($event)"
+  ></vs-camera-management-search>
+
+  <div class="flex-1 pt-[1rem] pb-[1rem] px-[2rem] load-container">
+    <ngx-ui-loader [loaderId]="'loader-01'"></ngx-ui-loader>
+    <!-- AG Grid Angular Component -->
+    <vs-pagination-grid
+      [id]="'cameraList'"
+      [columnDefs]="tableColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="cameraManagementList"
+      [currentPage]="curPageNo"
+      [totalItems]="dataTotal"
+      (totalChange)="dataTotal = $event"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (cellOperated)="onCellOperated($event)"
+    ></vs-pagination-grid>
+  </div>
+</div>
+
+<vs-camera-details-side
+  [isShowDetails]="isShowDetails"
+  [cameraInfo]="currentCameraInfo"
+  [vehicleBrandTypeMap]="vehicleBrandTypeMap"
+  [plateColorMap]="plateColorMap"
+  [vehicleTypeMap]="vehicleTypeMap"
+  [vehicleColorMap]="vehicleColorMap"
+  [cameraSourceMap]="cameraSourceMap"
+  (closeEmit)="closeCameraDetails()"
+></vs-camera-details-side>
+
+<div *ngIf="isShow">
+  <vs-edit-camera-list
+    [language]="lang"
+    [showEditModal]="isShow"
+    [editModalDate]="editModalDate"
+    (updateEmit)="updateEmitFn($event)"
+    (closeModalEvent)="closeModalEvent()"
+  ></vs-edit-camera-list>
+</div>

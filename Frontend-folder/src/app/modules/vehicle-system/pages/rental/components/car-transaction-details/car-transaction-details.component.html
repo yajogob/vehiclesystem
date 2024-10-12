@@ -1,0 +1,76 @@
+<div
+  aria-hidden="true"
+  class="car-transaction-details"
+  *ngIf="isShow" (click)="close()"
+  [@slideTrigger]="{value: ':enter', params: {tx: slideX}}"
+>
+  <div class="modal bg-[var(--vs-sidebar-right-bg-color)]" (click)="$event.stopPropagation();"
+    *transloco="let tl; read: 'vs.rental'">
+    <div class="title-area">
+      <div class="title">
+        <p class="text-[var(--vs-dialog-header-text-color)]">{{tl('carTransaction')}}</p>
+      </div>
+      <div class="close-icon" (click)="close()"></div>
+    </div>
+
+    <div class="details-content">
+      <div class="content-item">
+        <span>{{tl('transactionNo')}}</span>
+        <span>{{currentTransactionsData.agreement_NO}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('customerInvoiceNumber')}}</span>
+        <span>{{currentTransactionsData.customer_invoice_number}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('transactionDate')}} & {{tl('timeOut')}}</span>
+        <span>{{currentTransactionsData.rentalVehicleTransDateOut}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('transactionDate')}} & {{tl('timeReturn')}}</span>
+        <span>{{currentTransactionsData.endTimestamp > currentTransactionsData.startTimestamp ? currentTransactionsData.rentalVehicleTransDateReturn : ''}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('renterArabicName')}}</span>
+        <span>{{currentTransactionsData.renter_ARABIC_NAME}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('renterEnglishName')}}</span>
+        <span>{{currentTransactionsData.renter_ENGLISH_NAME}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('renterNationality')}}</span>
+        <span>{{currentTransactionsData.renter_nationality}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('renterResidenceCountry')}}</span>
+        <span>{{currentTransactionsData.residence_country}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('documentNo')}}{{tl('passport')}}</span>
+        <span>{{currentTransactionsData.document_number}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('documentIssueDate')}}</span>
+        <span>{{currentTransactionsData.document_ISSUE_DATE}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('documentExpiryDate')}}</span>
+        <span>{{currentTransactionsData.expiryDate}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('renterSex')}}</span>
+        <span>{{currentTransactionsData.gender}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('renterMobile')}}</span>
+        <span>{{currentTransactionsData.renter_TELEPHONE}}</span>
+      </div>
+      <div class="content-item">
+        <span>{{tl('emirates')}}</span>
+        <span>{{currentTransactionsData.emirates}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

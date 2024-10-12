@@ -1,0 +1,26 @@
+<section class="fine-result-table" aria-hidden="true" *transloco="let tl; read: 'vs.trafficFine'">
+  <p class="title">{{tl('searchResults')}}</p>
+  <p class="flex total">
+    <span>{{tl('total')}}</span>
+    <span class="ml-2 mr-2">{{ totalItems }}</span>
+  </p>
+
+  <div class="flex-1 w-full load-container no-opration-table">
+    <ngx-ui-loader [loaderId]="'fine-search-loader'"></ngx-ui-loader>
+    <vs-pagination-grid
+      class="flex-1"
+      [id]="'trafficSearch'"
+      [switchHeight]="true"
+      [columnDefs]="tableColumnDefs"
+      [rowData]="rowData"
+      [currentPage]="currentPage"
+      [totalItems]="totalItems"
+      [pageMode]="'server'"
+      (totalChange)="totalItems = $event"
+      (sortChanged)="onSortChanged($event)"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    ></vs-pagination-grid>
+  </div>
+</section>

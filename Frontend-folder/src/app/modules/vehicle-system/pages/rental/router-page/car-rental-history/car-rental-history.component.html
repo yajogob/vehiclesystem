@@ -1,0 +1,26 @@
+<div class="bg-[var(--vs-vehicle-content-background)] w-full h-full car-rental-history">
+  <vs-car-rental-back-button [backButtonText]="backButtonText">
+  </vs-car-rental-back-button>
+
+  <div class="car-rental-search" *transloco="let tl; read: 'vs.rental'">
+    <div class="title text-[var(--vs-rental-title-color)]">{{ tl('carRental') }}</div>
+  </div>
+  <!-- <vs-car-rental-search [immediate]="'0'" (carRentalSearchEvent)="carRentalSearchEvent($event)">
+  </vs-car-rental-search> -->
+
+  <vs-car-rental-current-vehicle-info
+    [currentCarRentalData]="currentCarRentalData"
+  >
+  </vs-car-rental-current-vehicle-info>
+
+  <vs-car-rental-current-vehicle-history
+    [randowNum]="randowNum"
+    [curPageNo]="pageNo"
+    [dataTotal]="dataTotal"
+    [rentalTransactionsData]="rentalTransactionsData"
+    (selectedDateEmitEvent)="selectedDateEvent($event)"
+    (fixedDateEmitEvent)="fixedDateEvent($event)"
+    (nextPageEventEmit)="nextPageEventEmit()"
+  >
+  </vs-car-rental-current-vehicle-history>
+</div>

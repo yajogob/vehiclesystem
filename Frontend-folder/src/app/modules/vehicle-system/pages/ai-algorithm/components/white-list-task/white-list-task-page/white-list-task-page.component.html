@@ -1,0 +1,45 @@
+<div class="white-list-task-page flex flex-col w-full h-[100%]" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="flex-none white-list-task-search-form">
+    <!-- Borrowing watch-list-task Components -->
+    <vs-watch-list-task-search-form
+      [accessName]="allResourceList.WhiteListCreateTask"
+      (createNewTaskEmit)="createNewTaskEmit()"
+      (searchClickEmit)="searchClickEmit($event)"
+      (selectedDateFnEmit)="selectedDateFnEmit($event)"
+    ></vs-watch-list-task-search-form>
+  </div>
+
+  <div class="data-total text-[var(--vs-text-color-regular)]">
+    {{dataTotal.toLocaleString()}} {{tl('tasksInTotal')}}
+  </div>
+
+  <div class="flex-1 px-[2rem] load-container">
+    <ngx-ui-loader [loaderId]="'task-loader'"></ngx-ui-loader>
+    <vs-pagination-grid
+      [id]="'whiteListTaskPage'"
+      [itemsPerPage]="pageSize"
+      [columnDefs]="tableColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="whiteListTaskData"
+      [totalItems]="dataTotal"
+      [currentPage]="pageNo"
+      (totalChange)="dataTotal = $event"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (cellOperated)="onCellOperated($event)"
+    ></vs-pagination-grid>
+  </div>
+</div>
+
+<vs-shared-task-modal
+  [isShow]="isShowCreateModal"
+  [taskOrDetails]="taskOrDetails"
+  [addOrEdit]="addOrEdit"
+  [taskChannel]="whiteList"
+  [editModalDate]="editModalDate"
+  (closeModalEvent)="closeModalEvent()"
+  (saveSucEmit)="saveSucEvent($event)">
+  <vs-white-list-task-details *ngIf="isShowCreateModal" publicModalContent [taskId]="curDataTaskId" style="height: 100%;">
+  </vs-white-list-task-details>
+</vs-shared-task-modal>

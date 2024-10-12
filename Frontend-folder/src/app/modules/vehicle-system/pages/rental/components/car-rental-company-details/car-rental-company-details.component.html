@@ -1,0 +1,39 @@
+<div class="car-rental-company-details  " *transloco="let tl; read: 'vs.rental'">
+  <ng-container *ngIf="companyDetailsData">
+    <div class="company-info-item">
+      <span class="fs-18" *ngIf="activeLangValue === 'en'">{{companyDetailsData.companyEnglishName}}</span>
+      <span class="fs-18" *ngIf="activeLangValue === 'ar'">{{companyDetailsData.companyArabicName}}</span>
+      <span class="fs-14">{{companyDetailsData.address}}</span>
+    </div>
+
+    <!-- middle vertical line -->
+    <div class="vertical-line"></div>
+
+    <div class="company-info-item">
+      <div class="flex-column">
+        <span class="fs-18">{{tl('tradeLicenseNumber')}}</span>
+        <span class="fs-14">{{companyDetailsData.tradeLicenseNum}}</span>
+      </div>
+      <div class="flex-column">
+        <span class="fs-18">{{tl('emiratesCode')}}</span>
+        <span class="fs-14">{{companyDetailsData.emiratesCode}}</span>
+      </div>
+    </div>
+
+    <!-- middle vertical line -->
+    <div class="vertical-line"></div>
+
+    <div class="company-info-item">
+      <span class="fs-18">{{tl('contact')}}</span>
+      <div>
+        <span>{{tl('phone')}}:</span>
+        <span class="fs-14">{{companyDetailsData.telephone1}}&nbsp;&nbsp;</span>
+        <span class="fs-14">{{companyDetailsData.telephone2}}</span>
+      </div>
+      <div class="mt-4">
+        <span>{{tl('email')}}:</span>
+        <span>{{companyDetailsData.email}}</span>
+      </div>
+    </div>
+  </ng-container>
+</div>

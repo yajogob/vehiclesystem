@@ -1,0 +1,160 @@
+<div
+  class="fake-plate-side-search h-full pt-[3rem] px-[1.8rem] bg-[var(--vs-vehicle-search-background)]"
+  *transloco="let tl; read: 'vs.fakePlateNumber'"
+>
+  <p class="title font-bold text-[var(--vs-title-color)]">
+    {{ tl("pageTitle") }}
+  </p>
+  <p class="current-time text-[var(--vs-form-text-color-secondary)]">
+    {{ currentDateTime | date : "MMM d, YYYY h:mm a" }}
+  </p>
+  <form class="search-form" [formGroup]="fakePlateSearchForm">
+    <div class="ordinary-search">
+      <div class="item">
+        <ng-select
+          [ngClass]="{'err-tips-select': !fakePlateSearchForm.value.region && fakePlateSearchForm.value.selectSearchType === '1'}"
+          class="ng-select item"
+          placeholder="{{ tl('region') }}"
+          [clearable]="true"
+          [items]="regionList"
+          bindLabel="key"
+          bindValue="value"
+          formControlName="region"
+          (change)="changeCurrentRegion($event)"
+          (clear)="clearRegion()"
+        ></ng-select>
+      </div>
+      <div class="error-tips">
+        <div *ngIf="!fakePlateSearchForm.value.region && fakePlateSearchForm.value.selectSearchType === '1'">
+          {{'vs.aiAlgorithm.regionIsRequired' | transloco}}
+        </div>
+      </div>
+      <div class="flex flex-row justify-between item row-item">
+        <ng-select
+          [ngClass]="{'err-tips-select': !fakePlateSearchForm.value.plateCategory && fakePlateSearchForm.value.selectSearchType === '1'}"
+          class="ng-select ng-select-sm w-[8.5rem]"
+          placeholder="{{ tl('category') }}"
+          [clearable]="true"
+          [items]="categoryList"
+          bindLabel="key"
+          bindValue="value"
+          formControlName="plateCategory"
+        ></ng-select>
+        <ng-select
+          class="ng-select ng-select-sm w-[6.5rem] mx-0.5"
+          placeholder="{{ tl('exactNum') }}"
+          formControlName="exactNum"
+          [clearable]="false"
+          [items]="exactNumList"
+          [multiple]="false"
+          bindLabel="key"
+          bindValue="value"
+        ></ng-select>
+        <input
+          [ngClass]="{'err-tips-input': !fakePlateSearchForm.value.plateNumber && fakePlateSearchForm.value.selectSearchType === '1'}"
+          class="flex-1 vehicle-input"
+          type="text"
+          [maxlength]="10"
+          placeholder="{{ tl('numberPlate') }}"
+          formControlName="plateNumber"
+        />
+      </div>
+      <div class="error-tips">
+        <span *ngIf="!fakePlateSearchForm.value.plateCategory && fakePlateSearchForm.value.selectSearchType === '1'">
+          {{'vs.aiAlgorithm.categoryIsRequired' | transloco}}
+        </span>
+        <span class="float-right" *ngIf="!fakePlateSearchForm.value.plateNumber && fakePlateSearchForm.value.selectSearchType === '1'">
+          {{'vs.aiAlgorithm.numberPlateIsRequired' | transloco}}
+        </span>
+      </div>
+      <div class="item">
+        <ng-select
+          class="ng-select"
+          placeholder="{{ tl('plateColor') }}"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [clearable]="false"
+          [items]="plateColorList"
+          bindLabel="key"
+          bindValue="value"
+          formControlName="plateColor"
+        ></ng-select>
+      </div>
+      <div class="item">
+        <vs-vehicle-date-input
+          [show24Time]="true"
+          [selected]="selected"
+          [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+          (selectedDateEmit)="selectedDate($event)"
+        ></vs-vehicle-date-input>
+      </div>
+    </div>
+    <div
+      class="advanced-search-control-bar"
+      aria-hidden="true"
+      (click)="showAdvancedSearch()"
+    >
+      <span class="text-[var(--vs-title-color)]"
+        >{{ tl("advanceSearch") }}&nbsp;&nbsp;&nbsp;</span
+      ><span
+        [ngClass]="isShowAdvancedSearch ? 'arrow-up' : 'arrow-down'"
+      ></span>
+    </div>
+    <div class="advanced-search" *ngIf="isShowAdvancedSearch">
+      <ng-select
+        class="ng-select item"
+        placeholder="{{ tl('selectSearchType') }}"
+        formControlName="selectSearchType"
+        [clearable]="true"
+        [items]="filterFakeSearchTypeList"
+        bindLabel="key"
+        bindValue="value"
+        (change)="searchTypeChange($event)"
+      >
+      </ng-select>
+      <ng-select
+        class="ng-select item"
+        placeholder="{{ tl('informationStatus') }}"
+        formControlName="informationStatus"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        [clearable]="false"
+        [items]="fakeInformationStatusList"
+        bindLabel="key"
+        bindValue="value"
+      >
+      </ng-select>
+      <div class="item choose-site">
+        <ng-select
+          class="mt-4 pointer-events ng-select"
+          formControlName="sites"
+          [items]="siteSelectedList"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          bindLabel="codeDesc"
+          [placeholder]="tl('site')"
+          (open)="showSiteModal()"
+          (change)="chooseCameraChange($event)"
+        ></ng-select>
+        <div
+          class="add-icon"
+          [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+        ></div>
+      </div>
+    </div>
+    <div class="operate">
+      <button
+        class="operate-button search public-search-btn"
+        (click)="getFakePlateTableList()"
+      >
+        {{ tl("search") }}
+      </button>
+      <button
+        class="reset operate-button public-reset-btn text-[var(--vs-text-color)]"
+        (click)="resetForm()"
+      >
+        {{ tl("reset") }}
+      </button>
+    </div>
+  </form>
+</div>

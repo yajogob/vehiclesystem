@@ -1,0 +1,71 @@
+<div aria-hidden="true" class="watch-list-task-search-form" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="form">
+    <ng-select
+      class="region"
+      [items]="regionList"
+      bindLabel="key"
+      bindValue="value"
+      [(ngModel)]="regionValue"
+      (clear)="clearRegion()"
+      (change)="regionChange($event)"
+      [placeholder]="tl('region')">
+      <ng-option *ngFor="let item of regionList" [value]="item">{{item}}</ng-option>
+    </ng-select>
+
+    <ng-select
+      class="category"
+      [items]="categoryListMap[currentRegion]"
+      bindLabel="key"
+      bindValue="value"
+      [(ngModel)]="categoryValue"
+      [placeholder]="tl('category')"
+    ></ng-select>
+    <input
+      type="text"
+      [maxlength]="10"
+      class="num-plate vehicle-input"
+      [placeholder]="tl('numberPlate')"
+      [(ngModel)]="plateNumber"
+      (keydown.enter)="searchClick()"
+    />
+    <ng-select
+      class="plate-color ltr:mr-3 rtl:ml-3"
+      [items]="plateColorList"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      bindLabel="key"
+      bindValue="value"
+      [(ngModel)]="plateColorValue"
+      [placeholder]="tl('plateColor')"
+    >
+      <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+        <div class="ng-value" *ngFor="let item of items | slice:0:1">
+          <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+          <span class="ng-value-label">{{colorLabel(item) }}</span>
+        </div>
+        <div class="ng-value" *ngIf="items.length > 1">
+          <span class="ng-value-label">{{items.length - 1}} {{tl('more')}} ...</span>
+        </div>
+      </ng-template>
+    </ng-select>
+    <div class="date-input">
+      <vs-vehicle-date-input
+        [dateSelectRestrict]="'noRestrict'"
+        [selected]="selected"
+        [position]="language === 'ar' ? 'bottom-left' : 'bottom-right'"
+        (selectedDateEmit)="selectedDateFn($event)"
+      ></vs-vehicle-date-input>
+    </div>
+    <button class="search-btn public-search-btn" (click)="searchClick()">{{tl('search')}}</button>
+  </div>
+
+  <div
+    vsAccessControlDirective
+    [accessParams]="accessName"
+    class="public-create-task-btn"
+    (click)="createNewTask()"
+  >
+    <div class="">{{tl('createNewTask')}}</div>
+    <div class="icon ltr:ml-2 rtl:mr-2"></div>
+  </div>
+</div>

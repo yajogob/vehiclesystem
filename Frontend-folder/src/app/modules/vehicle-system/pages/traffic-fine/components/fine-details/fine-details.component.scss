@@ -1,0 +1,77 @@
+.fine-details {
+  display: flex;
+  width: inherit;
+  height: 100%;
+  flex-direction: column;
+  color: var(--vs-vehicle-font-color);
+  pointer-events: auto;
+
+  .top {
+    position: relative;
+    height: 5.5rem;
+    padding: 1.3rem 1.3rem 0;
+
+    .title {
+      color: var(--vs-title-color);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .total {
+      color: var(--vs-text-color);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  %pub {
+    position: absolute;
+    z-index: 999;
+    top: 5.5rem;
+    display: flex;
+    width: 2.7rem;
+    height: 2.7rem;
+    align-items: center;
+    background-color: #b7b239;
+    cursor: pointer;
+
+    img {
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+  }
+
+  .ltr-arrow-right {
+    @extend %pub;
+
+    right: -2.7rem;
+  }
+
+  .ltr-arrow-left {
+    @extend %pub;
+
+    right: 0;
+  }
+
+  .rtl-arrow-right {
+    @extend %pub;
+
+    left: 0;
+  }
+
+  .rtl-arrow-left {
+    @extend %pub;
+
+    left: -2.7rem;
+  }
+
+  .content {
+    overflow: auto;
+  }
+}
+
+.fine-details::-webkit-scrollbar {
+  display: none;
+
+  /* Chrome Safari */
+}

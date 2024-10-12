@@ -1,0 +1,11 @@
+.vehicle-counts {
+  width: 100%;
+  min-width: 18rem;
+  height: max-content;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+:is([dir='rtl'] .vehicle-counts) {
+  direction: ltr;
+}

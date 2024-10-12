@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jpa module="lprDictionary">
+
+    <jpql id="findCodeDescByCodeTypeAndVal" resultClass="com.kedacom.kiaf.common.code.dto.CodeItemDTO" native="true">
+        select ci.CODE_ITEM_VALUE ,ci.CODE_ITEM_NAME,ci.reserve1, ct.CODE_TYPE as code_type_no
+        from code_item ci
+        join code_type ct on ci.CODE_TYPE_NO = ct.NO
+        where 1=1 
+        #if($codeType)
+        and ct.CODE_TYPE = :codeType
+        #else
+        and ct.CODE_TYPE like 'Lpr%'
+        #end
+        #if($codeVal)
+        and ci.CODE_ITEM_VALUE= :codeVal
+        #end
+    </jpql>
+
+
+    <jpql id="getCodeItemsByType" resultClass="com.kedacom.kiaf.common.code.dto.CodeItemDTO" native="true">
+        select ci.CODE_ITEM_VALUE ,ci.CODE_ITEM_NAME,ci.reserve1, ct.CODE_TYPE as code_type_no
+        from code_item ci
+        left join code_type ct on ci.CODE_TYPE_NO = ct.`NO`
+        where 1=1
+        #if($codeType)
+        and ct.CODE_TYPE= :codeType
+        #else
+        and ct.CODE_TYPE like 'Lpr%'
+        #end
+        order by ci.SEQUENCE asc
+    </jpql>
+
+</jpa>

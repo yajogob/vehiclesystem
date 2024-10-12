@@ -1,0 +1,71 @@
+.watch-list-task-search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 0;
+  font-size: 1.2rem;
+
+  .form {
+    display: flex;
+
+    .region {
+      width: 22rem;
+      height: 3.4rem;
+      margin-right: 1rem;
+    }
+
+    .category {
+      width: 9rem;
+      height: 3.4rem;
+      margin-right: 0.4rem;
+    }
+
+    .num-plate {
+      width: 10rem;
+      margin-right: 0.4rem;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        appearance: none;
+      }
+    }
+
+    .plate-color {
+      width: 22rem;
+      height: 3.4rem;
+      margin-right: 1rem;
+    }
+
+    .date-input {
+      position: relative;
+      width: 29rem;
+    }
+
+    .search-btn {
+      width: 11.8rem;
+      min-height: 36px;
+      margin: 0 1.5rem;
+    }
+  }
+
+  .create-btn {
+    display: flex;
+    height: 3.4rem;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1.2rem;
+    border: 0.1rem solid #009739;
+    border-radius: 4px;
+    color: #009739;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    .icon {
+      width: 1.2rem;
+      height: 1.2rem;
+      background: var(--vs-ai-create-task-btn-icon) no-repeat;
+      background-size: 1.2rem 1.2rem;
+    }
+  }
+}

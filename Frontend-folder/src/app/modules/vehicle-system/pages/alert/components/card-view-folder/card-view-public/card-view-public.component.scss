@@ -1,0 +1,11 @@
+.card-view-public {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .result-img-list {
+    overflow: auto;
+    height: 100%;
+  }
+}

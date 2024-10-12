@@ -1,0 +1,50 @@
+<div class="map-opration-btns" aria-hidden="true" *transloco="let tl; read: 'vs.map'">
+  <!-- <p class="title start-[1.5rem]">{{tl('controller')}}</p> -->
+  <div class="zoom-out-btns">
+    <span class="map-opration-left" (click)="changeMapZoom('increase')">+</span>
+    <span class="map-opration-right" (click)="changeMapZoom('decrease')">-</span>
+  </div>
+  <div class="map-mode-switch">
+    <span class="map-opration-left" (click)="changeMapMode('2D')" [class]="{'actived': mapMode === '2D'}">2D</span>
+    <span class="map-opration-right" (click)="changeMapMode('3D')" [class]="{'actived': mapMode === '3D'}">3D</span>
+  </div>
+  <div class="rotate-full-screen">
+    <span class="map-rotate" (click)="mapReset()">
+      <svg class="default-rotate" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <g clip-path="url(#clip0_1552_1411)">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11 0V2.44444C15.7166 2.44444 19.5556 6.28223 19.5556 11C19.5556 15.7178 15.7166 19.5556 11 19.5556C6.28344 19.5556 2.44444 15.7178 2.44444 11C2.44444 8.74256 3.34277 6.61711 4.88889 5.03311V7.94444H7.33333V1.22223H0.611107V3.66667H2.80011C1.01567 5.66133 0 8.261 0 11C0 17.0647 4.93411 22 11 22C17.0659 22 22 17.0647 22 11C22 4.93533 17.0659 0 11 0Z" fill="#979797"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_1552_1411">
+            <rect width="22" height="22" fill="white"/>
+          </clipPath>
+        </defs>
+      </svg>
+      <svg class="hover-rotate" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <g clip-path="url(#clip0_1552_1429)">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M11 0V2.44444C15.7166 2.44444 19.5556 6.28223 19.5556 11C19.5556 15.7178 15.7166 19.5556 11 19.5556C6.28344 19.5556 2.44444 15.7178 2.44444 11C2.44444 8.74256 3.34277 6.61711 4.88889 5.03311V7.94444H7.33333V1.22223H0.611107V3.66667H2.80011C1.01567 5.66133 0 8.261 0 11C0 17.0647 4.93411 22 11 22C17.0659 22 22 17.0647 22 11C22 4.93533 17.0659 0 11 0Z" fill="#FFD600"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_1552_1429">
+            <rect width="22" height="22" fill="white"/>
+          </clipPath>
+        </defs>
+      </svg>
+    </span>
+    <span class="line"></span>
+    <span class="full-screen" (click)="fullScreen()">
+      <svg *ngIf="isFullScreen" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+        <path d="M1.4375 14.375H8.625V21.5625H6.0375V16.9625H1.4375V14.375Z" fill="#979797"/>
+        <path d="M21.5625 8.625H14.375V1.4375H16.9625V6.0375H21.5625V8.625Z" fill="#979797"/>
+        <path d="M8.625 1.4375V8.625H1.4375V6.0375H6.0375V1.4375H8.625Z" fill="#979797"/>
+        <path d="M14.375 21.5625V14.375H21.5625V16.9625H16.9625V21.5625H14.375Z" fill="#979797"/>
+      </svg>
+      <svg *ngIf="!isFullScreen" xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+        <path d="M8.625 21.5625L1.4375 21.5625L1.4375 14.375L4.025 14.375L4.025 18.975L8.625 18.975L8.625 21.5625Z" fill="#979797"/>
+        <path d="M14.375 1.4375L21.5625 1.4375L21.5625 8.625L18.975 8.625L18.975 4.025L14.375 4.025L14.375 1.4375Z" fill="#979797"/>
+        <path d="M1.4375 8.625L1.4375 1.4375L8.625 1.4375L8.625 4.025L4.025 4.025L4.025 8.625L1.4375 8.625Z" fill="#979797"/>
+        <path d="M21.5625 14.375L21.5625 21.5625L14.375 21.5625L14.375 18.975L18.975 18.975L18.975 14.375L21.5625 14.375Z" fill="#979797"/>
+      </svg>
+    </span>
+  </div>
+</div>

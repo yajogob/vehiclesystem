@@ -1,0 +1,287 @@
+ngx-daterangepicker-material {
+  .md-drppicker {
+    width: 71rem !important;
+    padding: 0 !important;
+    margin-top: 1rem;
+    background: var(--vs-datepicker-ranges-background-color);
+    font-family: Ubuntu, sans-serif;
+    font-size: 1.2rem;
+
+    .calendar {
+      max-width: none;
+      margin: 0 !important;
+      background: var(--vs-datepicker-background-color);
+
+      &.left,
+      &.right {
+        position: relative;
+        border-bottom: 1px solid var(--vs-datepicker-border-color);
+        margin-bottom: 1rem !important;
+      }
+
+      &.left::after,
+      &.right::after {
+        position: absolute;
+        z-index: -2;
+        bottom: -50%;
+        left: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: var(--vs-datepicker-background-color);
+        content: '';
+        cursor: pointer;
+      }
+    }
+
+    .buttons {
+      padding-bottom: 1.3rem;
+      padding-left: 16rem;
+      margin: 0;
+      background: transparent;
+      text-align: center;
+    }
+
+    .ranges {
+      width: 15rem;
+      padding: 0 3rem;
+      margin-top: 2rem;
+      background: var(--vs-datepicker-ranges-background-color);
+
+      ul li {
+        &:hover {
+          background: transparent;
+        }
+
+        button {
+          position: relative;
+          margin: 0 1rem;
+          color: var(--vs-vehicle-form-value-color);
+          font-size: 1.2rem;
+          font-weight: 300;
+
+          &.active {
+            background: transparent;
+            color: var(--vs-vehicle-form-value-color);
+          }
+
+          &::before {
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: -1.2rem;
+            display: block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 0.1rem solid var(--vs-datepicker-ranges-check-border-color);
+            border-radius: 50%;
+            background-color: transparent;
+            content: '';
+            cursor: pointer;
+            transform: translateY(-50%);
+          }
+
+          &.active::after {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: -0.9rem;
+            display: block;
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 50%;
+            background-color: var(--vs-datepicker-ranges-checked-color);
+            content: '';
+            cursor: pointer;
+            transform: translateY(-50%);
+          }
+        }
+      }
+    }
+
+    .calendar-table {
+      width: 28rem;
+      padding: 1.5rem 2rem 0;
+      border: 0;
+      background: var(--vs-datepicker-background-color);
+      font-family: inter, sans-serif;
+
+      table {
+        border-collapse: unset;
+      }
+    }
+
+    th {
+      color: var(--vs-vehicle-form-value-color);
+      font-weight: 500;
+
+      &.month {
+        color: var(--vs-datepicker-date-active-color);
+        font-weight: bold;
+
+        & + th {
+          height: 3rem;
+        }
+      }
+
+      &.available {
+        &.prev,
+        &.next {
+          display: flex;
+          width: 3rem;
+          height: 3rem;
+          align-items: center;
+          justify-content: center;
+          margin: 0;
+          background-image: var(--vs-datepicker-prev-icon);
+          color: var(--vs-datepicker-date-active-color);
+          opacity: 1;
+
+          &:hover {
+            margin: 0;
+            background-color: var(--vs-datepicker-ranges-background-color);
+          }
+        }
+      }
+    }
+
+    td {
+      min-width: 3.2rem !important;
+      font-weight: 500;
+      line-height: 3rem !important;
+      opacity: 1;
+
+      &.available {
+        color: var(--vs-datepicker-text-available-color);
+
+        &.off {
+          color: var(--vs-datepicker-text-available-off-color);
+          cursor: auto;
+          opacity: 0;
+        }
+
+        &.in-range {
+          background: var(--vs-datepicker-inrange-background-color);
+          color: var(--vs-datepicker-text-active-color);
+        }
+
+        &.active.start-date.in-range,
+        &.active.end-date.in-range {
+          background: var(--vs-datepicker-date-active-color);
+          color: var(--vs-datepicker-text-active-color);
+        }
+      }
+
+      &:hover {
+        border-radius: 50%;
+        background: var(--vs-datepicker-date-active-color);
+      }
+
+      &.off,
+      &.off.end-date {
+        background: transparent;
+      }
+
+      &.off.start-date {
+        background: var(--vs-datepicker-date-active-color);
+      }
+
+      &.available:hover,
+      &.active,
+      &.active:hover {
+        background: var(--vs-datepicker-date-active-color);
+        color: var(--vs-datepicker-text-active-color);
+      }
+
+      &.start-date.end-date {
+        border-radius: 50%;
+      }
+    }
+
+    &.rtl {
+      td {
+        &.start-date {
+          border-radius: 0 2em 2em 0;
+        }
+
+        &.end-date {
+          border-radius: 2em 0 0 2em;
+        }
+
+        &.start-date.end-date {
+          border-radius: 50%;
+        }
+      }
+
+      .ranges {
+        ul li {
+          button {
+            text-align: right;
+
+            &::before {
+              right: -1.2rem;
+              left: unset;
+            }
+
+            &.active::after {
+              right: -0.9rem;
+              left: unset;
+            }
+          }
+        }
+      }
+    }
+
+    .btn {
+      width: 10rem;
+      height: 2.6rem;
+      border: 1px solid var(--vs-datepicker-inrange-background-color);
+      border-radius: 4px;
+      margin: 0.5rem 1rem 0;
+      background: var(--vs-datepicker-date-active-color);
+      box-shadow: none;
+      color: var(--vs-datepicker-text-active-color);
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 2.5rem;
+      text-transform: none;
+
+      &.btn-default {
+        background: var(--vs-datepicker-background-color);
+        color: var(--vs-datepicker-date-active-color);
+
+        &:hover,
+        &:focus {
+          background: var(--vs-datepicker-ranges-background-color);
+        }
+      }
+
+      &:hover,
+      &:focus {
+        background: var(--vs-datepicker-inrange-background-color);
+      }
+    }
+
+    .calendar-time {
+      margin: 4px auto;
+      color: var(--vs-datepicker-date-active-color);
+
+      .select {
+        .select-item {
+          border: none;
+          background: var(--vs-datepicker-background-color);
+          cursor: pointer;
+          font-size: 1.2rem;
+
+          :is([data-theme='light'] option) {
+            color: #fff;
+
+            &:disabled {
+              color: #ccc;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,168 @@
+<section class="alert-map-container" [class]="'language-'+language" aria-hidden="true" *transloco="let tl; read: 'vs.statisticalGraph'">
+  <div class="funciont-content" [class]="{'padding-graph-width': hiddenAlertSearch}">
+    <div class="alert-search-container" [hidden]="hiddenAlertSearch">
+      <div class="search-tabs" aria-hidden="true">
+        <div class="search-tabs-left">
+          <span
+            vsAccessControlDirective
+            [accessParams]="allResourceList.WatchListListAlerts"
+            class="tab-item none-left"
+            [class]="{'actived': activedTab === 'watchList'}"
+            (click)="setAlertSearch('watchList', 'jump')"
+          >{{tl('watchlistAlerts')}}</span>
+          <span
+            vsAccessControlDirective
+            [accessParams]="allResourceList.BehavioralListAlerts"
+            class="tab-item"
+            [class]="{'actived': activedTab === 'behavioral'}"
+            (click)="setAlertSearch('behavioral', 'jump')"
+          >{{tl('behavioralAlerts')}}</span>
+          <span
+            vsAccessControlDirective
+            [accessParams]="allResourceList.GeofenceListAlerts"
+            class="tab-item"
+            [class]="{'actived': activedTab === 'geofenceList'}"
+            (click)="setAlertSearch('geofenceList', 'jump')"
+          >{{tl('geofenceAlerts')}}</span>
+          <span
+            vsAccessControlDirective
+            [accessParams]="allResourceList.AlertNoNumberPlate"
+            class="tab-item"
+            [class]="{'actived': activedTab === 'noNumberPlate'}"
+            (click)="setAlertSearch('noNumberPlate', 'jump')"
+          >{{tl('noNumberPlate')}}</span>
+        </div>
+        <div class="search-tabs-right"></div>
+      </div>
+      <div class="search-result-container">
+        <vs-watchlist-alerts
+          class="component-tag"
+          [hidden]="activedTab !== 'watchList'"
+          [isShow]="activedTab === 'watchList'"
+          (addNewTaskEmit)="addNewTask($event)"
+          [trafficSitesParams]="trafficSitesParams"
+          (viewAllTaskEmit)="viewAllTask($event)"
+          (resetFn)="trafficSitesParams.sites = []"
+        ></vs-watchlist-alerts>
+        <vs-behavioral-alerts
+          class="component-tag"
+          [hidden]="activedTab !== 'behavioral'"
+          [isShow]="activedTab === 'behavioral'"
+          [trafficSitesParams]="trafficSitesParams"
+          (addNewTaskEmit)="addNewTask($event)"
+          (viewAllTaskEmit)="viewAllTask($event)"
+        ></vs-behavioral-alerts>
+        <vs-geofence-alerts
+          class="component-tag"
+          [hidden]="activedTab !== 'geofenceList'"
+          [isShow]="activedTab === 'geofenceList'"
+          [trafficSitesParams]="trafficSitesParams"
+          (addNewTaskEmit)="addNewTask($event)"
+          (viewAllTaskEmit)="viewAllTask($event)"
+        ></vs-geofence-alerts>
+        <vs-no-number-plate
+          class="component-tag"
+          [hidden]="activedTab !== 'noNumberPlate'"
+          [isShow]="activedTab === 'noNumberPlate'"
+          [trafficSitesParams]="trafficSitesParams"
+        ></vs-no-number-plate>
+      </div>
+    </div>
+
+    <!-- map bottom container -->
+    <div class="bottom-container">
+      <div class="search-conditions" #tool>
+        <vs-toolbox
+          #toolboxObj
+          class="select-device-tree"
+          [title]="'vs.map.traffic'"
+          [customPosition]="customPosition"
+          [disableDate]="!!activedTab"
+          [disableLocation]="!!activedTab"
+          [selectedList]="selectedList"
+          [ranges]="ranges"
+          [selectedDate]="defaultDate"
+          [toolSet]="toolSet"
+          [dateInputPosition]="'alert'"
+          (confirmEmit)="onDeviceTreeChange($event)"
+          (selectedDateEmit)="setParamsTimes($event)"
+          (click)="$event.stopPropagation();"
+          (changeLocationVisible)="changeLocationVisible($event)"
+          selectWidth="78rem"
+          [showSelect]="showLevel2Select"
+          [selectTitle]="selectTitle"
+          [selectedLabel]="selectedLabel"
+          [selectOptions]="selectOptions"
+          (onClickback)="onClickbackFn($event)"
+          (changeLevel2SelectVisible)="changeLevel2SelectVisibleFn($event)"
+          (changeSelectedEmit)="changeSelectedFn($event)"
+          (changeDateSelectVisible)="changeDateSelectVisibleFn($event)"
+        ></vs-toolbox>
+        <vs-map-controller
+          [hidden]="showLocationFlag || showLevel2Select || showDateSelect"
+          *ngIf="hiddenAlertSearch"
+          (click)="$event.stopPropagation();"
+        ></vs-map-controller>
+      </div>
+    </div>
+  </div>
+  <vs-shared-task-modal
+    class="pointer-events"
+    [isShow]="showNewTask"
+    [alertOrTask]="'alert'"
+    [addOrEdit]="'add'"
+    [taskChannel]="newTaskType"
+    (closeModalEvent)="closeNewTask()"
+    (saveSucEmit)="saveSucEvent($event)"
+    (click)="$event.stopPropagation();"
+  ></vs-shared-task-modal>
+
+  <div class="graph-statistics" [class]="language" [hidden]="!hiddenAlertSearch">
+    <vs-alert-counts
+      [alertCountParams]="trafficSitesParams"
+      (checkSearch)="setAlertSearch($event, 'jump')"
+    ></vs-alert-counts>
+
+    <div class="small-behavioral-alert" vsAccessControlDirective [accessParams]="allResourceList.BehavioralListAlerts">
+      <ngx-ui-loader loaderId="behavioral-alert-map-loader"></ngx-ui-loader>
+      <vs-behavioral-alert
+        [chartData]="behavioralAlertChartOption"
+        [lineChartData]="behavioralAlertLineChartOption"
+        (click)="setAlertSearch('behavioral', 'jump')"
+        (mouseenter)="setShowBigBehavioralAlert(true)"
+        (mouseleave)="setShowBigBehavioralAlert(false, 'delay')"
+      ></vs-behavioral-alert>
+    </div>
+
+    <div class="big-behavioral-alert"
+      (mouseenter)="setShowBigBehavioralAlert(true)"
+      (mouseleave)="setShowBigBehavioralAlert(false, 'delay')"
+      *ngIf="showBigBehavioralAlert">
+      <vs-behavioral-alert
+        [chartData]="behavioralAlertChartOption"
+        [lineChartData]="behavioralAlertLineChartOption"
+        [showStackedLine]="true"
+        [size]="'big'"
+      ></vs-behavioral-alert>
+    </div>
+  </div>
+
+  <vs-alert-detail
+    *ngIf="showAlertPointDetail"
+    [cameraId]="cameraId"
+    [alertId]="alertId"
+    [alertType]="detailAlertType"
+    [alertPosition]="detailAlertPosition"
+    (colse)="closeDetail()"
+  ></vs-alert-detail>
+
+  <vs-alert-table-modal
+    [showAlertTableModal]="showAlertTableModal"
+    [currentTableData]="currentTableData"
+    [alertType]="detailAlertType"
+    [alertPosition]="detailAlertPosition"
+    [language]="language"
+    (colse)="closeDetail()"
+  ></vs-alert-table-modal>
+</section>
+

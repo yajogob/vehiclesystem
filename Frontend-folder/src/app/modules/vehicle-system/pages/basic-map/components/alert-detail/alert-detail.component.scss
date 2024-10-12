@@ -1,0 +1,161 @@
+.alert-point-detail {
+  position: fixed;
+  z-index: 9999;
+  padding: 2rem 3rem;
+  border: 1px solid var(--vs-map-alert-detail-tab-actived-color);
+  border-radius: 6px;
+  background: var(--vs-map-alert-detail-bg-color);
+  color: var(--vs-map-alert-detail-text-color);
+  pointer-events: auto;
+
+  &.right {
+    top: 7rem;
+    right: 17rem;
+  }
+
+  &.left {
+    top: 7rem;
+    left: 17rem;
+  }
+
+  &.en {
+    .close-search {
+      position: absolute;
+      top: -1rem;
+      right: -2rem;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+
+      svg {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &.ar {
+    .close-search {
+      position: absolute;
+      top: -1rem;
+      left: -2rem;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+
+      svg {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .detail-tabs {
+    position: relative;
+    display: flex;
+    border-bottom: 2px solid #66757a;
+    margin-bottom: 0.5rem;
+    color: var(--vs-map-alert-detail-tab-color);
+    font-size: 2rem;
+    font-weight: 500;
+
+    .tab {
+      position: relative;
+      bottom: -2px;
+      height: 100%;
+      flex: 1;
+      padding-bottom: 0.5rem;
+      border-bottom: 4px solid transparent;
+      cursor: pointer;
+      text-align: center;
+
+      &.actived {
+        border-color: var(--vs-map-alert-detail-tab-actived-color);
+        color: var(--vs-map-alert-detail-tab-actived-color);
+      }
+    }
+  }
+
+  .latest-capture,
+  .camera-information {
+    display: flex;
+    width: max-content;
+    height: max-content;
+    flex-direction: column;
+  }
+
+  .device-video {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 20rem;
+    box-sizing: border-box;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .play-video-btn {
+      position: absolute;
+      z-index: 9;
+      right: 10px;
+      bottom: 10px;
+      width: 104px;
+      height: 38px;
+      box-sizing: border-box;
+      padding-right: 12px;
+      background-image: url('../../../../assets/icons/live-stream-bg.svg');
+      background-size: cover;
+      color: #ffd600;
+      cursor: pointer;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      line-height: 36px;
+      text-align: right;
+
+      & > svg {
+        position: absolute;
+        bottom: 2px;
+        left: -20px;
+      }
+    }
+  }
+
+  .detail-item {
+    display: flex;
+    width: 40rem;
+    height: 3rem;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 0 2rem;
+    margin-top: 4px;
+
+    &:nth-of-type(even) {
+      background: var(--vs-map-alert-detail-even-item-bg);
+    }
+
+    &:nth-of-type(odd) {
+      background: var(--vs-map-alert-detail-odd-item-bg);
+    }
+
+    .label {
+      width: 15rem;
+    }
+  }
+
+  .more-btn {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+    color: var(--vs-map-alert-detail-tab-actived-color);
+    font-weight: bold;
+
+    span {
+      margin-right: 0.6rem;
+      cursor: pointer;
+    }
+  }
+}

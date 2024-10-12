@@ -1,0 +1,86 @@
+.ai-all-task {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  .ai-all-task-back-router {
+    display: flex;
+    height: 4rem;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 2.3rem;
+    background-color: rgb(27 65 31 / 88%);
+
+    .text {
+      border-bottom: 1px solid #0ce75e;
+      color: #0ce75e;
+      cursor: pointer;
+    }
+  }
+
+  .search-tabs {
+    display: flex;
+    height: 4.3rem;
+    line-height: 4.3rem;
+
+    .search-tabs-left {
+      display: flex;
+      width: max-content;
+      height: 4.3rem;
+      align-items: center;
+    }
+
+    .search-tabs-right {
+      height: 4.3rem;
+      box-sizing: border-box;
+      flex: 1;
+      border-bottom: 1px solid var(--vs-tab-border-color);
+    }
+
+    .tab-item {
+      height: 4.3rem;
+      box-sizing: border-box;
+      padding: 0 3rem;
+      border-bottom: 1px solid var(--vs-tab-border-color);
+      color: var(--vs-tab-color);
+      cursor: pointer;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 4.3rem;
+
+      &.actived {
+        border-right: 1px solid var(--vs-tab-border-color);
+        border-bottom: none;
+        border-left: 1px solid var(--vs-tab-border-color);
+        color: var(--vs-tab-actived-color);
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+    }
+
+    :is([dir='ltr'] .tab-item:first-of-type) {
+      border-left: none;
+    }
+
+    :is([dir='rtl'] .tab-item:first-of-type) {
+      border-right: none;
+    }
+  }
+
+  .content {
+    flex: 1;
+  }
+}
+
+.controller {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+
+  .screenful {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+}

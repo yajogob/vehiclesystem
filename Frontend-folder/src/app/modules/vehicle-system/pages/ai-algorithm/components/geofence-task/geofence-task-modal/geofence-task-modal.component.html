@@ -1,0 +1,129 @@
+<div aria-hidden="true" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <form [formGroup]="createEditGeofenceTaskForm" class="text-[var(--vs-dialog-label-color)]">
+
+    <div class="new-task-flex">
+      <span class="task-label">{{ tl('taskName') }}: <span>*</span></span>
+      <input class="vehicle-input task-value" [ngClass]="{'err-tips-input': (taskName.errors?.['required'] || taskName.errors?.['maxlength']) && taskName.dirty}" type="text" [maxlength]="maxlength" [placeholder]="tl('pleaseEnterTaskName')" formControlName="taskName"/>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="taskName.errors?.['required'] && taskName.dirty">
+        {{tl('taskNameIsRequired')}}
+      </div>
+      <div class="required-tips" *ngIf="taskName.errors?.['maxlength'] && taskName.dirty">
+        {{tl('taskNameLengthLimitation')}}
+      </div>
+    </div>
+    <div class="new-task-flex choose-camera">
+      <span class="task-label">{{tl('camera')}}: <span>*</span></span>
+      <div class="task-value">
+        <vs-site-selector
+          [isHeightAuto]="true"
+          [(visible)]="dtVisible"
+          [selectedList]="siteSelectedList"
+          [position]="activeLangValue === 'ar' ? 'bottom-left' : 'bottom-right'"
+          (confirmEmit)="selectorConfirmOn($event)"
+        ></vs-site-selector>
+
+        <ng-select
+          [ngClass]="{'err-tips-select': sitesCodeList.errors?.['required'] && sitesCodeList.dirty}"
+          [items]="siteSelectedList"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          bindLabel="codeDesc"
+          [placeholder]="tl('selectCamera')"
+          formControlName="sitesCodeList"
+          (open)="showSiteModal()"
+          (change)="chooseSitesChange($event)"
+        ></ng-select>
+        <div
+          class="add-icon"
+          [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+        ></div>
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('taskCycle')}}: <span>*</span></span>
+      <div class="task-value">
+        <vs-vehicle-date-input
+          [showCustomClear]="false"
+          [selected]="selected"
+          [ranges]="ranges"
+          [dateSelectRestrict]="'dontSelectPastDate'"
+          [position]="activeLangValue === 'ar' ? 'bottom-left' : 'bottom-right'"
+          [inputDatePlaceholder]="'vs.aiAlgorithm.selectDate'"
+          (selectedDateEmit)="selectedDateFn($event)"
+        ></vs-vehicle-date-input>
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('taskLevel')}}: <span>*</span></span>
+      <div class="task-value">
+        <ng-container *ngFor="let item of taskLevelList">
+          <span
+            [ngClass]="{'critical-btn': item['value'] === '3', 'major-btn': item['value'] === '2', 'minor-btn': item['value'] === '1'}"
+            (click)="setParamsPriority(item['value'])"
+          >
+            {{item['key']}}<b *ngIf="priorityList.includes(item['value'])">✓</b>
+          </span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="!priorityList.length && priorityDirty > 0">
+        {{tl('eventLevelIsRequired')}}
+      </div>
+    </div>
+    <div class="new-task-flex">
+      <span class="task-label">{{ tl('trafficThreshold') }}: <span *ngIf="trafficThreshold">*</span></span>
+      <div class="flex flex-row items-center flex-1">
+        <div class="w-[5rem]">
+          <vs-switch-button-form
+            formControlName="trafficThresholdEnable"
+            (switchChangedEmit)="switchChanged($event)"
+            [value]="trafficThreshold"
+          ></vs-switch-button-form>
+          <p class="text-xs">{{ thresholdState }}</p>
+        </div>
+        <div class="threshold-input">
+          <input class="vehicle-input vehicle-input-number h-[2.6rem]" type="number" (input)="checkInput($event)" min="0" formControlName="trafficThresholdNumber" [readonly]="!trafficThreshold">
+          <div class="triangle-box">
+            <div class="triangle-top" (click)="thresholdNumber('up')"></div>
+            <div class="triangle-bottom" (click)="thresholdNumber('down')"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="trafficThreshold && trafficThresholdNumber.errors?.['required'] && trafficThresholdNumber.dirty">
+        {{tl('trafficThresholdIsRequired')}}
+      </div>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="sitesCodeList.errors?.['required'] && sitesCodeList.dirty">
+        {{tl('cameraIsRequired')}}
+      </div>
+    </div>
+
+    <div class="new-task-flex description">
+      <span class="task-label">{{tl('description')}}:</span>
+      <textarea class="vehicle-textarea task-value" [placeholder]="tl('enterRemarks')" formControlName="description"></textarea>
+    </div>
+  </form>
+
+  <div class="button-group">
+    <div class="space"></div>
+    <div class="flex-1 button-box">
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="!editModalDate?.taskId">
+        {{tl('createTaskBtn')}}
+      </button>
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="editModalDate?.taskId">
+        {{tl('editTaskBtn')}}
+      </button>
+      <button class="reset public-reset-btn-second" (click)="reset()">{{tl('reset')}}</button>
+    </div>
+  </div>
+</div>

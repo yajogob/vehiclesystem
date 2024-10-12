@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jpa module="lprGeofenceAlertInfo">
+
+	<!-- alert Type   -->
+	<jpql id="findLprGeofenceAlertInfoPageList2" resultClass="com.micro.dto.geofence.LprGeofenceAlertPageDto" native="true">
+		<![CDATA[
+		SELECT
+		  tab1.id as id,
+		  warning_time as warning_time_str,
+		  warning_level as priority,
+      	  alert_camera_id as camera_id,
+          warning_name as warning_name,
+
+			 alert_capture_date as capture_date_str,
+			 alert_place_code as place_code,
+			 alert_plate_image_url as plate_image_url,
+			 alert_plate_number as plate_number,
+			 alert_plate_color as plate_color,
+			 alert_vehicle_color as vehicle_color,
+			 alert_vehicle_mark as  vehicle_mark,
+			 alert_vehicle_model as vehicle_model,
+			 alert_vehicle_speed as vehicle_speed
+
+		FROM
+		lpr_geofence_alert_info tab1
+		WHERE 1=1
+		
+
+		#if("$!{warningName}"!="")
+		and tab1.warning_name like :%warningName%
+		#end
+
+		#if($startDateTime)
+		AND tab1.warning_time >= :startDateTime
+		#end
+		#if($endDateTime)
+		AND tab1.warning_time <= :endDateTime
+		#end
+
+		#if("$!{warningLevel}"!="")
+		and tab1.warning_level in :warningLevel
+		#end
+
+		#if("$!{cameraCodes}"!="")
+		and tab1.alert_camera_id in :cameraCodes
+		#end
+
+		#if("$!{orderBy}"!="")
+		order by :orderBy
+		#else
+		order by tab1.id
+		#end
+
+		#if("$!{dir}" =='ASC' || "$!{dir}" =='asc' )
+		ASC
+		#else
+		DESC
+		#end
+
+		]]>
+	</jpql>
+
+    <jpql id="findLprGeofenceAlertInfoPageList" resultClass="com.micro.dto.geofence.LprGeofenceAlertInfoDTO" native="true">
+        SELECT
+			 alert_camera_id as alert_camera_id,  alert_capture_date as alert_capture_date,  alert_country as alert_country,
+		alert_plate_color as alert_plate_color,  alert_vehicle_color as alert_vehicle_color,  alert_vehicle_mark as alert_vehicle_mark,
+		alert_vehicle_speed as alert_vehicle_speed,  alert_vehicle_type as alert_vehicle_type,  id as id,  query_collect_object as query_collect_object,
+		query_from_time as query_from_time,  query_to_time as query_to_time,  rule_id as rule_id,  task_id as task_id,  version as version,
+		warning_count as warning_count,  warning_level as warning_level,  warning_name as warning_name,  warning_time as warning_time,
+		alert_image_url, alert_plate_image_url,
+		created_time as created_time,  created_by as created_by,  updated_time as updated_time,  updated_by as updated_by
+		FROM
+			lpr_geofence_alert_info tab1 
+		WHERE 1=1 
+			
+		#if("$!{alertCameraId}"!="")
+	        and alert_camera_id = :alertCameraId
+	    #end
+		      
+			<!-- date seatch need update  -->
+		#if("$!{alertCaptureDate}"!="")
+	        and alert_capture_date >= :alertCaptureDate
+	    #end
+		#if("$!{alertCountry}"!="")
+	        and alert_country = :alertCountry
+	    #end
+				#if("$!{alertPlateColor}"!="")
+	        and alert_plate_color = :alertPlateColor
+	    #end
+				#if("$!{alertVehicleColor}"!="")
+	        and alert_vehicle_color = :alertVehicleColor
+	    #end
+				#if("$!{alertVehicleMark}"!="")
+	        and alert_vehicle_mark = :alertVehicleMark
+	    #end
+				#if("$!{alertVehicleSpeed}"!="")
+	        and alert_vehicle_speed = :alertVehicleSpeed
+	    #end
+				#if("$!{alertVehicleType}"!="")
+	        and alert_vehicle_type = :alertVehicleType
+	    #end
+				#if("$!{queryCollectObject}"!="")
+	        and query_collect_object = :queryCollectObject
+	    #end
+
+		#if("$!{ruleId}"!="")
+	        and rule_id = :ruleId
+	    #end
+		#if("$!{taskId}"!="")
+	        and task_id = :taskId
+	    #end
+		#if("$!{warningCount}"!="")
+	        and warning_count = :warningCount
+	    #end
+		#if("$!{warningLevel}"!="")
+	        and warning_level = :warningLevel
+	    #end
+				#if("$!{warningName}"!="")
+	        and warning_name = :warningName
+	    #end
+		      
+			<!-- date seatch need update  -->
+		#if("$!{warningTime}"!="")
+	        and warning_time >= :warningTime
+	    #end
+		<!-- default use createTime to order -->
+		#if("$!{orderBy}"!="")
+			order by :orderBy
+		#else
+			order by created_time
+		#end
+		
+		#if("$!{dir}" =='ASC' || "$!{dir}" =='asc' )
+			ASC
+		#else
+		    DESC
+		#end
+        
+
+    </jpql>
+
+
+</jpa>

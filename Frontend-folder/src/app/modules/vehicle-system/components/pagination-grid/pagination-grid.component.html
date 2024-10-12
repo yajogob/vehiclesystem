@@ -1,0 +1,38 @@
+<div class="flex flex-col w-full h-full" #customTable>
+  <!-- AG Grid Angular Component -->
+  <ag-grid-angular
+    style="width:100%;"
+    class="flex-1 ag-theme-alpine"
+    [style]="heightValue"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [rowData]="rowData | paginate: p.config"
+    [rowSelection]="'single'"
+    [getRowStyle]="getRowStyle"
+    [suppressPaginationPanel]="true"
+    [suppressCellFocus]="true"
+    [context]="context"
+    [enableRtl]="enableRtl"
+    [unSortIcon]="true"
+    [columnTypes]="columnTypes"
+    [pagination]="true"
+    [paginationPageSize]="autoPageSize"
+    [suppressRowClickSelection]="suppressRowClickSelection"
+    [noRowsOverlayComponent]="NoRowsOverlayComponent"
+    [sortingOrder]="sortingOrder"
+    [enableBrowserTooltips]="true"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)="onRowClicked($event)"
+    (sortChanged)="onSortChanged($event)"
+  ></ag-grid-angular>
+  <vs-pagination
+    #p
+    class="flex-none"
+    [hidden]="!totalItems"
+    [id]="id"
+    [itemsPerPage]="autoPageSize"
+    [totalItems]="totalItems"
+    [currentPage]="currentPage"
+    (pageChange)="onPageChange($event)"
+  ></vs-pagination>
+</div>

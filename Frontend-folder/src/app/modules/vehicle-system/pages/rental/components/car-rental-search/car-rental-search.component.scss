@@ -1,0 +1,44 @@
+.car-rental-search {
+  display: flex;
+  padding: 1.25rem 3.3rem;
+  border-bottom: 1px solid #b2b2b2;
+
+  .title {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .search-area {
+    display: flex;
+    width: max-content;
+    height: 2.5rem;
+    align-items: center;
+    border: 1px solid #666;
+    border-radius: 3px;
+    margin: 0 1rem;
+
+    .search-icon {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+
+    .search-input {
+      width: 60rem;
+      color: var(--vs-vehicle-form-value-color);
+      outline: none;
+
+      &::placeholder {
+        color: var(--vs-text-color-placeholder);
+      }
+    }
+  }
+
+  .search {
+    width: 7.375rem;
+    height: 2.5rem;
+    color: #fff;
+    font-size: 1.125rem;
+  }
+}

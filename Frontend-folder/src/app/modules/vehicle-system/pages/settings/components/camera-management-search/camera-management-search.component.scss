@@ -1,0 +1,102 @@
+.camera-management-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--vs-tab-border-color);
+  font-size: 1.2rem;
+
+  .form-left {
+    display: flex;
+    height: 3.4rem;
+    flex: 1;
+    align-items: center;
+  }
+
+  .choose-site {
+    position: relative;
+    width: 28rem;
+
+    .pos-right {
+      right: 0.6rem;
+    }
+
+    .pos-left {
+      left: 0.6rem;
+    }
+
+    ::ng-deep .ng-select-container {
+      overflow: auto;
+      height: 100%;
+      padding-top: 0;
+      padding-bottom: 0;
+      -ms-overflow-style: none; /* IE 10+ */
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    ::ng-deep .ng-select .ng-dropdown-panel {
+      display: none;
+    }
+
+    ::ng-deep .ng-arrow-wrapper {
+      opacity: 0;
+    }
+
+    .add-icon {
+      position: absolute;
+      z-index: 1040;
+      bottom: 50%;
+      width: 1.2rem;
+      height: 1.2rem;
+      background: url('../../../../../../../assets/vehicle-system/icons/add.png') no-repeat;
+      background-size: 1.2rem 1.2rem;
+      pointer-events: none;
+      transform: translate(0, 50%);
+    }
+  }
+
+  .title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .search-area {
+    display: flex;
+    height: 100%;
+    flex: 1;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 1px solid #666;
+    border-radius: 3px;
+
+    .search-icon {
+      width: 1.1667rem;
+      height: 1.1667rem;
+    }
+
+    .search-input {
+      width: 100%;
+      color: var(--vs-vehicle-form-value-color);
+      outline: none;
+    }
+  }
+
+  .license-status,
+  .camera-status {
+    width: 15rem;
+    height: 3.4rem;
+    margin-right: 0.5rem;
+
+    ::ng-deep .ng-select-container {
+      height: 3.4rem;
+    }
+  }
+
+  .search {
+    width: 11.8rem;
+    margin: 0 1.5rem;
+  }
+}

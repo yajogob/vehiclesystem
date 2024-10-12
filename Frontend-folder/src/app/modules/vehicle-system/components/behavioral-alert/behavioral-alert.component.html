@@ -1,0 +1,14 @@
+<div class="behavioral-alert" [class]="size">
+  <p class="big-title" [ngClass]="{'theme': size === 'big'}">{{'vs.statisticalGraph.behavioralAlert' | transloco}}</p>
+  <p class="details" *ngIf="showStackedLine">{{'vs.trafficSearch.details' | transloco}}</p>
+  <p class="chart-title" [ngClass]="{'theme': size === 'big'}">{{'vs.statisticalGraph.noOfAlert' | transloco}}</p>
+  <div class="line-chart" #chartContainer></div>
+
+  <p class="line-title" [ngClass]="{'theme': size === 'big'}" *ngIf="showStackedLine">{{'vs.statisticalGraph.behavioralAlert' | transloco}}</p>
+
+  <div class="stacked-line" *ngIf="showStackedLine" #lineChartContainer></div>
+
+  <div class="no-data-available" *ngIf="isNoData">
+    {{language === 'en' ? 'No data available' : 'لا يوجد بيانات متوفرة'}}
+  </div>
+</div>

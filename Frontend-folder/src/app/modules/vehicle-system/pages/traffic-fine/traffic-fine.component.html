@@ -1,0 +1,20 @@
+<div class="traffic-fine" *transloco="let tl; read: 'vs.trafficFine'">
+	<!-- search-form -->
+	<vs-traffic-fine-search-form
+		(searchEventEmit)="searchEventEmit($event)"
+	></vs-traffic-fine-search-form>
+
+  <!-- result table -->
+  <div class="result-table-container">
+    <vs-fine-result-table
+      [rowData]="fineDetailsData"
+      [totalItems]="dataTotal"
+      [currentPage]="pageNo"
+      [language]="language"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (pageNoChange)="onPageNoChange($event)"
+    ></vs-fine-result-table>
+  </div>
+</div>
+
+

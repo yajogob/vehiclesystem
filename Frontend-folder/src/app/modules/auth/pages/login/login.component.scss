@@ -1,0 +1,127 @@
+/* stylelint-disable order/properties-order */
+@import 'mixins';
+
+:host {
+  @extend %default-page;
+
+  flex-direction: row;
+}
+
+.login-bg {
+  @apply inset-0 flex absolute z-0 overflow-hidden w-full h-full;
+
+  &::after {
+    @apply absolute inset-0;
+
+    background: rgb(45 78 80 / 70%);
+    content: '';
+    mix-blend-mode: hue;
+  }
+
+  video {
+    @apply -z-10 scale-125;
+
+    min-width: 100vw;
+  }
+}
+
+.form {
+  width: 100%;
+  max-width: to-rem(500);
+
+  &-container {
+    background: #020f28b0;
+  }
+
+  &-group {
+    position: relative;
+
+    label {
+      position: absolute;
+      top: 50%;
+      color: rgb(58 57 85 / 50%);
+      pointer-events: none;
+      transform: translateY(-50%);
+      transition: 0.2s ease all;
+    }
+
+    &.error {
+      input {
+        background: linear-gradient(to bottom, rgb(255 255 255 / 0%) 96%, #ff0c0c 4%);
+      }
+    }
+  }
+
+  &-control {
+    display: block;
+    width: 100%;
+    border: 0;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0%) 96%, #3ab566 4%);
+    background-color: white;
+    background-position: -100em 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    color: #3a3955;
+    transition: 0.3s cubic-bezier(0.64, 0.09, 0.08, 1) all;
+
+    &::placeholder {
+      opacity: 0;
+    }
+
+    &:focus,
+    &:valid {
+      background-position: 0 0;
+
+      &::placeholder {
+        opacity: 1;
+      }
+
+      ~ label {
+        top: to-rem(12);
+        font-size: to-rem(12);
+        transform: translateY(0);
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.login-btn {
+  position: relative;
+  padding: to-rem(18);
+  border-radius: 6px;
+  background: linear-gradient(93.24deg, #009739 30.3%, #ef3340 94%);
+  color: white;
+  cursor: pointer;
+  filter: brightness(1) contrast(1) saturate(1);
+  font-size: to-rem(18);
+  font-weight: 500;
+  line-height: to-rem(24);
+  text-align: center;
+  transition: all 0.1s;
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: brightness(0.7) contrast(0.95) saturate(0.8);
+    pointer-events: none;
+  }
+}
+
+.title {
+  background: linear-gradient(180deg, #fff 0%, rgb(255 255 255 / 40%) 100%);
+  background-clip: text !important;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-background-clip: text !important;
+  color: transparent;
+  font-size: to-rem(180);
+  font-weight: 700;
+  line-height: 1;
+  -webkit-text-fill-color: transparent;
+
+  &:nth-child(2n) {
+    margin-top: to-rem(-40);
+  }
+}

@@ -1,0 +1,41 @@
+<div
+  *ngIf="isShow"
+  aria-hidden="true"
+  class="car-transaction-details"
+  (click)="close()"
+  [@slideTrigger]="{value: ':enter', params: {tx: slideX}}"
+>
+  <div class="modal" (click)="$event.stopPropagation();"
+    *transloco="let tl; read: 'vs.aiAlgorithm'">
+    <div class="title-area border-b border-[var(--vs-title-color)] ">
+      <div class="title">
+        <p class="text-[var(--vs-title-color)]">{{getAlgorithmName(currentAlgorithmsData)}}</p>
+      </div>
+      <div class="close-icon" (click)="close()"></div>
+    </div>
+
+    <div class="details-content">
+      <div class="w-full mb-4 video-player">
+        <!-- [options]="{sources: [{type: 'video/webm', src: currentAlgorithmsData.videoUrl || '', loop: true}]}" -->
+        <vs-video-player
+          [videoUrl]="currentAlgorithmsData.videoUrl || ''"
+          [options]="{sources: []}"
+        ></vs-video-player>
+      </div>
+      <div
+        class="item">
+        <span class="">{{tl('AlgorithmName')}}</span>
+        <span>{{getAlgorithmName(currentAlgorithmsData)}}</span>
+      </div>
+      <div class="item">
+        <span>{{tl('description')}}</span>
+        <span>{{getAlgorithmDescription(currentAlgorithmsData)}}</span>
+      </div>
+      <div class="item">
+        <span>{{tl('noOfAssignedTasks')}}</span>
+        <span>{{currentAlgorithmsData.assignedTaskNumber}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

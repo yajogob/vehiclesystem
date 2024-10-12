@@ -1,0 +1,137 @@
+.map-opration-btns {
+  position: relative;
+  display: flex;
+  width: 25rem;
+  height: 6.4rem;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  border: var(--vs-toolbox-border);
+  border-radius: 8px;
+  margin: 0 0.5rem;
+  background: var(--vs-toolbox-bg-color);
+  color: #000;
+
+  & > .title {
+    position: absolute;
+    top: 0.4rem;
+    color: var(--vs-toolbox-title-color);
+    font-size: 0.8rem;
+  }
+
+  %pub {
+    position: relative;
+    display: flex;
+    width: 7rem;
+    height: 3rem;
+    box-sizing: border-box;
+    border-radius: 4px;
+    user-select: none;
+  }
+
+  .map-mode-switch {
+    @extend %pub;
+
+    margin-right: 1rem;
+    margin-left: 0.3rem;
+    background: var(--vs-toolbox-map-item-bg-color);
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .map-opration-left,
+  .map-opration-right {
+    display: inline-flex;
+    height: 100%;
+    box-sizing: border-box;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    border: 0.5px solid #343434;
+    cursor: pointer;
+
+    &.actived {
+      background: rgb(52 52 52 / 100%);
+      color: #ffd600;
+    }
+  }
+
+  :is([dir='ltr'] .map-opration-left) {
+    border-radius: 4px 0 0 4px;
+  }
+
+  :is([dir='ltr'] .map-opration-right) {
+    border-radius: 0 4px 4px 0;
+  }
+
+  :is([dir='rtl'] .map-opration-left) {
+    border-radius: 0 4px 4px 0;
+  }
+
+  :is([dir='rtl'] .map-opration-right) {
+    border-radius: 4px 0 0 4px;
+  }
+
+  .zoom-out-btns {
+    @extend %pub;
+
+    background: var(--vs-toolbox-map-item-bg-color);
+    font-size: 2.2rem;
+    font-style: normal;
+    font-weight: 500;
+
+    .map-opration-left,
+    .map-opration-right {
+      padding-bottom: 0.4rem;
+
+      &:hover {
+        background: rgb(52 52 52 / 100%);
+        color: #ffd600;
+      }
+    }
+  }
+
+  .rotate-full-screen {
+    display: flex;
+    align-items: center;
+
+    .line {
+      width: 1px;
+      height: 3rem;
+      margin: 0 1rem;
+      background: #848484;
+    }
+
+    .full-screen {
+      cursor: pointer;
+
+      svg path {
+        fill: var(--vs-toolbox-item-value-color);
+      }
+    }
+
+    .map-rotate {
+      cursor: pointer;
+
+      svg[class='default-rotate'] path {
+        fill: var(--vs-toolbox-item-value-color);
+      }
+
+      .hover-rotate {
+        display: none;
+      }
+
+      &:hover {
+        .hover-rotate {
+          display: block;
+        }
+
+        .default-rotate {
+          display: none;
+        }
+      }
+    }
+  }
+}

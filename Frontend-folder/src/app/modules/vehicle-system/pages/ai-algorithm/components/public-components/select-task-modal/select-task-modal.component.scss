@@ -1,0 +1,86 @@
+.select-task-modal {
+
+  %bg {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+    border: var(--vs-device-tree-dialog-border);
+    border-radius: 10px;
+    background: var(--vs-device-tree-dialog-bg-color);
+  }
+
+  %radius {
+    border-radius: 4px;
+    background: var(--vs-ai-select-task-modal-radius);
+  }
+
+  .task-top {
+    @extend %bg;
+
+    height: 9rem;
+
+    .task-list {
+      @extend %radius;
+
+      display: flex;
+      width: max-content;
+      height: 100%;
+      align-items: center;
+      justify-content: space-around;
+      font-size: 1rem;
+      font-weight: 500;
+
+      .task-item {
+        padding: 2rem 0;
+        margin: 0 2rem;
+        color: var(--vs-ai-select-task-modal-text-color);
+        cursor: pointer;
+        font-size: 1.6rem;
+      }
+    }
+  }
+
+  .task-bottom {
+    @extend %bg;
+
+    height: 6.4rem;
+    margin-top: 0.4rem;
+    color: #979797;
+
+    .close-box {
+      @extend %radius;
+
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+
+      .close-left {
+        color: var(--vs-select-site-color);
+
+        .algorithm {
+          font-size: 0.9rem;
+          opacity: 0.4;
+        }
+
+        .task {
+          font-size: 1.2rem;
+          font-weight: 700;
+          opacity: 0.7;
+        }
+      }
+
+      .close-icon {
+        width: 1rem;
+        height: 1rem;
+        margin: 1.4rem 1.3rem;
+        background: var(--vs-ai-select-task-icon-close) no-repeat;
+        background-size: contain;
+        cursor: pointer;
+      }
+    }
+  }
+}

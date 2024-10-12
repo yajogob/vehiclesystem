@@ -1,0 +1,43 @@
+.behavioral-task-search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem 0;
+
+  .form {
+    display: flex;
+
+    .task-name-input {
+      width: 60rem;
+    }
+
+    .date-input {
+      position: relative;
+      width: 24.1rem;
+      height: 3.4rem;
+    }
+
+    .search-btn {
+      width: 11.8rem;
+    }
+  }
+
+  .create-btn {
+    display: flex;
+    height: 3.4rem;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1.2rem;
+    border: 0.1rem solid #009739;
+    border-radius: 4px;
+    color: #009739;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    img {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+}

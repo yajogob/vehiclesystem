@@ -1,0 +1,7 @@
+{
+  "/backend-lpr": {
+    "target": "http://172.31.1.214",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

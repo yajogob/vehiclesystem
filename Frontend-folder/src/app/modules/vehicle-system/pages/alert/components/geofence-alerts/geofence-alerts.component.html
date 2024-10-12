@@ -1,0 +1,117 @@
+<div class="search-conditions" aria-hidden="true" *transloco="let tl; read: 'vs.alert'">
+  <div class="flex-row">
+    <div class="search">
+      <input
+        [(ngModel)]="searchParams.taskName"
+        class="vehicle-input"
+        type="text"
+        placeholder="{{tl('placeholder.taskName')}}"
+        (keydown.enter)="searchParams.pageNo = 1; searchAlert()"
+      />
+    </div>
+    <div class="site-tree" *ngIf="false">
+      <vs-site-selector
+        [(visible)]="isShowSiteTree"
+        [selectedList]="siteSelectedList"
+        [position]="language === 'ar' ? 'bottom-right' : 'bottom-left'"
+        (confirmEmit)="selectorConfirmOn($event)"
+      ></vs-site-selector>
+      <ng-select
+        [items]="siteSelectedList"
+        [(ngModel)]="siteSelectedList"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        bindLabel="codeDesc"
+        [placeholder]="tl('placeholder.Site')"
+        (open)="showSiteModal()"
+        (change)="changeSiteSelectedList($event)"
+      ></ng-select>
+      <div class="add-icon" [ngClass]="language === 'ar' ? 'pos-left' : 'pos-right'"></div>
+    </div>
+    <div class="vehicle-date">
+      <vs-vehicle-date-input
+        [selected]="searchDate"
+        [position]="language === 'ar' ? 'bottom-right' : 'bottom-left'"
+        (selectedDateEmit)="selectedDateFn($event)"
+      ></vs-vehicle-date-input>
+    </div>
+  </div>
+
+  <div class="flex-row">
+    <vs-task-level-btn
+      [(taskLevel)]="searchParams.taskLevel"
+    ></vs-task-level-btn>
+  </div>
+</div>
+
+<div class="btn-group">
+  <div class="search-btns" *transloco="let tl; read: 'vs.public'">
+    <button class="principal-btn" (click)="searchParams.pageNo = 1; searchAlert()">{{tl('search')}}</button>
+    <button class="secondary-btn" (click)="resetParams()">{{tl('reset')}}</button>
+  </div>
+  <div class="result-btns" *transloco="let tl; read: 'vs.aiAlgorithm'">
+    <button
+      vsAccessControlDirective
+      [accessParams]="allResourceList.GeofenceCreateTask"
+      class="btn-item add"
+      (click)="addNewTask()"
+    >{{tl('createNewTask')}}
+      <svg class="ltr:ml-2 rtl:mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 15 15" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.6421 15 15 11.6421 15 7.5C15 3.35786 11.6421 0 7.5 0C3.35786 0 0 3.35786 0 7.5C0 11.6421 3.35786 15 7.5 15ZM8.0625 5.25C8.0625 4.93934 7.81066 4.6875 7.5 4.6875C7.18934 4.6875 6.9375 4.93934 6.9375 5.25L6.9375 6.93752H5.25C4.93934 6.93752 4.6875 7.18936 4.6875 7.50002C4.6875 7.81068 4.93934 8.06252 5.25 8.06252H6.9375V9.75C6.9375 10.0607 7.18934 10.3125 7.5 10.3125C7.81066 10.3125 8.0625 10.0607 8.0625 9.75L8.0625 8.06252H9.75C10.0607 8.06252 10.3125 7.81068 10.3125 7.50002C10.3125 7.18936 10.0607 6.93752 9.75 6.93752H8.0625V5.25Z" fill="#009739"/>
+      </svg>
+    </button>
+    <button
+      vsAccessControlDirective
+      [accessParams]="allResourceList.GeofenceListTask"
+      class="btn-item"
+      (click)="viewAllTask()"
+    >
+      {{tl('viewAllTaskList')}}
+    </button>
+  </div>
+</div>
+
+<div class="search-results">
+  <div class="load-container">
+    <ngx-ui-loader [loaderId]="'geofence-alert-loader'"></ngx-ui-loader>
+    <div class="pagination-grid-options" *transloco="let tl; read: 'vs.statisticalGraph'">
+      <p class="total-num">{{totalElements.toLocaleString()}} {{tl('geofenceAlerts')}}</p>
+      <span class="right-btns">
+        <vs-column-panel
+          [columnDefs]="tableColumnDefs"
+          (updateColumns)="onUpdateColumns($event)"
+        ></vs-column-panel>
+        <vs-mode-switch
+          [(renderMode)]="renderMode"
+          (renderModeChange)="renderModeChange()"
+        ></vs-mode-switch>
+      </span>
+    </div>
+    <div class="result-render">
+      <vs-pagination-grid
+        *ngIf="renderMode==='table'"
+        [id]="'geofenceList'"
+        [columnDefs]="tableColumnDefs"
+        [defaultColDef]="defaultColDef"
+        [rowData]="tableRowData"
+        [currentPage]="searchParams.pageNo"
+        [totalItems]="totalElements"
+        (totalChange)="totalElements = $event"
+        (rowClicked)="onRowClicked($event)"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+        (cellOperated)="onCellOperated($event)"
+      ></vs-pagination-grid>
+      <ng-container *ngIf="renderMode==='img'">
+        <vs-card-view-public
+          [tableId] = "'geofenceTable'"
+          [tableRowData]="tableRowData"
+          [totalElements]="totalElements"
+          [currentPage]="searchParams.pageNo"
+          (onPageChangeEmit)="onPageChange($event)"
+          (checkCardItemEmit)="checkCardItemOn($event)"
+        ></vs-card-view-public>
+      </ng-container>
+    </div>
+  </div>
+</div>

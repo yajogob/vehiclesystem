@@ -1,0 +1,81 @@
+spring:
+  autoconfigure:
+    exclude:
+  kafka:
+    bootstrap-servers:
+    consumer:
+      group-id: video-analysis-devlrj1
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      bootstrap-servers: 10.165.19.215:19391
+    secondary:
+      servers:
+        synoSearch:
+          topic: topic-video-syno
+        videoAnalysis:
+          consumer:
+            group-id: defaultConsumerGroup
+          topic: kafka-vr
+          bootstrap-servers: 10.165.19.215:19391
+  redis:
+    #    cluster:
+    #      nodes: 192.168.9.135:7001,192.168.9.135:7002,192.168.9.135:7003,192.168.9.135:7004,192.168.9.135:7005,192.168.9.135:7006
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 10
+        max-wait: -1s
+        max-idle: 8
+        min-idle: 0
+    timeout: 60s
+  #spring.data.redis.repositories.enabled: false
+  elasticsearch:
+    rest:
+      uris: http://10.165.17.142:30084
+  datasource:
+    url: jdbc:mysql://10.165.18.8:23236/ezview_lpr?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: ezview_lpr
+    password: kedacom123
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      validation-query: select 'X'
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    kubernetes:
+      enabled: false
+
+commons.oauth2.client:
+  #ssoLogoutUri: /access_token/logout
+  client_id: ga-ezview-lpr-back
+  clientSecret: rWXmCFmq0bxO
+  grantType: password
+  serverUri: http://lpr-test.testdolphin.com/cloud-rbac
+  serverInUri: http://lpr-test.testdolphin.com
+  clientUri: https://lpr-test.testdolphin.com/backend-lpr
+  #maxAge: 86400
+  username: lprAdmin
+  password: keda123#
+  jwtEnable: true
+  serverName: cloud-rbac
+  cas: false
+commons.authz.simpleToken: false
+
+
+feign.hystrix.enabled: false
+#feign.client.config.default.connectTimeout: 30000
+#feign.client.config.default.readTimeout: 60000
+server:
+  port: 8082
+common.auth.serverUri: http://lpr-test.testdolphin.com/cloud-rbac
+common.security.disable: true
+
+
+lpr:
+  nvms:
+    device:
+      notigy:
+        topic: lpr-nvms-device-notify

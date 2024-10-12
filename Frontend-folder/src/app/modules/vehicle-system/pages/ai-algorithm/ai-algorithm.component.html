@@ -1,0 +1,129 @@
+<div aria-hidden="true" dir="ltr" class="ai-algorithm" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="animation-container" [ngStyle]="{'transform': 'scale(' + animationScale + ')'}">
+    <div class="long-line"></div>
+    <div class="short-line"></div>
+    <div class="round"></div>
+    <div
+      class="right-shadow"
+      [ngStyle]="{
+        height: setRightShadowHeight(),
+        'margin-top': setRightShadowMarginTop()
+      }"
+    ></div>
+    <div
+      class="left-shadow"
+      [ngStyle]="{
+        height: setLeftShadowHeight(),
+        'margin-top': setLeftShadowMarginTop()
+      }"
+    ></div>
+
+    <div class="ai-algorithm-container-position">
+      <div class="container-relative" #bgBox>
+        <div id="left"
+          *ngFor="let item of aiAlgorithmListLeft; index as i;"
+          class="progress left-item"
+          [ngClass]="{'view-more': item?.isMore}"
+          [ngStyle]="{
+            'transform-origin': 'right',
+            transform: item.rotate,
+            top: item.top,
+            left: item.left,
+            right: item.right,
+          }">
+          <div class="top" [title]="getAlgorithmName(item)" (click)="checkItem(item)">
+            {{getAlgorithmName(item)}}
+          </div>
+          <div class="index"></div>
+          <!-- <div class="index" (click)="checkItem(item)">{{i + 1}}</div> -->
+        </div>
+
+        <div
+          *ngFor="let item of aiAlgorithmListRight; index as i;"
+          class="progress right-item"
+          [ngStyle]="{
+            'transform-origin': 'left',
+            transform: item.rotate,
+            top: item.top,
+            left: item.left,
+            right: item.right,
+          }">
+          <!-- <div class="index" (click)="checkItem(item)">{{i + 1}}</div> -->
+          <div class="index"></div>
+          <div class="top" (click)="checkItem(item)" [title]="getAlgorithmName(item)">
+            {{getAlgorithmName(item)}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="title">
+    <div>{{transText[0].value}}</div>
+    <div>{{transText[1].value}}</div>
+  </div>
+
+  <div class="all-algorithm-list-positon" *ngIf="isShowAllAlgorithm">
+    <div class="algorithm-list-container" [ngClass]="language">
+      <div class="all-title">
+        <p class="text-[var(--vs-title-color)]">{{language === 'en' ? 'All Algorithms' : 'كل الخوارزميات'}}</p>
+        <div class="close-icon" (click)="isShowAllAlgorithm = false;"></div>
+      </div>
+
+      <div class="search-area bg-[var(--vs-vehicle-form-input-background)]">
+        <input
+          class="search-input bg-[var(--vs-vehicle-form-input-background)]"
+          type="text"
+          [placeholder]="tl('searchByName')"
+          (input)="setAllAlgorithmList()"
+          [(ngModel)]="searchName"
+          />
+      </div>
+
+      <div class="algorithm-scroll">
+        <p class="algorithm-item"
+          *ngFor="let item of renderAlgorithmList | paginate: paginationComponent.config; index as i"
+          (click)="checkItem(item)">
+          {{getAlgorithmName(item)}}
+        </p>
+      </div>
+      <div class="algorithm-page">
+        <vs-pagination
+          #paginationComponent
+          class=""
+          [id]="'algorithm-list'"
+          [itemsPerPage]="pageSize"
+          [totalItems]="allAlgorithmList.length"
+          [currentPage]="currentPage"
+          (pageChange)="onPageChange($event)"
+        ></vs-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <vs-ai-algorithm-modal
+    [isShow]="isShowVideo"
+    [currentAlgorithmsData]="currentAlgorithmsData"
+    (closeModalEvent)="closeModalEvent()"
+  ></vs-ai-algorithm-modal>
+</div>
+
+<div class="flex flex-row controller" *ngIf="false">
+  <vs-toolbox
+    [title]="'vs.aiAlgorithm.trafficAlgorithms'"
+    [disableLocation]="true"
+    [disableDate]="true"
+    [toolSet]="toolSet"
+    (onCallback)="onCallback($event)"
+  ></vs-toolbox>
+  <vs-screenful class="ml-[0.5rem] mr-[0.5rem] box-border screenful"></vs-screenful>
+</div>
+
+<div class="task-modal" *ngIf="taskModalShow">
+  <vs-select-task-modal
+    (selectTaskEmit)="selectTask($event)"
+    (closeTaskModalEmit)="closeTaskModalEmit()"
+  ></vs-select-task-modal>
+</div>

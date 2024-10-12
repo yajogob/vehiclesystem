@@ -1,0 +1,170 @@
+.time-line-container {
+  position: relative;
+  z-index: 11;
+  height: 100%;
+
+  .preview-container {
+    .icon-time {
+      background: var(--vs-vp-timeline-clock-icon);
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .time-line {
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem 1.0833rem 0;
+    overflow-y: auto;
+
+    .total {
+      font-size: 0.6667rem;
+    }
+
+    .tree-data {
+      width: 13rem;
+      margin-left: 0.3333rem;
+      color: var(--vs-vp-list-details-text-color);
+
+      .tree-data-item {
+        position: relative;
+        padding-left: 0.8333rem;
+
+        .details-item {
+          margin-bottom: 1rem;
+
+          .item-time {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+
+            .icon-time {
+              width: 0.8rem;
+              height: 0.8rem;
+              background: var(--vs-vp-timeline-clock-icon);
+              background-repeat: no-repeat;
+              background-size: contain;
+            }
+          }
+
+          .device-name {
+            overflow: hidden;
+            margin-top: 0.3rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+
+        .calendar-icon {
+          display: inline-block;
+          background: var(--vs-vp-timeline-calendar-icon);
+          background-repeat: no-repeat;
+          background-size: contain;
+        }
+
+        .node {
+          display: inline-block;
+          margin-left: 0.5rem;
+          color: var(--vs-timeline-node-color);
+          cursor: pointer;
+          font-weight: 500;
+          line-height: 1.8333rem;
+        }
+
+        %icon-pub {
+          width: 0.9rem;
+          height: 0.9rem;
+        }
+
+        %pub {
+          @extend %icon-pub;
+
+          position: absolute;
+          z-index: 1;
+          top: 0.9354rem;
+          left: 0;
+          border-radius: 50%;
+          background-repeat: no-repeat;
+          background-size: contain;
+          color: #fff;
+          cursor: pointer;
+          transform: translate(-50%, -50%);
+        }
+
+        .close-icon {
+          @extend %pub;
+
+          background-image: var(--vs-vp-timeline-close-icon);
+        }
+
+        .open-icon {
+          @extend %pub;
+
+          background-image: var(--vs-vp-timeline-open-icon);
+        }
+
+        .border-left {
+          position: absolute;
+          top: 0.9354rem;
+          bottom: 0;
+          left: -0.1rem;
+          width: 0.06rem;
+          height: 105%;
+          background-color: var(--vs-timeline-node-color);
+        }
+      }
+    }
+  }
+
+  .modal-operate {
+    position: absolute;
+    z-index: 11;
+    top: 1.2rem;
+    cursor: pointer;
+  }
+}
+
+.fine-details::-webkit-scrollbar {
+  display: none;
+}
+
+.big-vehicle-image-bg {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background-color: rgb(0 0 0 / 60%);
+  pointer-events: auto;
+
+  .big-img-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .close-big-img {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      right: 2rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: var(--full-screen-image-close) no-repeat;
+      background-size: contain;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,141 @@
+server:
+  tomcat:
+    max-http-form-post-size: 1024000000
+  servlet:
+    context-path: /ezview
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+  profiles:
+    active: '@profiles.active@'
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filter:
+        config:
+          enabled: false
+      web-stat-filter:
+        enabled: false
+      stat-view-servlet:
+        enabled: false
+  jpa:
+    database: MYSQL
+    show-sql: true
+    physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    format-sql: true
+    properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+  flyway:
+    # flyway  true open
+    enabled: false
+    cleanDisabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 1
+    encoding: UTF-8
+    out-of-order: false
+    clean-disabled: true
+    validate-on-migrate: true
+  http:
+      multipart:
+        max-file-size: 128MB
+        max-request-size: 128MB
+
+  messages:
+      basename: authority, authz-api, authz-security
+  cloud:
+    kubernetes:
+      enabled: false
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  kafka:
+    bootstrap-servers: 10.165.19.215:19391
+    fake:
+      plate:
+        topic: resultTopicLprTest
+web.cors:
+  enabled: true
+  allowCredentials: true
+  allowedOrigins:
+    - '*'
+  allowedHeaders:
+    - '*'
+  allowedMethods:
+    - '*'
+
+http-pool:
+  maxTotal: 5000
+  defaultMaxPerRoute: 300
+  connectTimeout: 30000
+  connectionRequestTimeout: 30000
+  socketTimeout: 30000
+  validateAfterInactivity: 30000
+
+common:
+  security:
+    disable: true
+
+web:
+  i18n:
+    defaultLocale: en_US
+management:
+  endpoint:
+    restart:
+      enabled: true
+
+
+
+fakeplateConf:
+  enableDistance: true
+  enableCompare: true
+  enableVehicleAdmin: true
+  enableFakePlate: true
+  redisDelRecordByHour: 4
+  vehicleSpeedByKm: 120
+  minTimeIntevalBySecond: 180
+  plateConf: 10
+  plateFirstCharConf: 0
+  logoConf: 0
+  plateColorConf: 0
+  fakePlateTriggerDelayByDay: 0
+  fakePlateVehicleByFeature: true
+  enableRecordOnlyOneEveryDay: false
+  minLatitude: 18.0
+  maxLatitude: 54.0
+  minLongitude: 20.0
+  maxLongitude: 136.0
+  enablePlateNoDiff: false
+  enablePlateColorDiff: false
+  enableFrontOrBack: false
+  enableIsStained: false
+  vehicleBrightness: 0
+  picBrightness: 0
+  threshold: 0.5
+  isFilterPlateColor: false
+  mode: debug
+  throughDistance: true
+  vehicleType:
+  enableVehicleSubBrand: false
+  checkInterval: 15
+  cron: 0 0 0 * * ?
+  enableJudge: true
+  cgkUrl:
+  senderId:
+  serviceId:
+  certificate:
+  department:
+  deviceId:
+  idCard:
+  name:
+  compareFeature: true

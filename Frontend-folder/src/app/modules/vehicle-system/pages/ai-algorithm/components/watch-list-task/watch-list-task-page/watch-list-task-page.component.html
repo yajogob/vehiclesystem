@@ -1,0 +1,49 @@
+<div class="watch-list-task-page flex flex-col w-full h-[100%]" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <div class="flex-none watch-list-task-search-form">
+    <vs-watch-list-task-search-form
+      [accessName]="allResourceList.WatchListCreateTask"
+      (createNewTaskEmit)="createNewTaskEmit()"
+      (searchClickEmit)="searchClickEmit($event)"
+      (selectedDateFnEmit)="selectedDateFnEmit($event)"
+    ></vs-watch-list-task-search-form>
+  </div>
+
+  <div class="data-total text-[var(--vs-text-color-regular)]">
+    {{dataTotal.toLocaleString()}} {{tl('tasksInTotal')}}
+  </div>
+
+  <div class="flex-1 px-[2rem] load-container">
+    <ngx-ui-loader [loaderId]="'task-loader'"></ngx-ui-loader>
+    <vs-pagination-grid
+      [id]="'watchListTaskPage'"
+      [columnDefs]="tableColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="watchListTaskData"
+      [totalItems]="dataTotal"
+      [currentPage]="pageNo"
+      (totalChange)="dataTotal = $event"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+      (cellOperated)="onCellOperated($event)"
+      (switchchanged)="onSwitchchanged($event)"
+    ></vs-pagination-grid>
+  </div>
+</div>
+
+<vs-shared-task-modal
+  [isShow]="isShowCreateModal"
+  [taskOrDetails]="taskOrDetails"
+  [addOrEdit]="addOrEdit"
+  [taskChannel]="watchList"
+  [editModalDate]="editModalDate"
+  (closeModalEvent)="closeModalEvent()"
+  (saveSucEmit)="saveSucEvent($event)">
+  <vs-watch-list-task-detail
+    publicModalContent
+    [data]="editModalDate"
+    [plateColorList]="plateColorList"
+    [taskStatusList]="taskStatusList"
+    [taskLevelList]="taskLevelList"
+  ></vs-watch-list-task-detail>
+</vs-shared-task-modal>

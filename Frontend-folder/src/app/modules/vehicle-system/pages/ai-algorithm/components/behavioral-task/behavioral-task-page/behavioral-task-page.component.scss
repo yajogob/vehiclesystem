@@ -1,0 +1,24 @@
+// .behavioral-task-page {
+//   ::ng-deep .ag-theme-alpine {
+//     .ag-rtl .ag-cell,
+//     .ag-ltr .ag-cell {
+//       border: none;
+//     }
+
+//     .ag-header-cell::after,
+//     .ag-header-group-cell::after {
+//       content: none;
+//     }
+//   }
+// }
+
+.data-total {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 2rem;
+  margin: 2rem 0 0.8rem;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

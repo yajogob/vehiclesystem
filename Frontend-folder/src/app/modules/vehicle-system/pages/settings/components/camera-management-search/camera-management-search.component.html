@@ -1,0 +1,66 @@
+<div class="camera-management-search" *transloco="let tl; read: 'vs.cameraManagement'">
+  <div class="form-left">
+    <div class="title text-[var(--vs-title-color)]">{{ tl('cameraManagement') }}</div>
+    <div class="search-area rtl:mr-4 rtl:ml-2 ltr:mr-2 ltr:ml-4 bg-[var(--vs-vehicle-form-input-background)]">
+      <div class="ml-3 mr-3"></div>
+      <input
+        class="search-input bg-[var(--vs-vehicle-form-input-background)]"
+        type="text"
+        [placeholder]="tl('enterCameraName')"
+        (keydown.enter)="searchCameraManagementList()"
+        [(ngModel)]="searchName"
+        />
+    </div>
+
+    <ng-select
+      class="camera-status"
+      placeholder="{{tl('cameraStatus')}}"
+      [(ngModel)]="cameraStatus">
+      <ng-option *ngFor="let item of cameraStatusMaps" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+    </ng-select>
+
+    <ng-select
+      class="license-status"
+      placeholder="{{tl('license')}}"
+      [(ngModel)]="license">
+      <ng-option *ngFor="let item of licenseStatusMaps" [value]="item.codeItemValue">{{getItemName(item)}}</ng-option>
+    </ng-select>
+
+    <div class="choose-site">
+      <vs-site-selector
+        [(visible)]="dtVisible"
+        [selectedList]="siteSelectedList"
+        [position]="activeLangValue === 'ar' ? 'bottom-left' : 'bottom-right'"
+        (confirmEmit)="selectorConfirmOn($event)"
+      ></vs-site-selector>
+
+      <ng-select
+        class="task-value"
+        [items]="siteSelectedList"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        bindLabel="codeDesc"
+        [placeholder]="tl('site')"
+        [(ngModel)]="siteSelectedList"
+        (open)="showSiteModal()"
+        (change)="chooseCameraChange($event)"
+      >
+        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+          <div class="ng-value" *ngFor="let item of items | slice:0:3">
+            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+            <span class="ng-value-label">{{cameraLabel(item) }}</span>
+          </div>
+          <div class="ng-value" *ngIf="items.length > 3">
+            <span class="ng-value-label">{{items.length - 1}} {{tl('more')}} ...</span>
+          </div>
+      </ng-template>
+      </ng-select>
+      <div
+        class="add-icon"
+        [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+      ></div>
+    </div>
+  </div>
+  <button class="search public-search-btn" (click)="searchCameraManagementList()">{{tl('search')}}</button>
+
+</div>

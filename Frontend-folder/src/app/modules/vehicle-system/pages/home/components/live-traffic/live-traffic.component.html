@@ -1,0 +1,8 @@
+<div class="live-traffic" [class]="size" *transloco="let tl; read: 'vs.statisticalGraph'">
+  <p class="graph-statistics-title" [ngClass]="{'theme': size === 'big'}">{{tl('liveTraffic')}}</p>
+  <p class="chart-title" [ngClass]="{'theme': size === 'big'}">{{tl('vehicleCapture')}}</p>
+  <div class="line-chart" #chartContainer></div>
+  <div class="no-data-available" *ngIf="isNoData">
+    {{language === 'en' ? 'No data available' : 'لا يوجد بيانات متوفرة'}}
+  </div>
+</div>

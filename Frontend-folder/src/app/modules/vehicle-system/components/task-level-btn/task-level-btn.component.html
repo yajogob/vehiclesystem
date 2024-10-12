@@ -1,0 +1,11 @@
+<div class="task-level-btn" aria-hidden="true" *transloco="let tl; read: 'vs.levelBtn'">
+  <span class="critical-btn" (click)="setTaskLevelList('3')">
+    {{tl('CRITICAL')}}<b *ngIf="taskLevelList.includes('3')">✓</b>
+  </span>
+  <span class="major-btn" (click)="setTaskLevelList('2')">
+    {{tl('MAJOR')}}<b *ngIf="taskLevelList.includes('2')">✓</b>
+  </span>
+  <span class="minor-btn" (click)="setTaskLevelList('1')">
+    {{tl('MINOR')}}<b *ngIf="taskLevelList.includes('1')">✓</b>
+  </span>
+</div>

@@ -1,0 +1,9 @@
+<div class="switch-button-com">
+  <input 
+    class="switch-button"
+    type="checkbox"
+    (change)="switchChanged()"
+    (click)="$event.stopPropagation()"
+    [(ngModel)]="switchValue"
+  >
+</div>

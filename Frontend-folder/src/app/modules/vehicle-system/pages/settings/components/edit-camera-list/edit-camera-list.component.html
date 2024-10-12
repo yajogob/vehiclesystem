@@ -1,0 +1,95 @@
+<div aria-hidden="true" class="modal-bg" *ngIf="showEditModal" (click)="close(); $event.stopPropagation()"></div>
+
+<ng-container *ngIf="showEditModal">
+  <div
+    [@slideTrigger]="{value: ':enter', params: {tx: '100%'}}"
+    class="edit-camera-modal"
+    (click)="$event.stopPropagation();"
+    *transloco="let tl; read: 'vs.cameraManagement'"
+    [class]="[language]"
+    aria-hidden="true">
+    <div class="header-title-area">
+      <p class="text">{{tl('editCameraList')}}</p>
+      <div class="close-icon" (click)="close()"></div>
+    </div>
+
+    <div class="modal-content">
+      <form [formGroup]="editCameraForm">
+        <input
+          class="bg-[var(--vs-vehicle-form-input-background)] vehicle-input"
+          type="text"
+          formControlName="cameraName"
+          [placeholder]="tl('cameraName')"
+        />
+
+        <input
+          class="mt-4 bg-[var(--vs-vehicle-form-input-background)] vehicle-input"
+          type="text"
+          formControlName="cameraId"
+          [placeholder]="tl('cameraId')"
+        />
+
+        <input
+          class="mt-4 bg-[var(--vs-vehicle-form-input-background)] vehicle-input"
+          type="text"
+          formControlName="longitude"
+          [placeholder]="tl('longitude') + '*'"
+        />
+        <div class="required-tips" *ngIf="longitude.errors?.['required'] && longitude.dirty">
+          Longitude is required
+        </div>
+
+        <input
+          class="mt-4 bg-[var(--vs-vehicle-form-input-background)] vehicle-input"
+          type="text"
+          formControlName="latitude"
+          [placeholder]="tl('latitude') + '*'"
+        />
+        <div class="required-tips" *ngIf="latitude.errors?.['required'] && latitude.dirty">
+          Latitude is required
+        </div>
+
+        <ng-select
+          [clearable]="false"
+          class="mt-4 ng-select"
+          formControlName="cameraStatus"
+          [placeholder]="tl('cameraStatus') + '*'"
+        >
+          <ng-option *ngFor="let item of cameraStatusList" [value]="item.value">{{item.key}}</ng-option>
+        </ng-select>
+        <div class="required-tips" *ngIf="cameraStatus.errors?.['required'] && cameraStatus.dirty">
+          Camera Status is required
+        </div>
+
+        <ng-select
+          [clearable]="false"
+          class="mt-4 ng-select"
+          formControlName="deviceType"
+          [placeholder]="tl('deviceType')"
+        >
+          <ng-option *ngFor="let item of deviceTypeList" [value]="item.value">{{item.key}}</ng-option>
+        </ng-select>
+
+        <input
+          class="mt-4 bg-[var(--vs-vehicle-form-input-background)] vehicle-input"
+          type="text"
+          formControlName="laneNo"
+          [placeholder]="tl('laneNo')"
+        />
+
+        <input
+          class="mt-4 bg-[var(--vs-vehicle-form-input-background)] vehicle-input"
+          type="text"
+          formControlName="laneId"
+          [placeholder]="tl('laneId')"
+        />
+      </form>
+
+      <div class="button-group">
+        <button class="mb-4 public-search-btn" (click)="saveClick()">{{tl('save')}}</button>
+        <button class="mb-4 reset public-reset-btn" (click)="close()">{{tl('cancel')}}</button>
+      </div>
+
+    </div>
+  </div>
+</ng-container>

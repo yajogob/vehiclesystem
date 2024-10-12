@@ -1,0 +1,95 @@
+<div aria-hidden="true" *transloco="let tl; read: 'vs.aiAlgorithm'">
+  <form [formGroup]="createEditGpuLprTaskForm" class="text-[var(--vs-dialog-label-color)]">
+
+    <div class="new-task-flex">
+      <span class="task-label">{{tl('taskName')}}: <span>*</span></span>
+      <input
+        [maxlength]="maxlength"
+        class="vehicle-input task-value"
+        [ngClass]="{'err-tips-input': taskName.errors?.['required'] && taskName.dirty}"
+        type="text"
+        formControlName="taskName"
+        [placeholder]="tl('pleaseEnterTaskName')"
+      />
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="taskName.errors?.['required'] && taskName.dirty">
+        {{tl('taskName')}} {{'vs.public.isRequired' | transloco}}
+      </div>
+    </div>
+
+    <div class="new-task-flex choose-camera">
+      <span class="task-label">{{tl('camera')}}: <span>*</span></span>
+      <ng-select
+        [ngModelOptions]="{standalone: true}"
+        class="task-value"
+        [ngClass]="{'err-tips-select': !selectedCameraList.length && selectedCameraListDirty > 0}"
+        [items]="siteTreeList"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        bindLabel="codeDesc"
+        bindValue="code"
+        [placeholder]="tl('selectCamera')"
+        [(ngModel)]="bindCameraList"
+        (change)="chooseCameraChange($event)"
+        (open)="showSiteModal()"
+      >
+        <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+          <div class="ng-value" *ngFor="let item of items | slice:0:4">
+            <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+            <span class="ng-value-label">{{cameraLabel(item) }}</span>
+          </div>
+          <div class="ng-value" *ngIf="items.length > 1">
+            <span class="ng-value-label">{{items.length - 1}} {{tl('more')}} ...</span>
+          </div>
+        </ng-template>
+      </ng-select>
+      <div
+        class="add-icon"
+        [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+      >
+      </div>
+    </div>
+    <div class="error-tips">
+      <div class="space"></div>
+      <div class="required-tips" *ngIf="!selectedCameraList.length && selectedCameraListDirty > 0">
+        {{tl('camera')}} {{'vs.public.isRequired' | transloco}}
+      </div>
+    </div>
+
+    <div class="new-task-flex" >
+      <span class="task-label align-self">{{tl('selectedCamera')}}: <span>*</span></span>
+      <div class="task-value ">
+        <div class="selected-camera">
+          <div
+            class="mb-2 camera-box"
+            *ngFor="let item of selectedCameraList"
+            (click)="deleteCamera(item.code)"
+          >
+            <div class="camera-name">{{item.codeDesc}}</div>
+            <div class="del-icon"></div>
+          </div>
+        </div>
+        <div class="selected-num">
+          {{selectedCameraList.length}} {{ tl('wayCameraAdded') }}
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+
+  <div class="button-group">
+    <div class="space"></div>
+    <div class="flex-1 button-box">
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="!editModalDate?.taskId">
+        {{tl('createTaskBtn')}}
+      </button>
+      <button class="ltr:mr-2 rtl:ml-2 public-search-btn" (click)="saveClick()" *ngIf="editModalDate?.taskId">
+        {{tl('editTaskBtn')}}
+      </button>
+      <button class="reset public-reset-btn-second" (click)="reset()">{{tl('reset')}}</button>
+    </div>
+  </div>
+</div>

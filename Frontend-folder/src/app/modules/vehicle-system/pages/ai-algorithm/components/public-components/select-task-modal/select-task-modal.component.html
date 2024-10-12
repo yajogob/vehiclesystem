@@ -1,0 +1,24 @@
+<div aria-hidden="true" class="select-task-modal" *transloco="let tl">
+  <div class="task-top">
+    <div class="task-list">
+      <div
+        vsAccessControlDirective
+        [accessParams]="item.accessName"
+        class="task-item"
+        *ngFor="let item of taskList; index as i"
+        (click)="selectTask(item.value)"
+      >
+        {{item.label}}
+      </div>
+    </div>
+  </div>
+  <div class="task-bottom">
+    <div class="close-box" (click)="closeTaskModal()">
+      <div class="close-left ms-[2rem]">
+        <div class="algorithm">{{tl(titleTop)}}</div>
+        <div class="task">{{tl(titleBottom)}}</div>
+      </div>
+      <div class="close-icon"></div>
+    </div>
+  </div>
+</div>

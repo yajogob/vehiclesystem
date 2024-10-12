@@ -1,0 +1,150 @@
+<div class="side-vp-search w-full h-full pt-[1.5rem] px-[1.5rem] bg-[var(--vs-vehicle-search-background)]" *transloco="let tl; read: 'vs.vehicleProfile'">
+  <div class="w-full relative -top-[1.6rem] ltr:-right-[0.8rem] rtl:left-[0.3rem]">
+    <div
+      *ngIf="activeIndex > -1"
+      (click)="changeDetailsState()"
+      class="pointer-events cursor-pointer absolute top-[1.2rem] ltr:right-[0.4rem] rtl:rotate-180 rtl:-left-[0.8rem] text-white"
+      aria-hidden="true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="back-icon"
+        [ngClass]="{ 'rotate-180': !isShowVpDetails }">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 19.5L8.25 12l7.5-7.5"
+        />
+      </svg>
+    </div>
+
+    <div
+      *ngIf="trafficSearchEnterShowArrow"
+      (click)="changeDetailsStateTsEnter()"
+      class="pointer-events cursor-pointer absolute top-[1.2rem] ltr:right-[0.4rem] rtl:rotate-180 rtl:-left-[0.8rem] text-white"
+      aria-hidden="true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+        [ngClass]="{ 'rotate-180': rotateArrow }">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 19.5L8.25 12l7.5-7.5"
+        />
+      </svg>
+    </div>
+
+  </div>
+  <p class="side-vp-search-title text-[var(--vs-vehicle-main-title-color)]">
+    {{ tl("vehicleProfile") }}
+  </p>
+  <form class="search-form" [formGroup]="vehicleProfileSearchForm" tabindex="-1" (keydown.enter)="$event.preventDefault()">
+    <div class="ordinary-search">
+      <div class="pointer-events item">
+        <ng-select
+          placeholder="{{ tl('region') }}"
+          formControlName="region"
+          [items]="regionList"
+          bindLabel="key"
+          bindValue="value"
+          [clearable]="true"
+          (clear)="clearRegion()"
+          (change)="regionChange($event)"
+        ></ng-select>
+      </div>
+      <div class="flex flex-row justify-between pointer-events item">
+        <ng-select
+          class="ng-select ng-select-sm w-[8.5rem]"
+          placeholder="{{ tl('category') }}"
+          formControlName="plateCategory"
+          [items]="categoryListMap[currentRegion]"
+          bindLabel="key"
+          bindValue="value"
+          [clearable]="true"
+        ></ng-select>
+        <ng-select
+          class="ng-select ng-select-sm w-[6.5rem] mx-0.5"
+          placeholder="{{ tl('exactNum') }}"
+          formControlName="exactNum"
+          [items]="exactNumList"
+          bindLabel="key"
+          bindValue="value"
+          [clearable]="false"
+        ></ng-select>
+        <input
+          class="vehicle-input"
+          type="text"
+          [maxlength]="10"
+          placeholder="{{'vs.trafficSearch.numberPlate' | transloco}}"
+          formControlName="plateNumber"
+          (keydown.enter)="getVehicleProfileList()"
+        />
+      </div>
+      <div class="pointer-events item">
+        <ng-select
+          class="ng-select"
+          placeholder="{{ tl('plateColor') }}"
+          formControlName="plateColor"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [items]="plateColorList"
+          bindLabel="key"
+          bindValue="value"
+          [clearable]="false"
+        ></ng-select>
+      </div>
+      <div class="pointer-events item choose-site">
+        <vs-site-selector
+          [(visible)]="dtVisible"
+          [selectedList]="siteSelectedList"
+          [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+          (confirmEmit)="selectorConfirmOn($event)"
+        ></vs-site-selector>
+
+        <ng-select
+          class="pointer-events ng-select"
+          formControlName="sites"
+          [items]="siteSelectedList"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          bindLabel="codeDesc"
+          [placeholder]="tl('site')"
+          (open)="showSiteModal()"
+        ></ng-select>
+        <div
+          class="add-icon"
+          [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+        ></div>
+      </div>
+      <div class="pointer-events item">
+        <vs-vehicle-date-input
+          class="vehicle-profile-date"
+          [show24Time]="true"
+          [selected]="selected"
+          [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+          (selectedDateEmit)="selectedDate($event)"
+        ></vs-vehicle-date-input>
+      </div>
+    </div>
+    <div class="operate">
+      <button
+        class="pointer-events public-search-btn operate-button"
+        (click)="getVehicleProfileList()">
+        {{ tl("search") }}
+      </button>
+      <button
+        class="pointer-events reset operate-button public-reset-btn text-[var(--vs-vehicle-font-color)]"
+        (click)="resetForm()">
+        {{ tl("reset") }}
+      </button>
+    </div>
+  </form>
+</div>

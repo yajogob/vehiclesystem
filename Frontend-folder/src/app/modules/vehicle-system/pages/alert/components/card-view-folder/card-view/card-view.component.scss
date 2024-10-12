@@ -1,0 +1,142 @@
+.card-view-table {
+  display: flex;
+  flex-wrap: wrap;
+
+  vs-no-rows-overlay {
+    width: 100%;
+    height: 100%;
+    margin-top: 7%;
+  }
+
+  :is([data-theme='light'] .img-area) {
+    border: 0.1rem solid #000;
+  }
+
+  :is([data-theme='light'] .car-info) {
+    border: 0.1rem solid #000;
+  }
+
+  .big {
+    width: 33.3%;
+  }
+
+  .small {
+    width: 12.4%;
+  }
+
+  .details-item {
+    width: 12.5%;
+    padding: 0 0.6rem;
+    margin-bottom: 0.4rem;
+    cursor: pointer;
+
+    .priority {
+      position: absolute;
+      bottom: -1rem;
+      left: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .img-area {
+      position: relative;
+      top: 0.8rem;
+      width: 100%;
+      height: 14rem;
+      border-radius: 10px;
+      background-color: var(--vs-datepicker-text-active-color);
+
+      .image {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        object-fit: contain;
+      }
+    }
+
+    .car-info {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      padding: 2rem 0 0.5rem;
+      border-radius: 0 0 10px 10px;
+      color: var(--vs-white-task-details-text-color);
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      .car-info-item {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        padding: 0 0.7rem;
+
+        :is([dir='ltr'] .single) {
+          direction: ltr;
+        }
+
+        :is([dir='rtl'] .single) {
+          direction: rtl;
+        }
+
+        .single {
+          display: flex;
+          width: 100%;
+
+          .desc {
+            width: max-content;
+            color: #9d9b8b;
+          }
+
+          .value {
+            overflow: hidden;
+            max-width: 14rem;
+            height: 1.5rem;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            .plate-img {
+              width: 100%;
+              height: 2rem;
+            }
+          }
+
+          .threshold {
+            max-width: 8.5rem;
+          }
+
+          .behavior {
+            max-width: 8.5rem;
+          }
+
+          .plate {
+            max-width: 7rem;
+          }
+
+          .model {
+            max-width: 7rem;
+          }
+
+          .time {
+            max-width: 8rem;
+          }
+
+          .site {
+            max-width: 12rem;
+          }
+
+          .camera {
+            max-width: 10rem;
+          }
+
+          :is([data-theme='light'] .value) {
+            color: #000;
+          }
+
+          :is([data-theme='dark'] .value) {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

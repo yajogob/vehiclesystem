@@ -1,0 +1,29 @@
+<div class="flex flex-col items-start w-full h-full search-table justify-items-center" *ngIf="pageShow">
+  <h3 class="flex-none line-h text-[2rem] text-[var(--vs-vehicle-main-title-color)] font-bold">{{"vs.trafficSearch.trafficSearch" | transloco}}</h3>
+  <!-- <p class="text-[22px] line-h text-[var(--vs-text-color-regular)] font-medium">{{"vs.trafficSearch.details" | transloco}}</p> -->
+  <section class="flex w-full justify-between items-center h-[2.1rem] pb-[0.2rem]">
+    <!-- {{totalElements.toLocaleString()}} {{"vs.trafficSearch.total" | transloco}} -->
+    <p class="line-h text-[var(--vs-text-color-regular)] font-medium text-[1.375rem]"></p>
+    <vs-column-panel [columnDefs]="tableColumnDefs" (updateColumns)="onUpdateColumns($event)"></vs-column-panel>
+  </section>
+  <div class="flex-1 w-full load-container">
+    <ngx-ui-loader [loaderId]="'loader-traffic-search'"></ngx-ui-loader>
+    <vs-pagination-grid
+      class="flex-1 w-full m-w-130rem"
+      [ngClass]="{'no-access': !accessHandle(allResourceList.VehicleProfileOwner)}"
+      [id]="'trafficSearch'"
+      [switchHeight]="true"
+      [columnDefs]="tableColumnDefs"
+      [defaultColDef]="defaultColDef"
+      [rowData]="trafficSearchList"
+      [currentPage]="trafficSearchParams.pageNo"
+      [totalItems]="trafficSearchTableListInfo ? trafficSearchTableListInfo.totalElements : 0"
+      [pageMode]="'server'"
+      (totalChange)="trafficSearchTableListInfo && (trafficSearchTableListInfo.totalElements = $event)"
+      (sortChanged)="onSortChanged($event)"
+      (rowClicked)="onRowClicked($event)"
+      (pageChange)="onPageChange($event)"
+      (pageSizeChange)="onPageSizeChange($event)"
+    ></vs-pagination-grid>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+@layer base {
+  :root {
+    --close-logo: url('../../../../assets/vehicle-system/icons/traffic-fine-icon/close-botton.png');
+    --vs-color-primary: #ffd600; // the primary color for icon, button
+    --vs-color-primary-light: #fff84d; // a bit light
+    --vs-text-color: #fff; // the primary color for text
+    --vs-text-color-light: #c3c3c3; // a bit light
+    --vs-text-color-regular: #979797; // regular text color
+    --vs-text-color-placeholder: #979797;
+    --vs-text-color-secondary: #a59e86;
+    --vs-text-color-disabled: #888;
+    --vs-bg-color: #343434;// the background of page
+    --vs-overlayer-bg-color: #1f1f1f;// overlayer background color
+    --vs-fill-color: #000; // fill the same area of the background
+    --vs-border-color: #b2b2b2;
+    --vs-form-text-color-primary: var(--vs-color-primary-light);// for title, or actived title
+    --vs-form-text-color-secondary: var(--vs-text-color-regular);// for subtitle, or inactived title
+    --vs-form-text-color-regular: var(--vs-text-color-regular);// regular text
+    --vs-vehicle-form-input-background: #202020;
+    --vs-vehicle-form-input-background-disabled: none;
+    --vs-input-border-color: #666;
+    --vs-vehicle-form-value-color: #888;
+    --vs-vehicle-form-value-color-disabled: #888;
+    --vs-dropdown-bg-color: var(--vs-overlayer-bg-color);
+    --vs-dropdown-border-color: var(--vs-border-color);
+    --vs-dropdown-item-color: var(--vs-text-color);
+    --vs-dropdown-item-color-disabled: var(--vs-text-color-disabled);
+    --vs-drondown-item-color-selected: var(--vs-color-primary-light);
+    --vs-dropdown-item-bg-color-hover: var(--vs-bg-color);
+    --vs-popover-bg-color: var(--vs-overlayer-bg-color);
+    --vs-popover-text-color: var(--vs-text-color);
+    --vs-chart-dialog-bg-color: var(--vs-overlayer-bg-color);
+    --vs-dialog-header-text-color: var(--vs-color-primary);
+    --vs-dialog-close-icon-color: #fffdc5;
+    --vs-dialog-li-bg-color-striped: #686752;
+    --vs-dialog-li-bg-color-striped-light: #686752;
+    --vs-dialog-text-color-regular: #cdc9b6;
+    --vs-drawer-bg-color: #323232;
+    --vs-drawer-header-text-color: var(--vs-color-primary-light);
+    --vs-drawer-close-icon-color: var(--vs-dialog-close-icon-color);
+    --vs-radio-checked-color: var(--vs-text-color);
+    --vs-radio-border: 1px solid var(--vs-text-color);
+    --vs-button-text-color-critical: #fff;
+    --vs-button-bg-color-major: #f90;
+    --vs-button-text-color-major: #000;
+    --vs-button-bg-color-minor: #fff84d;
+    --vs-button-text-color-minor: #000;
+    --vs-button-text-color: var(--vs-text-color);
+    --vs-button-text-color-primary: var(--vs-text-color);
+    --vs-button-text-color-primary-hover: none;
+    --vs-button-bg-color-primary: linear-gradient(to right, green, greenyellow);
+    --vs-button-bg-color-primary-hover: none;
+    --vs-button-border-primary: none;
+    --vs-button-border-primary-hover: none;
+    --vs-button-text-color-primary-plain: var(--vs-text-color);
+    --vs-button-text-color-primary-plain-hover: none;
+    --vs-button-bg-color-primary-plain: linear-gradient(to right, #353430, #353430), linear-gradient(to right, green, greenyellow);
+    --vs-button-bg-color-primary-plain-hover: none;
+    --vs-button-border-primary-plain: none;
+    --vs-button-border-primary-plain-hover: none;
+    --vs-button-text-color-secondary: var(--vs-text-color);
+    --vs-button-text-color-secondary-hover: none;
+    --vs-button-bg-color-secondary: none;
+    --vs-button-bg-color-secondary-hover: none;
+    --vs-button-border-secondary: none;
+    --vs-button-border-secondary-hover: none;
+    --vs-button-text-color-secondary-plain: none;
+    --vs-button-text-color-secondary-plain-hover: none;
+    --vs-button-bg-color-secondary-plain: none;
+    --vs-button-bg-color-secondary-plain-hover: none;
+    --vs-button-border-secondary-plain: none;
+    --vs-button-border-secondary-plain-hover: none;
+  }
+
+  :root[data-theme='dark'] {
+    --vs-car-transaction-details-bg-color: #323232;
+    --vs-fine-details-modal-content-odd-bg-color: rgb(104 103 82 / 40%);
+    --vs-fine-details-modal-content-even-bg-color: rgb(104 103 82 / 20%);
+  }
+
+  :root[data-theme='light'] {
+    --close-logo: url('../../../../assets/vehicle-system/icons/traffic-fine-icon/close-red-icon.png');
+    --vs-text-color: #333;
+    --vs-text-color-regular: #333; // regular text color
+    --vs-fill-color: #fff;
+    --vs-car-transaction-details-bg-color: #fff;
+  }
+}
+
+.radio input[type='radio'] {
+  opacity: 0;
+}
+
+.radio input[type='radio'] + .radio-label::before {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 1px solid var(--vs-text-color);
+  border-radius: 100%;
+  background: var(--vs-fill-color);
+  content: '';
+  cursor: pointer;
+  text-align: center;
+  transition: all 250ms ease;
+  vertical-align: middle;
+}
+
+.radio input[type='radio']:checked + .radio-label::before {
+  background-color: var(--vs-text-color);
+  box-shadow: inset 0 0 0 4px var(--vs-fill-color);
+}
+
+.radio input[type='radio']:focus + .radio-label::before {
+  border-color: var(--vs-text-color);
+  outline: none;
+}
+
+.radio input[type='radio'] + .radio-label:empty::before {
+  margin-right: 0;
+}

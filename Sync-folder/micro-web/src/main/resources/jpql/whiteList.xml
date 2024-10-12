@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<jpa module="whitelist">
+
+    <jpql id="query" resultClass="com.micro.vo.whitelist.WhiteListTaskVo" native="true">
+        select task_id,task_type,region,plate_category,plate_number,plate_color,start_date,end_date,description from white_list_task
+        where 1=1
+        #if($region)
+        AND region = :region
+        #end
+
+        #if($plateCategory)
+        AND plate_category = :plateCategory
+        #end
+
+        #if($plateNumber)
+        AND plate_number LIKE :%plateNumber%
+        #end
+
+        #if($plateColor)
+        AND plate_color in (:plateColor)
+        #end
+
+        #if($startDate)
+        AND start_date &gt;= :startDate
+        #end
+
+        #if($endDate)
+        AND end_date &lt;= :endDate
+        #end
+
+        #if($nowDate)
+        AND end_date &gt;= :nowDate and start_date &lt;= :nowDate
+        #end
+
+        order by created_time desc
+    </jpql>
+
+    <jpql id="queryAlert" resultClass="com.micro.vo.whitelist.WhiteListAlertVo" native="true">
+        select task_id,alert_type,camera_name,image_file_url,plate_number,alert_date,alert_time from white_list_alert
+        where 1=1
+        #if($taskId)
+        AND task_id = :taskId
+        #end
+        order by created_time desc
+    </jpql>
+
+
+</jpa>

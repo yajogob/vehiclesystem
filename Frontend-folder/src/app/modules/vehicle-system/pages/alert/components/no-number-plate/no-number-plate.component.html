@@ -1,0 +1,82 @@
+<div class="search-conditions" aria-hidden="true" *transloco="let tl; read: 'vs.alert'">
+  <div class="flex-row">
+    <div class="site-tree">
+      <vs-site-selector
+        [(visible)]="isShowSiteTree"
+        [selectedList]="siteSelectedList"
+        [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+        (confirmEmit)="selectorConfirmOn($event)"
+      ></vs-site-selector>
+      <ng-select
+        [items]="siteSelectedList"
+        [(ngModel)]="siteSelectedList"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        bindLabel="codeDesc"
+        [placeholder]="tl('placeholder.Site')"
+        (open)="showSiteModal()"
+        (change)="changeSiteSelectedList($event)"
+      ></ng-select>
+      <div class="add-icon" [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"></div>
+    </div>
+    <div class="vehicle-date ltr:mr-4 rtl:ml-4">
+      <vs-vehicle-date-input
+        [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+        [selected]="searchDate"
+        (selectedDateEmit)="selectedDateFn($event)"
+      ></vs-vehicle-date-input>
+    </div>
+  </div>
+
+  <div class="search-btns" *transloco="let tl; read: 'vs.public'">
+    <button class="principal-btn" (click)="searchTableList()">{{tl('search')}}</button>
+    <button class="mx-2 secondary-btn" (click)="resetForm()">{{tl('reset')}}</button>
+  </div>
+</div>
+
+<div class="search-results">
+  <div class="load-container">
+    <ngx-ui-loader [loaderId]="'no-number-plate-loader'"></ngx-ui-loader>
+    <div class="pagination-grid-options" *transloco="let tl; read: 'vs.statisticalGraph'">
+      <p class="total-num">{{totalElements.toLocaleString()}} {{tl('noNumberPlate')}}</p>
+      <span class="right-btns">
+        <vs-column-panel
+          [columnDefs]="tableColumnDefs"
+          (updateColumns)="onUpdateColumns($event)"
+        ></vs-column-panel>
+        <vs-mode-switch
+          [(renderMode)]="renderMode"
+          (renderModeChange)="renderModeChange()"
+        ></vs-mode-switch>
+      </span>
+    </div>
+    <div class="result-render">
+      <vs-pagination-grid
+        *ngIf="renderMode==='table'"
+        [id]="'noNumberPlate'"
+        [columnDefs]="tableColumnDefs"
+        [defaultColDef]="defaultColDef"
+        [rowData]="tableRowData"
+        [currentPage]="searchParams.pageNo"
+        [totalItems]="totalElements"
+        (totalChange)="totalElements = $event"
+        (rowClicked)="onRowClicked($event)"
+        (pageChange)="onPageChange($event)"
+        (pageSizeChange)="onPageSizeChange($event)"
+        (sortChanged)="onSortChanged($event)"
+        (cellOperated)="onCellOperated($event)"
+      ></vs-pagination-grid>
+      <ng-container *ngIf="renderMode==='img'">
+        <vs-card-view-public
+          [tableId] = "'noNumberPlateTable'"
+          [tableRowData]="tableRowData"
+          [totalElements]="totalElements"
+          [currentPage]="searchParams.pageNo"
+          (totalChange)="totalElements = $event"
+          (onPageChangeEmit)="onPageChange($event)"
+          (checkCardItemEmit)="checkCardItemOn($event)"
+        ></vs-card-view-public>
+      </ng-container>
+    </div>
+  </div>
+</div>

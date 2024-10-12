@@ -1,0 +1,42 @@
+<div class="watch-list-task-detail bg-[var(--vs-sidebar-right-bg-color)]" *transloco="let tl; read: 'vs.aiAlgorithm'">
+
+  <div class="plate-number">
+    <div class="num-key">{{tl('plateNumber')}}:</div>
+    <div class="num-value">{{detailData.region || ''}} {{detailData.plateCategory || ''}} {{detailData.plateNumber || ''}}</div>
+  </div>
+
+  <div class="details-content text-[var(--vs-dialog-text-color-regular)]">
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]  ">
+      <span>{{tl('plateColor')}}:</span>
+      <span>{{detailData.plateColor}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]  ">
+      <span>{{tl('taskLevel')}}:</span>
+      <span>{{detailData.taskLevel}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]  ">
+      <span>{{tl('taskCycle')}}:</span>
+      <span>
+        {{detailData.startDateTime | date:"MMM d, YYYY h:mm a"}}
+        - {{detailData.endDateTime | date:"MMM d, YYYY h:mm a"}}
+      </span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]  ">
+      <span>{{tl('taskStatus')}}:</span>
+      <span>{{detailData.currentStatus}}</span>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped)]  ">
+      <span class="desc">{{tl('cameraList')}}:</span>
+      <div class="camera-list">
+        <div class="device-box">
+          <div class="device" *ngFor="let item of detailData.deviceList">{{item.deviceName}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-[var(--vs-dialog-li-bg-color-striped-light)]  ">
+      <span class="desc">{{tl('description')}}:</span>
+      <span class="word-break">{{detailData.remark}}</span>
+    </div>
+  </div>
+
+</div>

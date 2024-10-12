@@ -1,0 +1,288 @@
+<div *transloco="let tl; read: 'vs.alert'" aria-hidden="true">
+  <div class="modal-bg" *ngIf="showAlertTableModal" (click)="closeDetail(); $event.stopPropagation()"></div>
+  <div
+    *ngIf="showAlertTableModal"
+    [@slideTrigger]="{value: ':enter', params: {tx: slideX}}"
+    (click)="$event.stopPropagation()"
+    class="alert-point-detail"
+    [class]="[alertPosition, language]">
+    <div class="big-vehicle-image-bg" *ngIf="checkBigImage">
+      <div class="big-img-container"  #bigOriginTargetImage>
+        <div
+          class="big-target-box"
+          [style]="{
+            'width': bigTargetBox.width+'px',
+            'height': bigTargetBox.height+'px',
+            'top': bigTargetBox.top+'px',
+            'left': bigTargetBox.left+'px',
+            'opacity': bigTargetBox.opacity,
+          }"
+        ></div>
+        <span class="close-big-img" (click)="closeBigImage()"></span>
+        <img [src]="latestAlert.vehicleImage || latestAlert.captureImageUrl" alt="">
+      </div>
+    </div>
+
+    <div class="video-player-full-screen" *ngIf="checkCameraVideo">
+      <div class="video-player-header">
+        <div class="play-video-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+            <path d="M29.007 3.58301H13.9928C7.47117 3.58301 3.58325 7.47092 3.58325 13.9926V28.9888C3.58325 35.5284 7.47117 39.4163 13.9928 39.4163H28.9891C35.5107 39.4163 39.3987 35.5284 39.3987 29.0068V13.9926C39.4166 7.47092 35.5287 3.58301 29.007 3.58301Z" fill="#FFD600"/>
+            <path d="M16.3035 21.5004V18.8488C16.3035 15.4267 18.7222 14.0471 21.6784 15.7492L23.9718 17.075L26.2651 18.4008C29.2214 20.1029 29.2214 22.8979 26.2651 24.6L23.9718 25.9258L21.6784 27.2517C18.7222 28.9538 16.3035 27.5563 16.3035 24.1521V21.5004Z" fill="#292D32"/>
+          </svg>
+          <span>{{language === 'ar' ? 'التسجيل قبل التسجيل اللاحق' : 'Pre-post Recording'}}</span>
+        </div>
+        <span class="close-video-player" (click)="checkCameraVideo=false;"></span>
+      </div>
+
+      <div class="video-container">
+        <ngx-ui-loader loaderId="video-stream-search-loader"></ngx-ui-loader>
+        <ng-container *ngIf="showVideoType === 'history-stream' && historyStreamUrl">
+          <vs-video-player
+            class="w-full h-full history-stream"
+            [videoUrl]="historyStreamUrl"
+            [options]="{sources: []}"
+          ></vs-video-player>
+        </ng-container>
+        <ng-container *ngIf="showVideoType === 'live-stream' && liveStreamUrl">
+          <vs-video-player
+            class="w-full h-full live-stream"
+            [options]="{sources: [{type: 'application/x-mpegURL', src: liveStreamUrl, loop: false}]}"
+          ></vs-video-player>
+        </ng-container>
+      </div>
+    </div>
+
+    <span class="close-search" (click)="closeDetail()"></span>
+    <div class="detail-tabs">
+      <span
+        class="tab"
+        (click)="setDetailTab('alert')"
+        [class]="{'actived': activeDetailTab === 'alert'}">
+        {{(alertType === 'NoNumberPlate' ? 'vs.aiAlgorithm.captureInformation' :  'vs.aiAlgorithm.alertInformation') | transloco}}
+      </span>
+      <span
+        class="tab"
+        (click)="setDetailTab('camera')"
+        [class]="{'actived': activeDetailTab === 'camera'}">
+        {{'vs.aiAlgorithm.cameraInformation' | transloco}}
+      </span>
+    </div>
+
+    <!-- Alert-Information -->
+    <div class="latest-capture" *ngIf="activeDetailTab === 'alert'">
+      <div class="video-area">
+        <div class="device-video" #originTargetImage>
+          <div
+            class="target-box"
+            [style]="{
+              'width': targetBox.width+'px',
+              'height': targetBox.height+'px',
+              'top': targetBox.top+'px',
+              'left': targetBox.left+'px',
+              'opacity': targetBox.opacity,
+            }"
+          ></div>
+
+          <img class="cursor-pointer" (click)="openBigImage()" [src]="latestAlert.vehicleImage || latestAlert.captureImageUrl" alt="">
+
+          <div class="play-btns-position" *ngIf="alertType === 'Behavioral' && latestAlert?.isVideoExist === 'true'">
+            <div class="play-video-btn" (click)="playHistoryStream()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+                <path d="M29.007 3.58301H13.9928C7.47117 3.58301 3.58325 7.47092 3.58325 13.9926V28.9888C3.58325 35.5284 7.47117 39.4163 13.9928 39.4163H28.9891C35.5107 39.4163 39.3987 35.5284 39.3987 29.0068V13.9926C39.4166 7.47092 35.5287 3.58301 29.007 3.58301Z" fill="#FFD600"/>
+                <path d="M16.3035 21.5004V18.8488C16.3035 15.4267 18.7222 14.0471 21.6784 15.7492L23.9718 17.075L26.2651 18.4008C29.2214 20.1029 29.2214 22.8979 26.2651 24.6L23.9718 25.9258L21.6784 27.2517C18.7222 28.9538 16.3035 27.5563 16.3035 24.1521V21.5004Z" fill="#292D32"/>
+              </svg>
+              <span>{{language === 'ar' ? 'التسجيل قبل التسجيل اللاحق' : 'Pre-post Recording'}}</span>
+            </div>
+
+            <div *ngIf="liveStreamUrl" class="play-video-btn" (click)="playLiveStream()">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+                <path d="M29.007 3.58301H13.9928C7.47117 3.58301 3.58325 7.47092 3.58325 13.9926V28.9888C3.58325 35.5284 7.47117 39.4163 13.9928 39.4163H28.9891C35.5107 39.4163 39.3987 35.5284 39.3987 29.0068V13.9926C39.4166 7.47092 35.5287 3.58301 29.007 3.58301Z" fill="#FFD600"/>
+                <path d="M16.3035 21.5004V18.8488C16.3035 15.4267 18.7222 14.0471 21.6784 15.7492L23.9718 17.075L26.2651 18.4008C29.2214 20.1029 29.2214 22.8979 26.2651 24.6L23.9718 25.9258L21.6784 27.2517C18.7222 28.9538 16.3035 27.5563 16.3035 24.1521V21.5004Z" fill="#292D32"/>
+              </svg>
+              <span>{{language === 'ar' ? 'تدفق مباشر' : 'Live Stream'}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="alerts-info">
+          <div class="icon-bg" [ngClass]="[alertType?.toLocaleLowerCase() + '-icon-bgc']">
+            <div
+              [ngClass]="[alertType?.toLocaleLowerCase(), alertType?.toLocaleLowerCase()+ '-wh']"
+              >
+            </div>
+          </div>
+          <div class="desc" [ngClass]="[alertType.toLocaleLowerCase() + '-desc']" *ngIf="alertType === 'Behavioral'">{{'vs.statisticalGraph.behavioralAlerts' | transloco}}</div>
+          <div class="desc" [ngClass]="[alertType.toLocaleLowerCase() + '-desc']" *ngIf="alertType === 'Watchlist'">{{'vs.statisticalGraph.watchlistAlerts' | transloco}}</div>
+          <div class="desc" [ngClass]="[alertType.toLocaleLowerCase() + '-desc']" *ngIf="alertType === 'Geofence'">{{'vs.statisticalGraph.geofenceAlerts' | transloco}}</div>
+        </div>
+      </div>
+
+
+      <div class="text-list">
+        <p class="detail-item" *ngIf="alertType !== 'NoNumberPlate'">
+          <span class="label">
+            {{tl('table.alertId')}} :
+          </span>
+          <span class="value">{{latestAlert.id || latestAlert.alertId}}</span>
+        </p>
+        <p class="detail-item" *ngIf="alertType === 'Behavioral'">
+          <span class="label">
+            {{tl('table.alertType')}} :
+          </span>
+          <span class="value" :title="{{latestAlert.behaviorAlertType}}">{{latestAlert.behaviorAlertType}}</span>
+        </p>
+        <p class="detail-item" *ngIf="alertType !== 'NoNumberPlate'">
+          <span class="label">
+            {{tl('plateCapture')}} :
+          </span>
+          <span class="value" *ngIf="(latestAlert.plateImage || latestAlert.plateImageUrl)">
+            <img class="plate-img" [src]="latestAlert.plateImage || latestAlert.plateImageUrl" alt="">
+          </span>
+          <span class="value" *ngIf="!latestAlert.plateImage && !latestAlert.plateImageUrl">No Plate</span>
+        </p>
+        <p class="detail-item" *ngIf="alertType !== 'NoNumberPlate'">
+          <span class="label">
+            {{tl('placeholder.plateNo')}} :
+          </span>
+          <span class="value">
+            {{currentTableData.regionShort || currentTableData.region}} {{currentTableData.category}} {{currentTableData.plateNumber || currentTableData.plateNo}}
+          </span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{'vs.public.dateAndTime' | transloco}} :
+          </span>
+          <span class="value">{{(latestAlert.captureTime || latestAlert.time) | date: 'MMM d, YYYY h:mm a'}}</span>
+        </p>
+        <p class="detail-item" *ngIf="alertType !== 'NoNumberPlate'">
+          <span class="label">
+            {{tl('table.priority')}} :
+          </span>
+          <span class="value" [class]="(currentTableData.priority || currentTableData.priorityValue)?.toLocaleLowerCase() + '-btn'">{{currentTableData.priority || currentTableData.priorityValue}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{tl('table.site')}} :
+          </span>
+          <span class="value">{{currentTableData.siteName}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'اسم الكاميرا' : 'Camera name'}} :
+          </span>
+          <span class="value">{{cameraInfo.cameraName}}</span>
+        </p>
+        <p class="detail-item" *ngIf="alertType === 'Behavioral' || alertType === 'Geofence'">
+          <span class="label">
+            {{tl('table.taskName')}} :
+          </span>
+          <span class="value">{{currentTableData.taskName || currentTableData.warningName}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{'vs.trafficSearch.vehicleMake' | transloco}} :
+          </span>
+          <span class="value">{{vehicleBrandTypeMap[latestAlert.vehicleMake] || latestAlert.vehicleMake}}</span>
+        </p>
+        <p class="detail-item" *ngIf="alertType !== 'NoNumberPlate'">
+          <span class="label">
+            {{'vs.trafficSearch.plateColor' | transloco}} :
+          </span>
+          <span class="value">{{plateColorMap[latestAlert.plateColor] || latestAlert.plateColor}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{'vs.trafficFine.vehicleSpeed' | transloco}} :
+          </span>
+          <span class="value">{{latestAlert.vehicleSpeed || latestAlert.speed}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{tl('vehicleModel')}} :
+          </span>
+          <span class="value">{{vehicleTypeMap[latestAlert.vehicleModel] || latestAlert.vehicleModel}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{'vs.trafficSearch.vehicleColor' | transloco}} :
+          </span>
+          <span class="value">{{vehicleColorMap[latestAlert.vehicleColor] || latestAlert.vehicleColor}}</span>
+        </p>
+        <p class="detail-item" *ngIf="alertType !== 'NoNumberPlate'">
+          <span class="label">
+            {{tl('country')}} :
+          </span>
+          <span class="value">{{latestAlert.country}}</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Camera-Information -->
+    <div class="camera-information" *ngIf="activeDetailTab === 'camera'">
+      <div class="text-list">
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'اسم الكاميرا' : 'Camera name'}} :
+          </span>
+          <span class="value">{{cameraInfo.cameraName || cameraInfo.cameraId}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'هوية الكاميرا' : 'Camera ID'}} :
+          </span>
+          <span class="value">{{cameraInfo.cameraCode}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'نقطة الاتصال' : 'Logitude'}} :
+          </span>
+          <span class="value">{{cameraInfo.longitude}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'خط العرض' : 'Latitude'}} :
+          </span>
+          <span class="value">{{cameraInfo.latitude}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'ينتمي إلى الموقع' : 'Belong Site'}} :
+          </span>
+          <span class="value">{{cameraInfo.siteName}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'حالة الكاميرا' : 'Camera Status'}} :
+          </span>
+          <span class="value">{{cameraInfo.cameraStatus}}</span>
+        </p>
+        <!-- <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'الكاميرا المصدر' : 'Camera Source'}} :
+          </span>
+          <span class="value">{{cameraSourceMap[cameraInfo.cameraSource]}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{'vs.cameraManagement.deviceType' | transloco}} :
+          </span>
+          <span class="value">{{cameraInfo.deviceType}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'الممر رقم.' : 'Lane No.'}} :
+          </span>
+          <span class="value">{{cameraInfo.laneNo}}</span>
+        </p>
+        <p class="detail-item">
+          <span class="label">
+            {{language === 'ar' ? 'معرف الحارة' : 'Lane ID'}} :
+          </span>
+          <span class="value">{{cameraInfo.laneId}}</span>
+        </p> -->
+      </div>
+    </div>
+  </div>
+</div>
+

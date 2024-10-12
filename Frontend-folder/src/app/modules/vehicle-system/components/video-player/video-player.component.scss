@@ -1,0 +1,71 @@
+.video-box {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+
+  .video-js {
+    width: inherit;
+    height: inherit;
+  }
+
+  .custom-controls {
+    display: flex;
+    flex-direction: column;
+
+    ::ng-deep .vjs-control-bar {
+      height: max-content;
+      flex-wrap: wrap;
+
+      .vjs-progress-control {
+        width: 100%;
+        height: 3em;
+      }
+
+      .vjs-play-progress::before {
+        position: absolute;
+        z-index: 1;
+        top: -0.4em;
+        right: -0.5em;
+        font-size: 1em;
+      }
+
+      .vjs-control {
+        height: 2.5em;
+      }
+
+      .vjs-current-time,
+      .vjs-duration {
+        position: relative;
+        display: block;
+        font-size: 1.3em;
+      }
+
+      .vjs-current-time::after {
+        position: absolute;
+        top: 0;
+        right: -0.1em;
+        display: block;
+        content: '/';
+        font-size: 1.8em;
+      }
+
+      .vjs-time-control {
+        line-height: 2em;
+      }
+
+      .vjs-button > .vjs-icon-placeholder::before {
+        top: unset;
+        bottom: 2px;
+        font-size: 2.8em;
+        line-height: 1;
+      }
+
+      .vjs-fullscreen-control {
+        position: absolute;
+        right: 0;
+        bottom: 0.8em;
+      }
+    }
+  }
+}

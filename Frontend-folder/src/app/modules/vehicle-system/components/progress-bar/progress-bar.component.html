@@ -1,0 +1,19 @@
+<div class="progress-line-container flex items-center w-[51rem] h-[3rem] bg-[var(--vs-progress-line-bg-color)] mr-[0.5rem] mb-[0.5rem] rounded-[6px]">
+	<div class="w-[3.4rem]">
+		<svg class="ml-[1.4rem] cursor-pointer" (click)="startProgress()" xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16" fill="none">
+			<path d="M0.529585 -0.000271118L8.1925 8.01181L0.662916 15.2133L0.529585 -0.000271118Z" fill="#00FF19"/>
+		</svg>
+	</div>
+	<div class="w-[46rem] mt-[0.4rem] text-white text-base flex flex-col items-center">
+		<div class="w-full h-[0.3rem] rounded-sm flex items-center bg-[var(--vs-progress-line-unmachined-color)]">
+      <div
+      class="completed h-full filter blur-[0.25rem] bg-[var(--vs-progress-line-completed-color)]"
+      [style.width.%]="progressPercentage"
+      ></div>
+    </div>
+    <div class="w-full h-[0.9rem] mt-[0.2rem] relative">
+      <span class="absolute left-0">{{startTime}}</span>
+      <span class="absolute right-0" aria-hidden="true" (click)="stopProgress()">{{endTime}}</span>
+    </div>
+	</div>
+</div>

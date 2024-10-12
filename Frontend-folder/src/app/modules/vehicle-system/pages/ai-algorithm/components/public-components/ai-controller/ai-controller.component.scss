@@ -1,0 +1,23 @@
+.ai-controller {
+  display: flex;
+  color: #fff;
+
+  .controller-left {
+    display: flex;
+    width: 40rem;
+    height: 4.8rem;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #979797;
+
+    .controller-item {
+      cursor: pointer;
+    }
+  }
+
+  .controller-right {
+    width: 4.8rem;
+    height: 4.8rem;
+    background-color: #979797;
+  }
+}

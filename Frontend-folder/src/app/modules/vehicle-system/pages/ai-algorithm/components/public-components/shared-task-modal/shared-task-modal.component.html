@@ -1,0 +1,89 @@
+<div class="overlay" *ngIf="isShow" aria-hidden="true" (click)="close(); $event.stopPropagation()"></div>
+
+<div aria-hidden="true"
+  *ngIf="isShow"
+  [@slideTrigger]="{value: ':enter', params: {tx: slideX}}"
+  class="modal load-container end-0"
+  [ngStyle]="width"
+  (click)="$event.stopPropagation();">
+
+  <ngx-ui-loader [loaderId]="'add-edit-task'"></ngx-ui-loader>
+
+  <div class="title-area border-b border-[var(--vs-dialog-header-bottom-border-color)]"
+       *transloco="let tl; read: 'vs.aiAlgorithm'">
+    <div class="title">
+      <ng-container *ngIf="taskOrDetails === 'task'">
+        <p class="text-[var(--vs-dialog-header-text-color)]" *ngIf="addOrEdit === 'add'">{{tl('createNewTask')}}</p>
+        <p class="text-[var(--vs-dialog-header-text-color)]" *ngIf="addOrEdit === 'edit'">{{tl('editTask')}}</p>
+      </ng-container>
+      <ng-container *ngIf="taskOrDetails === 'details'">
+        <p class="text-[var(--vs-dialog-header-text-color)]">{{modalTitle | transloco}}</p>
+      </ng-container>
+    </div>
+    <div class="close-icon" (click)="close()"></div>
+  </div>
+
+  <ng-container *ngIf="taskOrDetails === 'details'">
+    <ng-content select="[publicModalContent]">
+    </ng-content>
+  </ng-container>
+
+  <ng-container *ngIf="taskOrDetails === 'task'">
+    <div class="modal-content" *transloco="let tl; read: 'vs.aiAlgorithm'">
+      <div class="select-task">
+        <span class="task-label">{{tl('selectYourTask')}}:</span>
+        <ng-select
+          class="task-value"
+          [disabled]="addOrEdit === 'edit'"
+          [clearable]="false"
+          [(ngModel)]="activedTask"
+        >
+          <ng-option *ngFor="let item of allTaskList" [value]="item['codeItemValue']">{{selectName(item)}}</ng-option>
+        </ng-select>
+      </div>
+
+      <!-- Five kinds Task area -->
+      <!-- <vs-behavioral-task-modal
+        [hidden]="activedTask !== 'behavioral'"
+        [taskChannel]="activedTask"
+        [modalDate]="editModalDate"
+        (saveSucEmit)="saveSucEvent($event)"
+      >
+      </vs-behavioral-task-modal> -->
+
+      <vs-watch-task-modal
+        [hidden]="activedTask !== 'watchList'"
+        [taskChannel]="activedTask"
+        [modalDate]="editModalDate"
+        (saveSucEmit)="saveSucEvent($event)"
+      >
+      </vs-watch-task-modal>
+
+      <vs-geofence-task-modal
+        [hidden]="activedTask !== 'geofenceList'"
+        [taskChannel]="activedTask"
+        [modalDate]="editModalDate"
+        (saveSucEmit)="saveSucEvent($event)"
+      >
+      </vs-geofence-task-modal>
+
+      <vs-white-task-modal
+        [hidden]="activedTask !== 'whiteList'"
+        [taskChannel]="activedTask"
+        [modalDate]="editModalDate"
+        (saveSucEmit)="saveSucEvent($event)"
+      >
+      </vs-white-task-modal>
+
+      <vs-gpu-task-modal
+        [hidden]="activedTask !== 'gpuLpr'"
+        [taskChannel]="activedTask"
+        [modalDate]="editModalDate"
+        (saveSucEmit)="saveSucEvent($event)"
+      >
+      </vs-gpu-task-modal>
+
+    </div>
+  </ng-container>
+</div>
+

@@ -1,0 +1,170 @@
+<div
+  class="side-search w-full h-full pt-[1.5rem] px-[1.5rem]"
+  *transloco="let tl; read: 'vs.trafficSearch'">
+  <p class="big-title font-bold text-[var(--vs-vehicle-main-title-color)]" aria-hidden="true">
+    {{ tl("trafficSearch") }}
+  </p>
+  <p class="text-[1.1rem] text-[var(--vs-vehicle-sub-title-color)] font-medium">
+    {{ currentDateTime | date : "EEEE, MMM d, YYYY h:mm a" }}
+  </p>
+  <!--  form start-->
+  <form class="search-form" [formGroup]="trafficSearchForm" tabindex="-1" (keydown.enter)="$event.preventDefault()">
+    <div class="ordinary-search">
+      <div class="item">
+        <ng-select
+          class="ng-select"
+          placeholder="{{ tl('region') }}"
+          formControlName="region"
+          [clearable]="true"
+          [items]="regionList"
+          bindLabel="key"
+          bindValue="value"
+          (clear)="clearRegion()"
+          (change)="regionChange($event)"
+        ></ng-select>
+      </div>
+      <div class="flex flex-row justify-between item">
+        <ng-select
+          class="ng-select ng-select-sm w-[8.5rem]"
+          placeholder="{{ tl('category') }}"
+          formControlName="plateCategory"
+          [clearable]="true"
+          [items]="categoryListMap[currentRegion]"
+          [multiple]="false"
+          bindLabel="key"
+          bindValue="value"
+        ></ng-select>
+        <ng-select
+          class="ng-select ng-select-sm w-[6.5rem] mx-0.5"
+          placeholder="{{ tl('exactNum') }}"
+          formControlName="exactNum"
+          [clearable]="false"
+          [items]="exactNumList"
+          [multiple]="false"
+          bindLabel="key"
+          bindValue="value"
+        ></ng-select>
+        <input
+          class="flex-1 vehicle-input"
+          type="text"
+          [maxlength]="10"
+          placeholder="{{ tl('numberPlate') }}"
+          formControlName="plateNumber"
+          (keydown.enter)="getTrafficSearchList()"
+        />
+      </div>
+      <div class="item">
+        <ng-select
+          class="ng-select"
+          placeholder="{{ tl('plateColor') }}"
+          formControlName="plateColor"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [clearable]="false"
+          [items]="plateColorList"
+          bindLabel="key"
+          bindValue="value"
+        ></ng-select>
+      </div>
+      <div class="item choose-site">
+        <vs-site-selector
+          [(visible)]="isShowSiteTree"
+          [selectedList]="siteSelectedList"
+          [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+          (confirmEmit)="selectorConfirmOn($event)"
+        ></vs-site-selector>
+
+        <ng-select
+          class="task-value"
+          [items]="siteSelectedList"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          bindLabel="codeDesc"
+          [placeholder]="tl('site')"
+          formControlName="sites"
+          (open)="showSiteModal()"
+        ></ng-select>
+        <div
+          class="add-icon"
+          [ngClass]="activeLangValue === 'ar' ? 'pos-left' : 'pos-right'"
+        ></div>
+      </div>
+      <div class="item">
+        <vs-vehicle-date-input
+          class="traffic-search-date"
+          [show24Time]="true"
+          [selected]="selected"
+          [position]="activeLangValue === 'ar' ? 'bottom-right' : 'bottom-left'"
+          (selectedDateEmit)="selectedDate($event)"
+        ></vs-vehicle-date-input>
+      </div>
+    </div>
+    <div
+      class="advanced-search-control-bar"
+      aria-hidden="true"
+      (click)="showAdvancedSearch()"
+    >
+      <span class="text-[var(--vs-sidebar-title-color)] font-normal text-sm"
+        >{{ tl("advanceSearch") }}&nbsp;&nbsp;&nbsp;</span
+      ><span
+        [ngClass]="isShowAdvancedSearch ? 'arrow-up' : 'arrow-down'"
+      ></span>
+    </div>
+    <div class="advanced-search" *ngIf="isShowAdvancedSearch">
+      <div class="item">
+        <ng-select
+          class="ng-select"
+          placeholder="{{ tl('vehicleMake') }}"
+          formControlName="vehicleMake"
+          [clearable]="true"
+          [items]="vehicleMarkList"
+          bindLabel="key"
+          bindValue="value"
+          (change)="onSelectChange($event)"
+        ></ng-select>
+      </div>
+      <div class="item">
+        <ng-select
+          class="ng-select"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [ngClass]="{ 'ng-select-disabled': isDisabled }"
+          placeholder="{{ tl('vehicleModel') }}"
+          formControlName="vehicleModel"
+          [clearable]="false"
+          [items]="vehicleModelList"
+          bindLabel="key"
+          bindValue="value"
+        ></ng-select>
+      </div>
+      <div class="item">
+        <ng-select
+          class="ng-select"
+          placeholder="{{ tl('vehicleColor') }}"
+          formControlName="vehicleColor"
+          [multiple]="true"
+          [closeOnSelect]="false"
+          [clearable]="false"
+          [items]="vehicleColorList"
+          bindLabel="key"
+          bindValue="value"
+        ></ng-select>
+      </div>
+    </div>
+    <div class="operate" aria-hidden="true">
+      <button
+        class="public-search-btn operate-button"
+        (click)="getTrafficSearchList()"
+      >
+        {{ tl("search") }}
+      </button>
+      <button
+        class="reset operate-button public-reset-btn text-[var(--vs-vehicle-font-color)]"
+        (click)="resetForm()"
+      >
+        {{ tl("reset") }}
+      </button>
+    </div>
+  </form>
+  <!--  form end-->
+</div>

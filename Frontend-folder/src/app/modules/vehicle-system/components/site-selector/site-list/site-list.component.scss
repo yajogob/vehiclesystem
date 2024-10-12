@@ -1,0 +1,63 @@
+.inline-flex-checkbox {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+
+  .custom-checkbox {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    width: 1.2rem;
+    height: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.4rem;
+    cursor: pointer;
+
+    & > input {
+      visibility: hidden;
+    }
+
+    vs-custom-checkbox {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  }
+
+  .unfold-btn {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.4rem;
+    margin-left: 0.8rem;
+    background-image: url('../assets/unfold.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+}
+
+.leaf-site {
+  overflow: hidden;
+  width: 18rem;
+  height: 2.4rem;
+  box-sizing: border-box;
+  padding-left: 1rem;
+  border-right: 1px dashed #979797;
+  margin-bottom: 2px;
+
+  .leaf-site-name {
+    overflow: hidden;
+    width: max-content;
+    max-width: 16rem;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .children-count {
+    margin-left: 4px;
+  }
+}

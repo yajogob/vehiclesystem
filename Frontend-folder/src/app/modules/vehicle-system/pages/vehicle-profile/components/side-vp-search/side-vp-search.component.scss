@@ -1,0 +1,126 @@
+.side-vp-search {
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+
+  &-title {
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .back-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .search-form {
+    .ordinary-search {
+      .item {
+        position: relative;
+        margin-bottom: 1rem;
+
+        .category {
+          width: 8rem;
+        }
+
+        .number-plate {
+          width: calc(100% - 10rem);
+        }
+      }
+
+      .choose-site {
+        .pos-right {
+          right: 0.6rem;
+        }
+
+        .pos-left {
+          left: 0.6rem;
+        }
+
+        ::ng-deep .ng-select-container {
+          .ng-value-container {
+            overflow: auto;
+            max-height: 8rem;
+
+            &::-webkit-scrollbar {
+              display: none;
+            }
+
+            .ng-value {
+              display: flex;
+              align-items: center;
+
+              .ng-value-label {
+                overflow: hidden;
+                max-width: 18rem;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+
+        ::ng-deep .ng-select .ng-dropdown-panel {
+          display: none;
+        }
+
+        ::ng-deep .ng-arrow-wrapper {
+          opacity: 0;
+        }
+
+        .add-icon {
+          position: absolute;
+          z-index: 1040;
+          bottom: 50%;
+          width: 1.2rem;
+          height: 1.2rem;
+          background: url('../../../../../../../assets/vehicle-system/icons/add.png') no-repeat;
+          background-size: 1.2rem 1.2rem;
+          pointer-events: none;
+        }
+
+        :is([dir='rtl'] .add-icon) {
+          transform: translate(3px, 50%);
+        }
+
+        :is([dir='ltr'] .add-icon) {
+          transform: translate(-3px, 50%);
+        }
+      }
+
+      .md-drppicker.double {
+        min-width: 50rem;
+      }
+    }
+
+    .operate {
+      margin-top: 2rem;
+
+      .operate-button {
+        width: 100%;
+        height: 3.4rem;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      .search {
+        background: linear-gradient(93.24deg, #009739 30.3%, #beef33 94%);
+      }
+
+      .reset {
+        margin-top: 1rem;
+      }
+    }
+
+    margin-top: 1rem;
+  }
+
+  .details-operate {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    cursor: pointer;
+  }
+}

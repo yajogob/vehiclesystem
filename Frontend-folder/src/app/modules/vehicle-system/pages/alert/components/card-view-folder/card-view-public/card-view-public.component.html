@@ -1,0 +1,21 @@
+<div class="card-view-public">
+  <div class="result-img-list">
+    <vs-card-view
+      [tableId]="tableId"
+      [paginationComponent]="paginationComponent"
+      [tableRowData]="tableRowData"
+      (checkCardItemEmit)="checkCardItemEmit.emit($event)"
+    ></vs-card-view>
+  </div>
+  <div>
+    <vs-pagination
+      #paginationComponent
+      class=""
+      [id]="tableId"
+      [itemsPerPage]="pageSize"
+      [totalItems]="totalElements"
+      [currentPage]="currentPage"
+      (pageChange)="onPageChange($event)"
+    ></vs-pagination>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div aria-hidden="true" class="ai-all-task bg-[var(--vs-vehicle-content-background)]">
+  <div class="ai-all-task-back-router ng-bkg" *ngIf="backType && channel === 'alert'">
+    <div class="text" (click)="goBack()">{{backButtonText}}</div>
+  </div>
+
+  <div class="search-tabs" aria-hidden="true">
+    <div class="search-tabs-left">
+      <div
+        vsAccessControlDirective
+        [accessParams]="item.accessName"
+        *ngFor="let item of taskList; index as i"
+        class="tab-item"
+        [class]="{'actived': showActived(item.value)}"
+        (click)="setCurTaskValue(item.value)"
+      >
+        {{item.key}}
+      </div>
+    </div>
+    <div class="search-tabs-right"></div>
+  </div>
+
+  <ng-container [ngSwitch]="curTaskValue">
+    <!-- WatchList Tsak -->
+    <vs-watch-list-task-page
+      *ngSwitchCase="'watchList'"
+      [curTaskType]="curTaskType"
+      [curTaskValue]="curTaskValue"
+      (setNotCreateTaskTypeEmit)="setNotCreateTask()"
+      class="content"
+    ></vs-watch-list-task-page>
+
+    <!-- WhiteList Tsak -->
+    <vs-white-list-task-page
+      *ngSwitchCase="'whiteList'"
+      [curTaskType]="curTaskType"
+      [curTaskValue]="curTaskValue"
+      (setNotCreateTaskTypeEmit)="setNotCreateTask()"
+      class="content"
+    >
+    </vs-white-list-task-page>
+
+    <!--  behavioral task  -->
+    <!-- <vs-behavioral-task-page
+      *ngSwitchCase="'behavioral'"
+      [curTaskType]="curTaskType"
+      [curTaskValue]="curTaskValue"
+      (setNotCreateTaskTypeEmit)="setNotCreateTask()"
+      class="content"
+    >
+    </vs-behavioral-task-page> -->
+
+    <!--  geofence task  -->
+    <vs-geofence-task-page
+      *ngSwitchCase="'geofenceList'"
+      [curTaskType]="curTaskType"
+      [curTaskValue]="curTaskValue"
+      (setNotCreateTaskTypeEmit)="setNotCreateTask()"
+      class="content"
+    >
+    </vs-geofence-task-page>
+
+    <!-- gpu lpr task -->
+    <vs-gpu-lpr-task-page
+      *ngSwitchCase="'gpuLpr'"
+      [curTaskType]="curTaskType"
+      [curTaskValue]="curTaskValue"
+      (setNotCreateTaskTypeEmit)="setNotCreateTask()"
+      class="content"
+    >
+    </vs-gpu-lpr-task-page>
+  </ng-container>
+
+  <div class="controller">
+    <!-- <vs-ai-controller (taskClickEmit)="taskClickEmit($event)"></vs-ai-controller> -->
+    <vs-toolbox
+      [title]="'vs.aiAlgorithm.trafficAlgorithms'"
+      [disableLocation]="true"
+      [disableDate]="true"
+      [toolSet]="toolSet"
+      (selectedDateEmit)="selectedDateEmit($event)"
+      selectWidth="50rem"
+      [showSelect]="showLevel2Select"
+      (onClickback)="onClickbackFn($event)"
+      (changeLevel2SelectVisible)="changeLevel2SelectVisibleFn($event)"
+      (changeSelectedEmit)="changeSelectedFn($event)"
+    ></vs-toolbox>
+    <vs-screenful class="ml-[0.5rem] mr-[0.5rem] box-border screenful" [hidden]="showLevel2Select"></vs-screenful>
+  </div>
+</div>

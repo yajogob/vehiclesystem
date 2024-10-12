@@ -1,0 +1,39 @@
+.create-edit-watch-task {
+  display: flex;
+  overflow: auto;
+  height: 100%;
+  flex-direction: column;
+
+  .modal-tab {
+    display: flex;
+    color: var(--vs-white-task-details-tab-text);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+
+    .mid-line {
+      border-left: 1px solid var(--vs-white-list-task-details-tab-border);
+    }
+
+    .tab-item {
+      width: 50%;
+      border-bottom: 1px solid var(--vs-white-list-task-details-tab-border);
+      line-height: 4rem;
+      text-align: center;
+
+      &.actived {
+        border-bottom: none;
+        color: var(--vs-white-list-task-details-tab-acvive);
+        font-size: 24px;
+      }
+    }
+  }
+
+  .modal-content {
+    position: relative;
+    height: 100%;
+    flex: 1 0 0;
+    padding: 0 1.8rem;
+    overflow-y: auto;
+  }
+}
